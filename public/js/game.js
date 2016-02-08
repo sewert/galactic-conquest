@@ -11,22 +11,56 @@ function preload() {
 }
 
 function create() {
-    game.physics.startSystem(Phaser.Physics.ARCADE);
-    game.add.sprite(0, 0, "background");
+    this.background = game.add.sprite(0, 0, "background");
 
     showMenu();
 }
 
 function showMenu() {
-    newGameButton = game.add.sprite(gameWidth / 2, 184, "newGameButton");
-    newGameButton.anchor.setTo(0.5, 0.5);
-    saveGameButton = game.add.sprite(gameWidth / 2, 294, "saveGameButton");
-    saveGameButton.anchor.setTo(0.5, 0.5);
-    loadGameButton = game.add.sprite(gameWidth / 2, 404, "loadGameButton");
-    loadGameButton.anchor.setTo(0.5, 0.5);
-    tutorialButton = game.add.sprite(gameWidth / 2, 514, "tutorialButton");
-    tutorialButton.anchor.setTo(0.5, 0.5);
-}
-function update() {
+    mainMenuButtons = game.add.group();
 
+    newButton = mainMenuButtons.create(gameWidth/2, 184, "newGameButton");
+    newButton.anchor.setTo(0.5, 0.5);
+    newButton.inputEnabled = true;
+    newButton.events.onInputUp.add(startNewGame);
+
+    newButton = mainMenuButtons.create(gameWidth/2, 294, "saveGameButton");
+    newButton.anchor.setTo(0.5, 0.5);
+    newButton.inputEnabled = true;
+    newButton.events.onInputUp.add(saveGame);
+
+    newButton = mainMenuButtons.create(gameWidth/2, 404, "loadGameButton");
+    newButton.anchor.setTo(0.5, 0.5);
+    newButton.inputEnabled = true;
+    newButton.events.onInputUp.add(loadGame);
+
+    newButton = mainMenuButtons.create(gameWidth/2, 514, "tutorialButton");
+    newButton.anchor.setTo(0.5, 0.5);
+    newButton.inputEnabled = true;
+    newButton.events.onInputUp.add(startTutorial);
+}
+
+function startNewGame() {
+    removeMainMenu();
+    // TODO: write me!
+}
+
+function removeMainMenu() {
+    mainMenuButtons.destroy();
+}
+
+function saveGame() {
+     // TODO: write me!
+}
+
+function loadGame() {
+    // TODO: write me!
+}
+
+function startTutorial() {
+    // TODO: write me!
+}
+
+function update() {
+    // TODO: write me!
 }
