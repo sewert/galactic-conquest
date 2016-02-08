@@ -19,25 +19,65 @@ function create() {
 function showMenu() {
     mainMenuButtons = game.add.group();
 
-    newButton = mainMenuButtons.create(gameWidth/2, 184, "newGameButton");
-    newButton.anchor.setTo(0.5, 0.5);
-    newButton.inputEnabled = true;
-    newButton.events.onInputUp.add(startNewGame);
+    newGameButton = mainMenuButtons.create(gameWidth/2, 184, "newGameButton");
+    newGameButton.anchor.setTo(0.5, 0.5);
+    newGameButton.inputEnabled = true;
+    newGameButton.events.onInputOver.add(overNewGameButton, this);
+    newGameButton.events.onInputOut.add(outNewGameButton, this);
+    newGameButton.events.onInputUp.add(startNewGame);
 
-    newButton = mainMenuButtons.create(gameWidth/2, 294, "saveGameButton");
-    newButton.anchor.setTo(0.5, 0.5);
-    newButton.inputEnabled = true;
-    newButton.events.onInputUp.add(saveGame);
+    saveGameButton = mainMenuButtons.create(gameWidth/2, 304, "saveGameButton");
+    saveGameButton.anchor.setTo(0.5, 0.5);
+    saveGameButton.inputEnabled = true;
+    saveGameButton.events.onInputOver.add(overSaveGameButton, this);
+    saveGameButton.events.onInputOut.add(outSaveGameButton, this);
+    saveGameButton.events.onInputUp.add(saveGame);
 
-    newButton = mainMenuButtons.create(gameWidth/2, 404, "loadGameButton");
-    newButton.anchor.setTo(0.5, 0.5);
-    newButton.inputEnabled = true;
-    newButton.events.onInputUp.add(loadGame);
+    loadGameButton = mainMenuButtons.create(gameWidth/2, 424, "loadGameButton");
+    loadGameButton.anchor.setTo(0.5, 0.5);
+    loadGameButton.inputEnabled = true;
+    loadGameButton.events.onInputOver.add(overLoadGameButton, this);
+    loadGameButton.events.onInputOut.add(outLoadGameButton, this);
+    loadGameButton.events.onInputUp.add(loadGame);
 
-    newButton = mainMenuButtons.create(gameWidth/2, 514, "tutorialButton");
-    newButton.anchor.setTo(0.5, 0.5);
-    newButton.inputEnabled = true;
-    newButton.events.onInputUp.add(startTutorial);
+    tutorialButton = mainMenuButtons.create(gameWidth/2, 544, "tutorialButton");
+    tutorialButton.anchor.setTo(0.5, 0.5);
+    tutorialButton.inputEnabled = true;
+    tutorialButton.events.onInputOver.add(overTutorialButton, this);
+    tutorialButton.events.onInputOut.add(outTutorialButton, this);
+    tutorialButton.events.onInputUp.add(startTutorial);
+}
+
+function overNewGameButton() {
+    this.game.add.tween(this.newGameButton.scale).to({x: 1.1, y: 1.1}, 300, Phaser.Easing.Exponential.Out, true);
+}
+
+function outNewGameButton() {
+    this.game.add.tween(this.newGameButton.scale).to({x: 1.0, y: 1.0}, 300, Phaser.Easing.Exponential.Out, true);
+}
+
+function overSaveGameButton() {
+    this.game.add.tween(this.saveGameButton.scale).to({x: 1.1, y: 1.1}, 300, Phaser.Easing.Exponential.Out, true);
+}
+
+function outSaveGameButton() {
+    this.game.add.tween(this.saveGameButton.scale).to({x: 1.0, y: 1.0}, 300, Phaser.Easing.Exponential.Out, true);
+}
+
+function overLoadGameButton() {
+    this.game.add.tween(this.loadGameButton.scale).to({x: 1.1, y: 1.1}, 300, Phaser.Easing.Exponential.Out, true);
+}
+
+function outLoadGameButton() {
+    this.game.add.tween(this.loadGameButton.scale).to({x: 1.0, y: 1.0}, 300, Phaser.Easing.Exponential.Out, true);
+}
+
+function overTutorialButton() {
+    this.game.add.tween(this.tutorialButton.scale).to({x: 1.1, y: 1.1}, 300, Phaser.Easing.Exponential.Out, true);
+}
+
+function outTutorialButton() {
+    this.game.add.tween(this.tutorialButton.scale).to({x: 1.0, y: 1.0}, 300, Phaser.Easing.Exponential.Out, true);
 }
 
 function startNewGame() {
