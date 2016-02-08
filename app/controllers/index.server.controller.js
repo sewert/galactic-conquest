@@ -1,9 +1,4 @@
 exports.render = function(req, res) {
-    res.render('index', {
-        title: 'Galactic Conquest',
-        menuText: 'Please select your game view',
-        boardOnly: 'board only',
-        boardHand: 'board and hand',
-        handOnly: 'hand only'
-    })
+    var path = require('path');
+    res.sendFile(path.join(__dirname, '../views', 'index.html'));
 };
