@@ -86,7 +86,10 @@ function startNewGame() {
 }
 
 function removeMainMenu() {
-    mainMenuButtons.destroy();
+    var tween = this.game.add.tween(this.mainMenuButtons.scale).to({x: 0.0, y: 1.0}, 500, Phaser.Easing.Exponential.In, true);
+    tween.onComplete.add(function () {
+        mainMenuButtons.destroy();
+    });
 }
 
 function saveGame() {
@@ -98,6 +101,7 @@ function loadGame() {
 }
 
 function startTutorial() {
+    removeMainMenu();
     // TODO: write me!
 }
 
