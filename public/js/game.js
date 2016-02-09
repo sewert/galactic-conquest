@@ -1,5 +1,5 @@
-var gameHeight = 768;
-var gameWidth = 1024;
+var gameHeight = 900;
+var gameWidth = 1600;
 var game = new Phaser.Game(gameWidth, gameHeight, Phaser.AUTO, "game", { preload: preload, create: create, update: update });
 
 function preload() {
@@ -19,28 +19,28 @@ function create() {
 function showMenu() {
     mainMenuButtons = game.add.group();
 
-    newGameButton = mainMenuButtons.create(gameWidth/2, 184, "newGameButton");
+    newGameButton = mainMenuButtons.create(gameWidth/2, gameHeight * 0.2, "newGameButton");
     newGameButton.anchor.setTo(0.5, 0.5);
     newGameButton.inputEnabled = true;
     newGameButton.events.onInputOver.add(overNewGameButton, this);
     newGameButton.events.onInputOut.add(outNewGameButton, this);
     newGameButton.events.onInputUp.add(startNewGame);
 
-    saveGameButton = mainMenuButtons.create(gameWidth/2, 304, "saveGameButton");
+    saveGameButton = mainMenuButtons.create(gameWidth/2, gameHeight * 0.4, "saveGameButton");
     saveGameButton.anchor.setTo(0.5, 0.5);
     saveGameButton.inputEnabled = true;
     saveGameButton.events.onInputOver.add(overSaveGameButton, this);
     saveGameButton.events.onInputOut.add(outSaveGameButton, this);
     saveGameButton.events.onInputUp.add(saveGame);
 
-    loadGameButton = mainMenuButtons.create(gameWidth/2, 424, "loadGameButton");
+    loadGameButton = mainMenuButtons.create(gameWidth/2, gameHeight * 0.6, "loadGameButton");
     loadGameButton.anchor.setTo(0.5, 0.5);
     loadGameButton.inputEnabled = true;
     loadGameButton.events.onInputOver.add(overLoadGameButton, this);
     loadGameButton.events.onInputOut.add(outLoadGameButton, this);
     loadGameButton.events.onInputUp.add(loadGame);
 
-    tutorialButton = mainMenuButtons.create(gameWidth/2, 544, "tutorialButton");
+    tutorialButton = mainMenuButtons.create(gameWidth/2, gameHeight * 0.8, "tutorialButton");
     tutorialButton.anchor.setTo(0.5, 0.5);
     tutorialButton.inputEnabled = true;
     tutorialButton.events.onInputOver.add(overTutorialButton, this);
