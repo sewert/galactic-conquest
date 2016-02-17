@@ -1,10 +1,8 @@
 var GalacticConquest = GalacticConquest || {};
-var gameHeight = 900;
-var gameWidth = 1600;
-GalacticConquest = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, "game");
-GalacticConquest.state.add("Boot", GalacticConquest.Boot);
-GalacticConquest.state.add("Preload", GalacticConquest.Preload);
-GalacticConquest.state.add("MainMenu", GalacticConquest.MainMenu);
-GalacticConquest.state.add("Game", GalacticConquest.Game);
-//GalacticConquest.state.add("win", GalacticConquest.win);
-GalacticConquest.state.start("Boot");
+
+GalacticConquest.game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, "gameDiv");
+GalacticConquest.game.state.add("Boot", GalacticConquest.Boot);
+GalacticConquest.game.state.add("Preload", GalacticConquest.Preload);
+GalacticConquest.game.state.add("MainMenu", GalacticConquest.MainMenu);
+GalacticConquest.game.state.add("Game", GalacticConquest.Game);
+GalacticConquest.game.state.start("Boot");

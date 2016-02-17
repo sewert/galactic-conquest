@@ -1,6 +1,6 @@
 var GalacticConquest = GalacticConquest || {};
-
 GalacticConquest.Preload = function() {};
+
 GalacticConquest.Preload.prototype = {
     preload: function() {
         this.splash = this.add.sprite(this.game.world.centerX, this.game.world.centerY, "logo");
@@ -15,7 +15,6 @@ GalacticConquest.Preload.prototype = {
         game.load.image("loadGameButton", "../assets/buttons/loadGame_raised.png");
         game.load.image("tutorialButton", "../assets/buttons/tutorial_raised.png");
     },
-
     create: function() {
         this.state.start("MainMenu");
     }
