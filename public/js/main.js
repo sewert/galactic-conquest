@@ -11,8 +11,24 @@ function preload() {
 }
 
 function create() {
-    this.background = game.add.sprite(0, 0, "background");
+    scaleWindow();
+    showBackground();
     showMenu();
+}
+
+function scaleWindow() {
+    game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+    game.scale.minWidth = 240;
+    game.scale.minHeight = 170;
+    game.scale.maxWidth = 2880;
+    game.scale.maxHeight = 1920;
+
+    //have the game centered horizontally
+    game.scale.pageAlignHorizontally = true;
+}
+
+function showBackground() {
+    this.background = game.add.sprite(0, 0, "background");
 }
 
 function showMenu() {
