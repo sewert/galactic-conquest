@@ -98,8 +98,23 @@ function outTutorialButton() {
 
 function startNewGame() {
     removeMainMenu();
+    showResourceText();
     addTiles();
     // TODO: write me!
+}
+
+function showResourceText() {
+    resources = 0;
+    resourceText = game.add.text(300, 50, "Available Resources: " + resources);
+    resourceText.anchor.set(0.5);
+    resourceText.inputEnabled = true;
+    resourceText.input.enableDrag();
+    resourceText.events.onInputDown.add(incrementResources, this);
+}
+
+function incrementResources(item) {
+    resources++;
+    item.text = "Available Resources: " + resources;
 }
 
 function addTiles() {
