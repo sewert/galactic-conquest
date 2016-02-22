@@ -8,6 +8,7 @@ function preload() {
     game.load.image("saveGameButton", "../assets/buttons/saveGame_raised.png");
     game.load.image("loadGameButton", "../assets/buttons/loadGame_raised.png");
     game.load.image("tutorialButton", "../assets/buttons/tutorial_raised.png");
+    game.load.image("tile", "../assets/tiles/sample.png")
 }
 
 function create() {
@@ -97,7 +98,40 @@ function outTutorialButton() {
 
 function startNewGame() {
     removeMainMenu();
+    addTiles();
     // TODO: write me!
+}
+
+function addTiles() {
+    mapTiles = game.add.group();
+
+    tile1_1 = mapTiles.create(gameWidth/2, gameHeight * 0.2, "tile");
+    tile1_1.anchor.setTo(0.5, 0.5);
+    tile1_1.inputEnabled = true;
+    tile1_1.events.onInputOver.add(overNewGameButton, this);
+    tile1_1.events.onInputOut.add(outNewGameButton, this);
+    tile1_1.events.onInputUp.add(startNewGame);
+
+    tile1_2 = mapTiles.create(gameWidth/2, gameHeight * 0.4, "tile");
+    tile1_2.anchor.setTo(0.5, 0.5);
+    tile1_2.inputEnabled = true;
+    tile1_2.events.onInputOver.add(overSaveGameButton, this);
+    tile1_2.events.onInputOut.add(outSaveGameButton, this);
+    tile1_2.events.onInputUp.add(saveGame);
+
+    tile1_3 = mapTiles.create(gameWidth/2, gameHeight * 0.6, "tile");
+    tile1_3.anchor.setTo(0.5, 0.5);
+    tile1_3.inputEnabled = true;
+    tile1_3.events.onInputOver.add(overLoadGameButton, this);
+    tile1_3.events.onInputOut.add(outLoadGameButton, this);
+    tile1_3.events.onInputUp.add(loadGame);
+
+    tile1_4 = mapTiles.create(gameWidth/2, gameHeight * 0.8, "tile");
+    tile1_4.anchor.setTo(0.5, 0.5);
+    tile1_4.inputEnabled = true;
+    tile1_4.events.onInputOver.add(overTutorialButton, this);
+    tile1_4.events.onInputOut.add(outTutorialButton, this);
+    tile1_4.events.onInputUp.add(startTutorial);
 }
 
 function removeMainMenu() {
