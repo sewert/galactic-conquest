@@ -6,6 +6,8 @@ var row1StartWidth = 600;
 var row1StartHeight = 150;
 var row2StartWidth = 520;
 var row2StartHeight = 270;
+var row3StartWidth = 440;
+var row3StartHeight = 390;
 var color1 = "#00D000";
 var color2 = "D00076";
 var color3 = "FF7400";
@@ -191,6 +193,49 @@ function addTiles() {
     tile2_5.events.onInputOver.add(overTutorialButton, this);
     tile2_5.events.onInputOut.add(outTutorialButton, this);
     tile2_5.events.onInputUp.add(startTutorial);
+
+    tile3_1 = mapTiles.create(row3StartWidth, row3StartHeight, "tile");
+    tile3_1.anchor.setTo(0.5, 0.5);
+    tile3_1.inputEnabled = true;
+    tile3_1.events.onInputOver.add(overNewGameButton, this);
+    tile3_1.events.onInputOut.add(outNewGameButton, this);
+    tile3_1.events.onInputUp.add(startNewGame);
+
+    tile3_2 = mapTiles.create(row3StartWidth + tileWidth, row3StartHeight, "tile");
+    tile3_2.anchor.setTo(0.5, 0.5);
+    tile3_2.inputEnabled = true;
+    tile3_2.events.onInputOver.add(overSaveGameButton, this);
+    tile3_2.events.onInputOut.add(outSaveGameButton, this);
+    tile3_2.events.onInputUp.add(saveGame);
+
+    tile3_3 = mapTiles.create(row3StartWidth + tileWidth * 2, row3StartHeight, "tile");
+    tile3_3.anchor.setTo(0.5, 0.5);
+    tile3_3.inputEnabled = true;
+    tile3_3.events.onInputOver.add(overLoadGameButton, this);
+    tile3_3.events.onInputOut.add(outLoadGameButton, this);
+    tile3_3.events.onInputUp.add(loadGame);
+
+    tile3_4 = mapTiles.create(row3StartWidth + tileWidth * 3, row3StartHeight, "tile");
+    tile3_4.anchor.setTo(0.5, 0.5);
+    tile3_4.inputEnabled = true;
+    tile3_4.events.onInputOver.add(overTutorialButton, this);
+    tile3_4.events.onInputOut.add(outTutorialButton, this);
+    tile3_4.events.onInputUp.add(startTutorial);
+
+    tile3_5 = mapTiles.create(row3StartWidth + tileWidth * 4, row3StartHeight, "tile");
+    tile3_5.anchor.setTo(0.5, 0.5);
+    tile3_5.inputEnabled = true;
+    tile3_5.events.onInputOver.add(overTutorialButton, this);
+    tile3_5.events.onInputOut.add(outTutorialButton, this);
+    tile3_5.events.onInputUp.add(startTutorial);
+
+
+    tile3_6 = mapTiles.create(row3StartWidth + tileWidth * 5, row3StartHeight, "tile");
+    tile3_6.anchor.setTo(0.5, 0.5);
+    tile3_6.inputEnabled = true;
+    tile3_6.events.onInputOver.add(overTutorialButton, this);
+    tile3_6.events.onInputOut.add(outTutorialButton, this);
+    tile3_6.events.onInputUp.add(startTutorial);
 }
 
 function removeMainMenu() {
