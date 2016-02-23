@@ -14,6 +14,8 @@ var row5StartWidth = 440;
 var row5StartHeight = 630;
 var row6StartWidth = 520;
 var row6StartHeight = 750;
+var row7StartWidth = 600;
+var row7StartHeight = 870;
 var color1 = "#00D000";
 var color2 = "D00076";
 var color3 = "FF7400";
@@ -367,6 +369,34 @@ function addTiles() {
     tile6_5.events.onInputOver.add(overTutorialButton, this);
     tile6_5.events.onInputOut.add(outTutorialButton, this);
     tile6_5.events.onInputUp.add(startTutorial);
+
+    tile7_1 = mapTiles.create(row7StartWidth, row7StartHeight, "tile");
+    tile7_1.anchor.setTo(0.5, 0.5);
+    tile7_1.inputEnabled = true;
+    tile7_1.events.onInputOver.add(overNewGameButton, this);
+    tile7_1.events.onInputOut.add(outNewGameButton, this);
+    tile7_1.events.onInputUp.add(startNewGame);
+
+    tile7_2 = mapTiles.create(row7StartWidth + tileWidth, row7StartHeight, "tile");
+    tile7_2.anchor.setTo(0.5, 0.5);
+    tile7_2.inputEnabled = true;
+    tile7_2.events.onInputOver.add(overSaveGameButton, this);
+    tile7_2.events.onInputOut.add(outSaveGameButton, this);
+    tile7_2.events.onInputUp.add(saveGame);
+
+    tile7_3 = mapTiles.create(row7StartWidth + tileWidth * 2, row7StartHeight, "tile");
+    tile7_3.anchor.setTo(0.5, 0.5);
+    tile7_3.inputEnabled = true;
+    tile7_3.events.onInputOver.add(overLoadGameButton, this);
+    tile7_3.events.onInputOut.add(outLoadGameButton, this);
+    tile7_3.events.onInputUp.add(loadGame);
+
+    tile7_4 = mapTiles.create(row7StartWidth + tileWidth * 3, row7StartHeight, "tile");
+    tile7_4.anchor.setTo(0.5, 0.5);
+    tile7_4.inputEnabled = true;
+    tile7_4.events.onInputOver.add(overTutorialButton, this);
+    tile7_4.events.onInputOut.add(outTutorialButton, this);
+    tile7_4.events.onInputUp.add(startTutorial);
 }
 
 function removeMainMenu() {
