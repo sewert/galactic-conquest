@@ -1,5 +1,6 @@
 var gameHeight = 900;
 var gameWidth = 1600;
+var textColor = "#00FF00";
 var game = new Phaser.Game(gameWidth, gameHeight, Phaser.AUTO, "game", { preload: preload, create: create, update: update });
 
 function preload() {
@@ -105,10 +106,10 @@ function startNewGame() {
 
 function showResourceText() {
     resources = 0;
-    resourceText = game.add.text(300, 50, "Available Resources: " + resources);
+    resourceText = game.add.text(300, 50, "Available Resources: " + resources, { font: "bold 32px Arial", fill: textColor});
     resourceText.anchor.set(0.5);
     resourceText.inputEnabled = true;
-    resourceText.input.enableDrag();
+    //resourceText.input.enableDrag();
     resourceText.events.onInputDown.add(incrementResources, this);
 }
 
