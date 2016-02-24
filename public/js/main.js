@@ -61,62 +61,30 @@ function showMenu() {
     newGameButton = mainMenuButtons.create(gameWidth/2, gameHeight * 0.2, "newGameButton");
     newGameButton.anchor.setTo(0.5, 0.5);
     newGameButton.inputEnabled = true;
-    newGameButton.events.onInputOver.add(overNewGameButton, this);
-    newGameButton.events.onInputOut.add(outNewGameButton, this);
-    newGameButton.events.onInputUp.add(startNewGame);
+    newGameButton.events.onInputOver.add(overItemAnimation, this);
+    newGameButton.events.onInputOut.add(outItemAnimation, this);
+    newGameButton.events.onInputDown.add(startNewGame);
 
     saveGameButton = mainMenuButtons.create(gameWidth/2, gameHeight * 0.4, "saveGameButton");
     saveGameButton.anchor.setTo(0.5, 0.5);
     saveGameButton.inputEnabled = true;
-    saveGameButton.events.onInputOver.add(overSaveGameButton, this);
-    saveGameButton.events.onInputOut.add(outSaveGameButton, this);
-    saveGameButton.events.onInputUp.add(saveGame);
+    saveGameButton.events.onInputOver.add(overItemAnimation, this);
+    saveGameButton.events.onInputOut.add(outItemAnimation, this);
+    saveGameButton.events.onInputDown.add(saveGame);
 
     loadGameButton = mainMenuButtons.create(gameWidth/2, gameHeight * 0.6, "loadGameButton");
     loadGameButton.anchor.setTo(0.5, 0.5);
     loadGameButton.inputEnabled = true;
-    loadGameButton.events.onInputOver.add(overLoadGameButton, this);
-    loadGameButton.events.onInputOut.add(outLoadGameButton, this);
-    loadGameButton.events.onInputUp.add(loadGame);
+    loadGameButton.events.onInputOver.add(overItemAnimation, this);
+    loadGameButton.events.onInputOut.add(outItemAnimation, this);
+    loadGameButton.events.onInputDown.add(loadGame);
 
     tutorialButton = mainMenuButtons.create(gameWidth/2, gameHeight * 0.8, "tutorialButton");
     tutorialButton.anchor.setTo(0.5, 0.5);
     tutorialButton.inputEnabled = true;
-    tutorialButton.events.onInputOver.add(overTutorialButton, this);
-    tutorialButton.events.onInputOut.add(outTutorialButton, this);
-    tutorialButton.events.onInputUp.add(startTutorial);
-}
-
-function overNewGameButton() {
-    this.game.add.tween(this.newGameButton.scale).to({x: 1.1, y: 1.1}, 300, Phaser.Easing.Exponential.Out, true);
-}
-
-function outNewGameButton() {
-    this.game.add.tween(this.newGameButton.scale).to({x: 1.0, y: 1.0}, 300, Phaser.Easing.Exponential.Out, true);
-}
-
-function overSaveGameButton() {
-    this.game.add.tween(this.saveGameButton.scale).to({x: 1.1, y: 1.1}, 300, Phaser.Easing.Exponential.Out, true);
-}
-
-function outSaveGameButton() {
-    this.game.add.tween(this.saveGameButton.scale).to({x: 1.0, y: 1.0}, 300, Phaser.Easing.Exponential.Out, true);
-}
-
-function overLoadGameButton() {
-    this.game.add.tween(this.loadGameButton.scale).to({x: 1.1, y: 1.1}, 300, Phaser.Easing.Exponential.Out, true);
-}
-
-function outLoadGameButton() {
-    this.game.add.tween(this.loadGameButton.scale).to({x: 1.0, y: 1.0}, 300, Phaser.Easing.Exponential.Out, true);
-}
-
-function overTutorialButton() {
-    this.game.add.tween(this.tutorialButton.scale).to({x: 1.1, y: 1.1}, 300, Phaser.Easing.Exponential.Out, true);
-}
-
-function outTutorialButton() {
-    this.game.add.tween(this.tutorialButton.scale).to({x: 1.0, y: 1.0}, 300, Phaser.Easing.Exponential.Out, true);
+    tutorialButton.events.onInputOver.add(overItemAnimation, this);
+    tutorialButton.events.onInputOut.add(outItemAnimation, this);
+    tutorialButton.events.onInputDown.add(startTutorial);
 }
 
 function startNewGame() {
@@ -226,17 +194,17 @@ function addTiles() {
 
     mapTiles.forEach(function(tile) {
         tile.inputEnabled  = true;
-        tile.events.onInputOver.add(overTile, this);
-        tile.events.onInputOut.add(outTile, this);
+        tile.events.onInputOver.add(overItemAnimation, this);
+        tile.events.onInputOut.add(outItemAnimation, this);
         tile.events.onInputDown.add(selectTile);
     })
 }
 
-function overTile(item) {
+function overItemAnimation(item) {
     game.add.tween(item.scale).to({x: 1.1, y: 1.1}, 300, Phaser.Easing.Exponential.Out, true);
 }
 
-function outTile(item) {
+function outItemAnimation(item) {
     game.add.tween(item.scale).to({x: 1.0, y: 1.0}, 300, Phaser.Easing.Exponential.Out, true);
 }
 
