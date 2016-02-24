@@ -46,8 +46,6 @@ function scaleWindow() {
     game.scale.minHeight = 170;
     game.scale.maxWidth = 2880;
     game.scale.maxHeight = 1920;
-
-    //have the game centered horizontally
     game.scale.pageAlignHorizontally = true;
 }
 
@@ -59,32 +57,23 @@ function showMenu() {
     mainMenuButtons = game.add.group();
 
     newGameButton = mainMenuButtons.create(gameWidth/2, gameHeight * 0.2, "newGameButton");
-    newGameButton.anchor.setTo(0.5, 0.5);
-    newGameButton.inputEnabled = true;
-    newGameButton.events.onInputOver.add(overItemAnimation, this);
-    newGameButton.events.onInputOut.add(outItemAnimation, this);
     newGameButton.events.onInputDown.add(startNewGame);
 
     saveGameButton = mainMenuButtons.create(gameWidth/2, gameHeight * 0.4, "saveGameButton");
-    saveGameButton.anchor.setTo(0.5, 0.5);
-    saveGameButton.inputEnabled = true;
-    saveGameButton.events.onInputOver.add(overItemAnimation, this);
-    saveGameButton.events.onInputOut.add(outItemAnimation, this);
     saveGameButton.events.onInputDown.add(saveGame);
 
     loadGameButton = mainMenuButtons.create(gameWidth/2, gameHeight * 0.6, "loadGameButton");
-    loadGameButton.anchor.setTo(0.5, 0.5);
-    loadGameButton.inputEnabled = true;
-    loadGameButton.events.onInputOver.add(overItemAnimation, this);
-    loadGameButton.events.onInputOut.add(outItemAnimation, this);
     loadGameButton.events.onInputDown.add(loadGame);
 
     tutorialButton = mainMenuButtons.create(gameWidth/2, gameHeight * 0.8, "tutorialButton");
-    tutorialButton.anchor.setTo(0.5, 0.5);
-    tutorialButton.inputEnabled = true;
-    tutorialButton.events.onInputOver.add(overItemAnimation, this);
-    tutorialButton.events.onInputOut.add(outItemAnimation, this);
     tutorialButton.events.onInputDown.add(startTutorial);
+
+    mainMenuButtons.forEach(function(menuButton) {
+        menuButton.anchor.setTo(0.5, 0.5);
+        menuButton.inputEnabled  = true;
+        menuButton.events.onInputOver.add(overItemAnimation, this);
+        menuButton.events.onInputOut.add(outItemAnimation, this);
+    })
 }
 
 function startNewGame() {
