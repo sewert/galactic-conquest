@@ -112,91 +112,55 @@ function addTiles() {
     mapTiles = game.add.group();
 
     tile1_1 = mapTiles.create(row1StartWidth, row1StartHeight, "tile");
-    tile1_1.anchor.setTo(0.5, 0.5);
     tile1_2 = mapTiles.create(row1StartWidth + tileWidth, row1StartHeight, "tile");
-    tile1_2.anchor.setTo(0.5, 0.5);
     tile1_3 = mapTiles.create(row1StartWidth + tileWidth * 2, row1StartHeight, "tile");
-    tile1_3.anchor.setTo(0.5, 0.5);
     tile1_4 = mapTiles.create(row1StartWidth + tileWidth * 3, row1StartHeight, "tile");
-    tile1_4.anchor.setTo(0.5, 0.5);
 
     tile2_1 = mapTiles.create(row2StartWidth, row2StartHeight, "tile");
-    tile2_1.anchor.setTo(0.5, 0.5);
     tile2_2 = mapTiles.create(row2StartWidth + tileWidth, row2StartHeight, "tile");
-    tile2_2.anchor.setTo(0.5, 0.5);
     tile2_3 = mapTiles.create(row2StartWidth + tileWidth * 2, row2StartHeight, "tile");
-    tile2_3.anchor.setTo(0.5, 0.5);
     tile2_4 = mapTiles.create(row2StartWidth + tileWidth * 3, row2StartHeight, "tile");
-    tile2_4.anchor.setTo(0.5, 0.5);
     tile2_5 = mapTiles.create(row2StartWidth + tileWidth * 4, row2StartHeight, "tile");
-    tile2_5.anchor.setTo(0.5, 0.5);
 
     tile3_1 = mapTiles.create(row3StartWidth, row3StartHeight, "tile");
-    tile3_1.anchor.setTo(0.5, 0.5);
     tile3_2 = mapTiles.create(row3StartWidth + tileWidth, row3StartHeight, "tile");
-    tile3_2.anchor.setTo(0.5, 0.5);
     tile3_3 = mapTiles.create(row3StartWidth + tileWidth * 2, row3StartHeight, "tile");
-    tile3_3.anchor.setTo(0.5, 0.5);
     tile3_4 = mapTiles.create(row3StartWidth + tileWidth * 3, row3StartHeight, "tile");
-    tile3_4.anchor.setTo(0.5, 0.5);
     tile3_5 = mapTiles.create(row3StartWidth + tileWidth * 4, row3StartHeight, "tile");
-    tile3_5.anchor.setTo(0.5, 0.5);
     tile3_6 = mapTiles.create(row3StartWidth + tileWidth * 5, row3StartHeight, "tile");
-    tile3_6.anchor.setTo(0.5, 0.5);
 
     tile4_1 = mapTiles.create(row4StartWidth, row4StartHeight, "tile");
-    tile4_1.anchor.setTo(0.5, 0.5);
     tile4_2 = mapTiles.create(row4StartWidth + tileWidth, row4StartHeight, "tile");
-    tile4_2.anchor.setTo(0.5, 0.5);
     tile4_3 = mapTiles.create(row4StartWidth + tileWidth * 2, row4StartHeight, "tile");
-    tile4_3.anchor.setTo(0.5, 0.5);
     tile4_4 = mapTiles.create(row4StartWidth + tileWidth * 3, row4StartHeight, "tile");
-    tile4_4.anchor.setTo(0.5, 0.5);
     tile4_5 = mapTiles.create(row4StartWidth + tileWidth * 4, row4StartHeight, "tile");
-    tile4_5.anchor.setTo(0.5, 0.5);
     tile4_6 = mapTiles.create(row4StartWidth + tileWidth * 5, row4StartHeight, "tile");
-    tile4_6.anchor.setTo(0.5, 0.5);
     tile4_7 = mapTiles.create(row4StartWidth + tileWidth * 6, row4StartHeight, "tile");
-    tile4_7.anchor.setTo(0.5, 0.5);
 
     tile5_1 = mapTiles.create(row5StartWidth, row5StartHeight, "tile");
-    tile5_1.anchor.setTo(0.5, 0.5);
     tile5_2 = mapTiles.create(row5StartWidth + tileWidth, row5StartHeight, "tile");
-    tile5_2.anchor.setTo(0.5, 0.5);
     tile5_3 = mapTiles.create(row5StartWidth + tileWidth * 2, row5StartHeight, "tile");
-    tile5_3.anchor.setTo(0.5, 0.5);
     tile5_4 = mapTiles.create(row5StartWidth + tileWidth * 3, row5StartHeight, "tile");
-    tile5_4.anchor.setTo(0.5, 0.5);
     tile5_5 = mapTiles.create(row5StartWidth + tileWidth * 4, row5StartHeight, "tile");
-    tile5_5.anchor.setTo(0.5, 0.5);
     tile5_6 = mapTiles.create(row5StartWidth + tileWidth * 5, row5StartHeight, "tile");
-    tile5_6.anchor.setTo(0.5, 0.5);
 
     tile6_1 = mapTiles.create(row6StartWidth, row6StartHeight, "tile");
-    tile6_1.anchor.setTo(0.5, 0.5);
     tile6_2 = mapTiles.create(row6StartWidth + tileWidth, row6StartHeight, "tile");
-    tile6_2.anchor.setTo(0.5, 0.5);
     tile6_3 = mapTiles.create(row6StartWidth + tileWidth * 2, row6StartHeight, "tile");
-    tile6_3.anchor.setTo(0.5, 0.5);
     tile6_4 = mapTiles.create(row6StartWidth + tileWidth * 3, row6StartHeight, "tile");
-    tile6_4.anchor.setTo(0.5, 0.5);
     tile6_5 = mapTiles.create(row6StartWidth + tileWidth * 4, row6StartHeight, "tile");
-    tile6_5.anchor.setTo(0.5, 0.5);
 
     tile7_1 = mapTiles.create(row7StartWidth, row7StartHeight, "tile");
-    tile7_1.anchor.setTo(0.5, 0.5);
     tile7_2 = mapTiles.create(row7StartWidth + tileWidth, row7StartHeight, "tile");
-    tile7_2.anchor.setTo(0.5, 0.5);
     tile7_3 = mapTiles.create(row7StartWidth + tileWidth * 2, row7StartHeight, "tile");
-    tile7_3.anchor.setTo(0.5, 0.5);
     tile7_4 = mapTiles.create(row7StartWidth + tileWidth * 3, row7StartHeight, "tile");
-    tile7_4.anchor.setTo(0.5, 0.5);
 
     mapTiles.forEach(function(tile) {
+        tile.anchor.setTo(0.5, 0.5);
         tile.inputEnabled  = true;
         tile.events.onInputOver.add(overItemAnimation, this);
         tile.events.onInputOut.add(outItemAnimation, this);
-        tile.events.onInputDown.add(selectTile);
+        tile.events.onInputDown.add(selectTile, this);
     })
 }
 
@@ -208,7 +172,7 @@ function outItemAnimation(item) {
     game.add.tween(item.scale).to({x: 1.0, y: 1.0}, 300, Phaser.Easing.Exponential.Out, true);
 }
 
-function selectTile() {
+function selectTile(item) {
     //TODO: write me!
 }
 
