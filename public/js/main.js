@@ -82,22 +82,30 @@ function showMenu() {
 function startNewGame() {
     removeMainMenu();
     showResourceText();
+    showPlayerTurnText();
     addTiles();
     // TODO: write me!
 }
 
 function showResourceText() {
     resources = 0;
-    resourceText = game.add.text(200, 50, "Available Resources: " + resources, { font: "bold 32px Arial", fill: color1});
-    resourceText.anchor.set(0.5);
+    resourceText = game.add.text(100, 25, "Resources: " + resources, { font: "bold 32px Arial", fill: color1});
+    //resourceText.anchor.set(0.5);
     resourceText.inputEnabled = true;
     //resourceText.input.enableDrag();
     resourceText.events.onInputDown.add(incrementResources, this);
 }
 
+function showPlayerTurnText() {
+    playerName = "Nolij";
+    playerTurnText = game.add.text(1200, 25, "Player Turn: " + playerName, {font: "bold 32px Arial", fill: color1});
+    //playerTurnText.anchor.set(0.5);
+    playerTurnText.inputEnabled = true;
+}
+
 function incrementResources(item) {
     resources++;
-    item.text = "Available Resources: " + resources;
+    item.text = "Resources: " + resources;
 }
 
 function addTiles() {
