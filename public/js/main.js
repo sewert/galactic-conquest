@@ -33,6 +33,7 @@ function preload() {
     game.load.image("tutorialButton", "../assets/buttons/tutorial_raised.png");
     game.load.image("tile", "../assets/tiles/purpleTile.png");
     game.load.image("homeTile", "../assets/tiles/orangeTile.png");
+    game.load.image("centerTile", "../assets/tiles/orangeSecondaryTile.png");
 }
 
 function create() {
@@ -122,7 +123,7 @@ function addTiles() {
     tile4_1 = mapTiles.create(row4StartWidth, row4StartHeight, "homeTile");
     tile4_2 = mapTiles.create(row4StartWidth + tileWidth, row4StartHeight, "tile");
     tile4_3 = mapTiles.create(row4StartWidth + tileWidth * 2, row4StartHeight, "tile");
-    tile4_4 = mapTiles.create(row4StartWidth + tileWidth * 3, row4StartHeight, "tile");
+    tile4_4 = mapTiles.create(row4StartWidth + tileWidth * 3, row4StartHeight, "centerTile");
     tile4_5 = mapTiles.create(row4StartWidth + tileWidth * 4, row4StartHeight, "tile");
     tile4_6 = mapTiles.create(row4StartWidth + tileWidth * 5, row4StartHeight, "tile");
     tile4_7 = mapTiles.create(row4StartWidth + tileWidth * 6, row4StartHeight, "homeTile");
