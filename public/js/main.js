@@ -34,6 +34,7 @@ function preload() {
     game.load.image("tile", "../assets/tiles/purpleTile.png");
     game.load.image("homeTile", "../assets/tiles/orangeTile.png");
     game.load.image("centerTile", "../assets/tiles/orangeSecondaryTile.png");
+    game.load.image("hazardTile", "../assets/tiles/greenTile.png");
 }
 
 function create() {
@@ -108,9 +109,9 @@ function addTiles() {
     tile1_4 = mapTiles.create(row1StartWidth + tileWidth * 3, row1StartHeight, "homeTile");
 
     tile2_1 = mapTiles.create(row2StartWidth, row2StartHeight, "tile");
-    tile2_2 = mapTiles.create(row2StartWidth + tileWidth, row2StartHeight, "tile");
+    tile2_2 = mapTiles.create(row2StartWidth + tileWidth, row2StartHeight, "hazardTile");
     tile2_3 = mapTiles.create(row2StartWidth + tileWidth * 2, row2StartHeight, "tile");
-    tile2_4 = mapTiles.create(row2StartWidth + tileWidth * 3, row2StartHeight, "tile");
+    tile2_4 = mapTiles.create(row2StartWidth + tileWidth * 3, row2StartHeight, "hazardTile");
     tile2_5 = mapTiles.create(row2StartWidth + tileWidth * 4, row2StartHeight, "tile");
 
     tile3_1 = mapTiles.create(row3StartWidth, row3StartHeight, "tile");
@@ -121,11 +122,11 @@ function addTiles() {
     tile3_6 = mapTiles.create(row3StartWidth + tileWidth * 5, row3StartHeight, "tile");
 
     tile4_1 = mapTiles.create(row4StartWidth, row4StartHeight, "homeTile");
-    tile4_2 = mapTiles.create(row4StartWidth + tileWidth, row4StartHeight, "tile");
+    tile4_2 = mapTiles.create(row4StartWidth + tileWidth, row4StartHeight, "hazardTile");
     tile4_3 = mapTiles.create(row4StartWidth + tileWidth * 2, row4StartHeight, "tile");
     tile4_4 = mapTiles.create(row4StartWidth + tileWidth * 3, row4StartHeight, "centerTile");
     tile4_5 = mapTiles.create(row4StartWidth + tileWidth * 4, row4StartHeight, "tile");
-    tile4_6 = mapTiles.create(row4StartWidth + tileWidth * 5, row4StartHeight, "tile");
+    tile4_6 = mapTiles.create(row4StartWidth + tileWidth * 5, row4StartHeight, "hazardTile");
     tile4_7 = mapTiles.create(row4StartWidth + tileWidth * 6, row4StartHeight, "homeTile");
 
     tile5_1 = mapTiles.create(row5StartWidth, row5StartHeight, "tile");
@@ -136,9 +137,9 @@ function addTiles() {
     tile5_6 = mapTiles.create(row5StartWidth + tileWidth * 5, row5StartHeight, "tile");
 
     tile6_1 = mapTiles.create(row6StartWidth, row6StartHeight, "tile");
-    tile6_2 = mapTiles.create(row6StartWidth + tileWidth, row6StartHeight, "tile");
+    tile6_2 = mapTiles.create(row6StartWidth + tileWidth, row6StartHeight, "hazardTile");
     tile6_3 = mapTiles.create(row6StartWidth + tileWidth * 2, row6StartHeight, "tile");
-    tile6_4 = mapTiles.create(row6StartWidth + tileWidth * 3, row6StartHeight, "tile");
+    tile6_4 = mapTiles.create(row6StartWidth + tileWidth * 3, row6StartHeight, "hazardTile");
     tile6_5 = mapTiles.create(row6StartWidth + tileWidth * 4, row6StartHeight, "tile");
 
     tile7_1 = mapTiles.create(row7StartWidth, row7StartHeight, "homeTile");
