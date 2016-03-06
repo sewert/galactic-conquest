@@ -4,7 +4,7 @@ var tileHeight = 160;
 var tileWidth = 160;
 var tileWidthSpacing = 80;
 var tileHeightSpacing = 120;
-var tileRowStartWidth = 550;
+var tileRowStartWidth = 560;
 var tileRowStartHeight = 90;
 var row1StartWidth = tileRowStartWidth;
 var row1StartHeight = tileRowStartHeight;
@@ -35,6 +35,7 @@ function preload() {
     game.load.image("homeTile", "../assets/tiles/orangeTile.png");
     game.load.image("centerTile", "../assets/tiles/orangeSecondaryTile.png");
     game.load.image("hazardTile", "../assets/tiles/greenTile.png");
+    game.load.image("textBackground", "../assets/text_background.png");
 }
 
 function create() {
@@ -88,8 +89,9 @@ function startNewGame() {
 }
 
 function showResourceText() {
+    resourceTextBackground = game.add.sprite(40, 25, "textBackground");
     resources = 0;
-    resourceText = game.add.text(100, 25, "Resources: " + resources, { font: "bold 32px Arial", fill: color1});
+    resourceText = game.add.text(90, 50, "Resources: " + resources, { font: "bold 32px Arial"});
     //resourceText.anchor.set(0.5);
     resourceText.inputEnabled = true;
     //resourceText.input.enableDrag();
@@ -97,8 +99,9 @@ function showResourceText() {
 }
 
 function showPlayerTurnText() {
+    playerTextBackground = game.add.sprite(1160, 25, "textBackground");
     playerName = "Nolij";
-    playerTurnText = game.add.text(1200, 25, "Player Turn: " + playerName, {font: "bold 32px Arial", fill: color1});
+    playerTurnText = game.add.text(1210, 50, "Player Turn: " + playerName, {font: "bold 32px Arial"});
     //playerTurnText.anchor.set(0.5);
     playerTurnText.inputEnabled = true;
 }
