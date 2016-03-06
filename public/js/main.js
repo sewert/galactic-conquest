@@ -81,9 +81,9 @@ function showMenu() {
 
 function startNewGame() {
     removeMainMenu();
-    showResourceText();
-    showPlayerTurnText();
-    addTiles();
+    setTimeout(showResourceText, 500);
+    setTimeout(showPlayerTurnText, 500);
+    setTimeout(addTiles, 500);
     // TODO: write me!
 }
 
