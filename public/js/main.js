@@ -32,6 +32,7 @@ function preload() {
     game.load.image("loadGameButton", "../assets/buttons/loadGame_raised.png");
     game.load.image("tutorialButton", "../assets/buttons/tutorial_raised.png");
     game.load.image("menuButton", "../assets/buttons/menu_raised.png");
+    game.load.image("resumeButton", "../assets/buttons/resumeGame_raised.png");
     game.load.image("tile", "../assets/tiles/purpleTile.png");
     game.load.image("homeTile", "../assets/tiles/orangeTile.png");
     game.load.image("centerTile", "../assets/tiles/orangeSecondaryTile.png");
@@ -42,7 +43,7 @@ function preload() {
 function create() {
     scaleWindow();
     showBackground();
-    createMainMenu();
+    showMainMenu();
 }
 
 function scaleWindow() {
@@ -58,11 +59,34 @@ function showBackground() {
     this.background = game.add.sprite(0, 0, "background");
 }
 
-function createMainMenu() {
+function showMainMenu() {
     mainMenuButtons = game.add.group();
 
     newGameButton = mainMenuButtons.create(gameWidth/2, gameHeight * 0.2, "newGameButton");
     newGameButton.events.onInputDown.add(startNewGame);
+
+    saveGameButton = mainMenuButtons.create(gameWidth/2, gameHeight * 0.4, "saveGameButton");
+    saveGameButton.events.onInputDown.add(saveGame);
+
+    loadGameButton = mainMenuButtons.create(gameWidth/2, gameHeight * 0.6, "loadGameButton");
+    loadGameButton.events.onInputDown.add(loadGame);
+
+    tutorialButton = mainMenuButtons.create(gameWidth/2, gameHeight * 0.8, "tutorialButton");
+    tutorialButton.events.onInputDown.add(startTutorial);
+
+    mainMenuButtons.forEach(function(menuButton) {
+        menuButton.anchor.setTo(0.5, 0.5);
+        menuButton.inputEnabled  = true;
+        menuButton.events.onInputOver.add(overItemAnimation, this);
+        menuButton.events.onInputOut.add(outItemAnimation, this);
+    })
+}
+
+function showPauseMenu() {
+    mainMenuButtons = game.add.group();
+
+    resumeGameButton = mainMenuButtons.create(gameWidth/2, gameHeight * 0.2, "resumeButton");
+    resumeGameButton.events.onInputDown.add(removeMainMenu);
 
     saveGameButton = mainMenuButtons.create(gameWidth/2, gameHeight * 0.4, "saveGameButton");
     saveGameButton.events.onInputDown.add(saveGame);
@@ -86,7 +110,7 @@ function startNewGame() {
     setTimeout(showResourceText, 500);
     setTimeout(showPlayerTurnText, 500);
     setTimeout(addTiles, 500);
-    setTimeout(showMenuButton, 500);
+    setTimeout(showPauseMenuButton, 500);
     // TODO: write me!
 }
 
@@ -108,12 +132,12 @@ function showPlayerTurnText() {
     playerTurnText.inputEnabled = true;
 }
 
-function showMenuButton() {
+function showPauseMenuButton() {
     menuButton = game.add.sprite(1360, 775, "menuButton");
     menuButton.inputEnabled = true;
     menuButton.events.onInputOver.add(overItemAnimation, this);
     menuButton.events.onInputOut.add(outItemAnimation, this);
-    newGameButton.events.onInputDown.add(showMainMenu);
+    menuButton.events.onInputDown.add(showPauseMenu);
 }
 
 function incrementResources(item) {
@@ -191,13 +215,9 @@ function selectTile(item) {
 
 function removeMainMenu() {
     var tween = this.game.add.tween(this.mainMenuButtons.scale).to({x: 0.0, y: 1.0}, 500, Phaser.Easing.Exponential.In, true);
-    //tween.onComplete.add(function () {
-    //    mainMenuButtons.destroy();
-    //});
-}
-
-function showMainMenu() {
-    var tween = this.game.add.tween(this.mainMenuButtons.scale).to({x: 1.0, y: 1.0}, 500, Phaser.Easing.Exponential.In, true);
+    tween.onComplete.add(function () {
+        mainMenuButtons.destroy();
+    });
 }
 
 function saveGame() {
