@@ -83,10 +83,12 @@ function showMainMenu() {
 }
 
 function showPauseMenu() {
+    menuButton.destroy();
     mainMenuButtons = game.add.group();
 
     resumeGameButton = mainMenuButtons.create(gameWidth/2, gameHeight * 0.2, "resumeButton");
     resumeGameButton.events.onInputDown.add(removeMainMenu);
+    resumeGameButton.events.onInputDown.add(showPauseMenuButton);
 
     saveGameButton = mainMenuButtons.create(gameWidth/2, gameHeight * 0.4, "saveGameButton");
     saveGameButton.events.onInputDown.add(saveGame);
