@@ -126,7 +126,7 @@ function startNewGame() {
 function showResourceText() {
     resourceTextBackground = game.add.sprite(40, 25, "textBackground");
     resources = 0;
-    resourceText = game.add.text(90, 55, "Resources: " + resources, { font: "32px Arial"});
+    resourceText = game.add.text(90, 45, "Resources: " + resources, { font: "50px Arial"});
     //resourceText.anchor.set(0.5);
     resourceText.inputEnabled = true;
     //resourceText.input.enableDrag();
@@ -136,7 +136,7 @@ function showResourceText() {
 function showPlayerTurnText() {
     playerTextBackground = game.add.sprite(1160, 25, "textBackground");
     playerName = "Nolij";
-    playerTurnText = game.add.text(1210, 55, "Player Turn: " + playerName, {font: "32px Arial"});
+    playerTurnText = game.add.text(1210, 45, playerName + "'s Turn", {font: "50px Arial"});
     //playerTurnText.anchor.set(0.5);
     playerTurnText.inputEnabled = true;
 }
