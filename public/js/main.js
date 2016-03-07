@@ -31,6 +31,7 @@ function preload() {
     game.load.image("saveGameButton", "../assets/buttons/saveGame_raised.png");
     game.load.image("loadGameButton", "../assets/buttons/loadGame_raised.png");
     game.load.image("tutorialButton", "../assets/buttons/tutorial_raised.png");
+    game.load.image("menuButton", "../assets/buttons/menu_raised.png");
     game.load.image("tile", "../assets/tiles/purpleTile.png");
     game.load.image("homeTile", "../assets/tiles/orangeTile.png");
     game.load.image("centerTile", "../assets/tiles/orangeSecondaryTile.png");
@@ -41,7 +42,7 @@ function preload() {
 function create() {
     scaleWindow();
     showBackground();
-    showMenu();
+    createMainMenu();
 }
 
 function scaleWindow() {
@@ -57,7 +58,7 @@ function showBackground() {
     this.background = game.add.sprite(0, 0, "background");
 }
 
-function showMenu() {
+function createMainMenu() {
     mainMenuButtons = game.add.group();
 
     newGameButton = mainMenuButtons.create(gameWidth/2, gameHeight * 0.2, "newGameButton");
@@ -85,6 +86,7 @@ function startNewGame() {
     setTimeout(showResourceText, 500);
     setTimeout(showPlayerTurnText, 500);
     setTimeout(addTiles, 500);
+    setTimeout(showMenuButton, 500);
     // TODO: write me!
 }
 
@@ -104,6 +106,14 @@ function showPlayerTurnText() {
     playerTurnText = game.add.text(1210, 55, "Player Turn: " + playerName, {font: "bold 32px Arial"});
     //playerTurnText.anchor.set(0.5);
     playerTurnText.inputEnabled = true;
+}
+
+function showMenuButton() {
+    menuButton = game.add.sprite(1360, 775, "menuButton");
+    menuButton.inputEnabled = true;
+    menuButton.events.onInputOver.add(overItemAnimation, this);
+    menuButton.events.onInputOut.add(outItemAnimation, this);
+    newGameButton.events.onInputDown.add(showMainMenu);
 }
 
 function incrementResources(item) {
@@ -181,9 +191,13 @@ function selectTile(item) {
 
 function removeMainMenu() {
     var tween = this.game.add.tween(this.mainMenuButtons.scale).to({x: 0.0, y: 1.0}, 500, Phaser.Easing.Exponential.In, true);
-    tween.onComplete.add(function () {
-        mainMenuButtons.destroy();
-    });
+    //tween.onComplete.add(function () {
+    //    mainMenuButtons.destroy();
+    //});
+}
+
+function showMainMenu() {
+    var tween = this.game.add.tween(this.mainMenuButtons.scale).to({x: 1.0, y: 1.0}, 500, Phaser.Easing.Exponential.In, true);
 }
 
 function saveGame() {
