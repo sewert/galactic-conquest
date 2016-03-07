@@ -84,11 +84,12 @@ function showMainMenu() {
 
 function showPauseMenu() {
     menuButton.destroy();
+    mapTiles.inputEnabled = false;
+
     mainMenuButtons = game.add.group();
 
     resumeGameButton = mainMenuButtons.create(gameWidth/2, gameHeight * 0.2, "resumeButton");
-    resumeGameButton.events.onInputDown.add(removeMainMenu);
-    resumeGameButton.events.onInputDown.add(showPauseMenuButton);
+    resumeGameButton.events.onInputDown.add(resumeGame);
 
     saveGameButton = mainMenuButtons.create(gameWidth/2, gameHeight * 0.4, "saveGameButton");
     saveGameButton.events.onInputDown.add(saveGame);
@@ -105,6 +106,12 @@ function showPauseMenu() {
         menuButton.events.onInputOver.add(overItemAnimation, this);
         menuButton.events.onInputOut.add(outItemAnimation, this);
     })
+}
+
+function resumeGame() {
+    mapTiles.inputEnabled = true;
+    removeMainMenu();
+    showPauseMenuButton();
 }
 
 function startNewGame() {
