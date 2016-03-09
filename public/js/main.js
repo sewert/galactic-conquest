@@ -256,6 +256,7 @@ function outItemAnimation(item) {
 }
 
 function selectTile(item) {
+    // TODO: write me!
     alert(item.name + " selected");
 }
 
