@@ -34,7 +34,7 @@ function preload() {
     game.load.image("menuButton", "../assets/buttons/menu_raised.png");
     game.load.image("resumeButton", "../assets/buttons/resumeGame_raised.png");
     game.load.image("tile", "../assets/tiles/purpleTile.png");
-    game.load.image("centerTile", "../assets/tiles/orangeSecondaryTile.png");
+    game.load.image("centerTile", "../assets/tiles/centerTile.png");
     game.load.image("hazardTile", "../assets/tiles/greenTile.png");
     game.load.image("homeTile1", "../assets/tiles/homeTile1.png");
     game.load.image("homeTile2", "../assets/tiles/homeTile2.png");
