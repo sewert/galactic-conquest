@@ -7,6 +7,8 @@
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script src="http://cdn.jsdelivr.net/phaser/2.4.4/phaser.min.js"></script>
     <script src="js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>;
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <style type="text/css">
         body {
             margin: 0;
@@ -15,7 +17,29 @@
 </head>
 
 <body>
-<div id="gameDiv">
-</div>
+<div id="gameDiv"></div>
+<div id="future"></div>
+
+<form id="form" id="chat_form">
+    <input id="chat_input" type="text">
+    <input type="submit" value="Send">
+</form>
 </body>
 </html>
+
+<script>
+    var socket = io.connect("http://localhost:1337");
+    socket.on("connect", function(data) {
+        socket.emit("join", "Hello World from client");
+    });
+    socket.on("broad", function(data) {
+        $("#future").html(data);
+    });
+
+    $("form").submit(function(e) {
+        e.preventDefault();
+        var message = $("#chat_input").val();
+        socket.emit("messages", message);
+    });
+
+</script>
