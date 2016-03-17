@@ -23,7 +23,7 @@ var row7StartHeight = tileRowStartHeight + tileHeightSpacing * 6;
 var color1 = "#00D000";
 var color2 = "D00076";
 var color3 = "FF7400";
-var game = new Phaser.Game(gameWidth, gameHeight, Phaser.AUTO, "game", { preload: preload, create: create, update: update });
+var game = new Phaser.Game(gameWidth, gameHeight, Phaser.AUTO, "gameDiv", { preload: preload, create: create, update: update });
 
 function preload() {
     game.load.image("background", "../assets/backgrounds/SpaceBackground-2.jpg");
