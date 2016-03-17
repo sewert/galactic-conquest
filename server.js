@@ -13,7 +13,7 @@ io.on("connection", function (client) {
     console.log(data);
   });
 
-  client.on("messages", function(data) {
+  client.on("chatMessage", function(data) {
     console.log(data);
     client.emit("broad", data);
     client.broadcast.emit("broad", data);
