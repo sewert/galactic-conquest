@@ -15,7 +15,7 @@ io.on("connection", function (client) {
 
   client.on("chatMessage", function(data) {
     console.log(data);
-    client.emit("broad", data);
-    client.broadcast.emit("broad", data);
+    client.emit("chatMessage", data);
+    client.broadcast.emit("chatMessage", data);
   });
 });
