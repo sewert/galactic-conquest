@@ -21,7 +21,7 @@
 <div id="chat">
     <ul id="chatMessages"></ul>
     <form id="chatForm">
-        <input id="chatInput" type="text">
+        <input id="chatInput" type="text" autocomplete="off">
         <input type="submit" value="Send">
     </form>
 </div>
@@ -43,6 +43,7 @@
     $("#chatForm").submit(function(e) {
         e.preventDefault();
         var message = $("#chatInput").val();
+        $("#chatInput").val("");
         socket.emit("chatMessage", message);
     });
 
