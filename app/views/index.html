@@ -5,42 +5,33 @@
     <title>Galactic Conquest</title>
     <!--TODO: add favicon-->
     <link rel="stylesheet" type="text/css" href="css/game.css">
+    <link rel="stylesheet" type="text/css" href="css/chat.css">
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script src="http://cdn.jsdelivr.net/phaser/2.4.4/phaser.min.js"></script>
-    <script src="js/game.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/chat.js"></script>
 </head>
 
 <body>
 <div id="gameDiv"></div>
 <div id="chat">
-    <ul id="chatMessages"></ul>
-    <form id="chatForm">
-        <input id="chatInput" type="text" autocomplete="off">
-        <input type="submit" value="Send">
-    </form>
+    <ul class="chatPages">
+        <li class="chatPage">
+            <div class="chatArea">
+                <ul class="messages"></ul>
+            </div>
+            <input class="inputMessage" placeholder="Type here..."/>
+        </li>
+        <li class="loginPage">
+            <div class="form">
+                <h3 class="title">Please enter your username:</h3>
+                <input class="playerNameInput" type="text" maxLength="14"/>
+            </div>
+        </li>
+    </ul>
 </div>
 
 </body>
 </html>
-
-<script>
-    var socket = io();
-
-    socket.on("connect", function(data) {
-        socket.emit("join", "Hello World from client");
-    });
-
-    socket.on("chatMessage", function(data) {
-        $("#chatMessages").append("<li>" + data + "</li>");
-    });
-
-    $("#chatForm").submit(function(e) {
-        e.preventDefault();
-        var message = $("#chatInput").val();
-        $("#chatInput").val("");
-        socket.emit("chatMessage", message);
-    });
-
-</script>

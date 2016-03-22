@@ -1,0 +1,101 @@
+html, input {
+    font-family: Arial
+}
+
+ul {
+    list-style: none;
+    word-wrap: break-word;
+}
+
+.chatPages {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.chatPage {
+    height: 100%;
+    width: 100%;
+}
+
+.loginPage {
+    background-color: #D00076;
+}
+
+.loginPage .form {
+    text-align: center;
+    width: 100%;
+}
+
+.loginPage .form .playerNameInput {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    padding-bottom: 15px;
+    text-align: center;
+}
+
+.loginPage .title {
+    font-size: 200%;
+}
+
+.loginPage .playerNameInput {
+    font-size: 200%;
+    letter-spacing: 3px;
+}
+
+.loginPage .title, .loginPage .playerNameInput {
+    font-weight: 100;
+}
+
+.chatPage {
+    display: none;
+}
+
+.messages {
+    font-size: 150%;
+}
+
+.log {
+    color: gray;
+    font-size: 70%;
+    margin: 5px;
+    text-align: center;
+}
+
+.chatArea {
+    height: 100%;
+    padding-bottom: 60px;
+}
+
+.messages {
+    height: 100%;
+    margin: 0;
+    overflow-y: scroll;
+    padding: 10px 20px 10px 20px;
+}
+
+.message.typing .messageBody {
+    color: gray;
+}
+
+.playerName {
+    float: left;
+    font-weight: 700;
+    overflow: hidden;
+    padding-right: 15px;
+    text-align: right;
+}
+
+.inputMessage {
+    border: 10px solid #000;
+    bottom: 0;
+    height: 60px;
+    left: 0;
+    outline: none;
+    padding-left: 10px;
+    position: absolute;
+    right: 0;
+    width: 100%;
+}
