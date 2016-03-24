@@ -17,7 +17,6 @@ $(function(){
     var $chatPage = $(".chatPage");
     var $gameDiv = $("#gameDiv");
 
-    var playerName;
     var connected = false;
     var typing = false;
     var lastTypingTime;
