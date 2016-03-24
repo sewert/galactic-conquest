@@ -15,6 +15,7 @@ $(function(){
 
     var $loginPage = $(".loginPage");
     var $chatPage = $(".chatPage");
+    var $gameDiv = $("#gameDiv");
 
     var playerName;
     var connected = false;
@@ -40,6 +41,7 @@ $(function(){
         // If the username is valid
         if (playerName) {
             $loginPage.fadeOut();
+            $gameDiv.show();
             $chatPage.show();
             $loginPage.off('click');
             $currentInput = $inputMessage.focus();
