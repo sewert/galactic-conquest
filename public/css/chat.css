@@ -2,17 +2,16 @@
     box-sizing: border-box;
 }
 
-#gameDiv {
+.chatArea {
+    height: 100%;
+    padding-bottom: 60px;
+}
+
+.chatPage {
+    height: 100%;
+    width: 100%;
+    position: absolute;
     display: none;
-}
-
-html, input {
-    font-family: Arial
-}
-
-ul {
-    list-style: none;
-    word-wrap: break-word;
 }
 
 .chatPages {
@@ -22,11 +21,31 @@ ul {
     width: 100%;
 }
 
-.chatPage {
-    height: 100%;
-    width: 100%;
-    position: absolute;
+#gameDiv {
     display: none;
+}
+
+html, input {
+    font-family: Arial
+}
+
+.inputMessage {
+    border: 10px solid #000;
+    bottom: 0;
+    height: 60px;
+    left: 0;
+    outline: none;
+    padding-left: 10px;
+    position: absolute;
+    right: 0;
+    width: 100%;
+}
+
+.log {
+    color: gray;
+    font-size: 70%;
+    margin: 5px;
+    text-align: center;
 }
 
 .loginPage {
@@ -50,13 +69,13 @@ ul {
     text-align: center;
 }
 
-.loginPage .title {
-    font-size: 200%;
-}
-
 .loginPage .playerNameInput {
     font-size: 200%;
     letter-spacing: 3px;
+}
+
+.loginPage .title {
+    font-size: 200%;
 }
 
 .loginPage .title, .loginPage .playerNameInput {
@@ -65,18 +84,6 @@ ul {
 
 .messages {
     font-size: 150%;
-}
-
-.log {
-    color: gray;
-    font-size: 70%;
-    margin: 5px;
-    text-align: center;
-}
-
-.chatArea {
-    height: 100%;
-    padding-bottom: 60px;
 }
 
 .messages {
@@ -98,14 +105,7 @@ ul {
     text-align: right;
 }
 
-.inputMessage {
-    border: 10px solid #000;
-    bottom: 0;
-    height: 60px;
-    left: 0;
-    outline: none;
-    padding-left: 10px;
-    position: absolute;
-    right: 0;
-    width: 100%;
+ul {
+    list-style: none;
+    word-wrap: break-word;
 }

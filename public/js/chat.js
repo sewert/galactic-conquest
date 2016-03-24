@@ -28,9 +28,9 @@ $(function(){
     function addParticipantsMessage (data) {
         var message = '';
         if (data.playerCount === 1) {
-            message += "there's 1 player";
+            message += "1 player in chat";
         } else {
-            message += "there are " + data.playerCount + " players";
+            message += data.playerCount + " players in chat";
         }
         log(message);
     }
@@ -175,10 +175,6 @@ $(function(){
     }
 
     $window.keydown(function (event) {
-        // Auto-focus the current input when a key is typed
-        if (!(event.ctrlKey || event.metaKey || event.altKey)) {
-            $currentInput.focus();
-        }
         // When the client hits ENTER on their keyboard
         if (event.which === 13) {
             if (playerName) {
