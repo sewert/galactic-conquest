@@ -44,7 +44,6 @@ $(function(){
             $gameDiv.show();
             $chatPage.show();
             $loginPage.off('click');
-            $currentInput = $inputMessage.focus();
 
             // Tell the server your username
             socket.emit('addPlayer', playerName);
@@ -193,10 +192,6 @@ $(function(){
 
     $loginPage.click(function () {
         $currentInput.focus();
-    });
-
-    $inputMessage.click(function () {
-        $inputMessage.focus();
     });
 
     socket.on('login', function (data) {
