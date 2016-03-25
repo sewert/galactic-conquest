@@ -1,0 +1,367 @@
+{
+    "_id": {
+        "$oid": "56f5a6e2e4b080b1e46143b3"
+    },
+    "players": [
+        {
+            "playerOne": "Nolij",
+            "resources": "0"
+        },
+        {
+            "playerTwo": "Tay_Tweets",
+            "resources": "0"
+        },
+        {
+            "playerThree": "Drumpf",
+            "resources": "0"
+        },
+        {
+            "playerFour": "EmoBeater",
+            "resources": "0"
+        },
+        {
+            "playerFive": "Morgana",
+            "resources": "0"
+        },
+        {
+            "playerSix": "Umbridge",
+            "resources": "0"
+        }
+    ],
+    "currentTurn": "playerTwo",
+    "tiles": [
+        {
+            "name": "tile1_1",
+            "owner": "playerOne",
+            "type": "homeSystem",
+            "production": "3",
+            "destroyers": "2",
+            "cruisers": "1",
+            "dreadnoughts": "0"
+        },
+        {
+            "name": "tile1_2",
+            "owner": "neutral",
+            "type": "regularSystem",
+            "production": "1",
+            "destroyers": "0",
+            "cruisers": "0",
+            "dreadnoughts": "0"
+        },
+        {
+            "name": "tile1_3",
+            "owner": "neutral",
+            "type": "regularSystem",
+            "production": "1",
+            "destroyers": "0",
+            "cruisers": "0",
+            "dreadnoughts": "0"
+        },
+        {
+            "name": "tile1_4",
+            "owner": "playerTwo",
+            "type": "homeSystem",
+            "production": "3",
+            "destroyers": "2",
+            "cruisers": "1",
+            "dreadnoughts": "0"
+        },
+        {
+            "name": "tile2_1",
+            "owner": "neutral",
+            "type": "regularSystem",
+            "production": "1",
+            "destroyers": "0",
+            "cruisers": "0",
+            "dreadnoughts": "0"
+        },
+        {
+            "name": "tile2_2",
+            "owner": "neutral",
+            "type": "supernova",
+            "production": "0",
+            "destroyers": "0",
+            "cruisers": "0",
+            "dreadnoughts": "0"
+        },
+        {
+            "name": "tile2_3",
+            "owner": "neutral",
+            "type": "regularSystem",
+            "production": "2",
+            "destroyers": "0",
+            "cruisers": "0",
+            "dreadnoughts": "0"
+        },
+        {
+            "name": "tile2_4",
+            "owner": "neutral",
+            "type": "supernova",
+            "production": "0",
+            "destroyers": "0",
+            "cruisers": "0",
+            "dreadnoughts": "0"
+        },
+        {
+            "name": "tile2_5",
+            "owner": "neutral",
+            "type": "regularSystem",
+            "production": "1",
+            "destroyers": "0",
+            "cruisers": "0",
+            "dreadnoughts": "0"
+        },
+        {
+            "name": "tile3_1",
+            "owner": "neutral",
+            "type": "regularSystem",
+            "production": "1",
+            "destroyers": "0",
+            "cruisers": "0",
+            "dreadnoughts": "0"
+        },
+        {
+            "name": "tile3_2",
+            "owner": "neutral",
+            "type": "regularSystem",
+            "production": "2",
+            "destroyers": "0",
+            "cruisers": "0",
+            "dreadnoughts": "0"
+        },
+        {
+            "name": "tile3_3",
+            "owner": "neutral",
+            "type": "regularSystem",
+            "production": "3",
+            "destroyers": "0",
+            "cruisers": "0",
+            "dreadnoughts": "0"
+        },
+        {
+            "name": "tile3_4",
+            "owner": "neutral",
+            "type": "regularSystem",
+            "production": "3",
+            "destroyers": "0",
+            "cruisers": "0",
+            "dreadnoughts": "0"
+        },
+        {
+            "name": "tile3_5",
+            "owner": "neutral",
+            "type": "regularSystem",
+            "production": "2",
+            "destroyers": "0",
+            "cruisers": "0",
+            "dreadnoughts": "0"
+        },
+        {
+            "name": "tile3_6",
+            "owner": "neutral",
+            "type": "regularSystem",
+            "production": "1",
+            "destroyers": "0",
+            "cruisers": "0",
+            "dreadnoughts": "0"
+        },
+        {
+            "name": "tile4_1",
+            "owner": "playerThree",
+            "type": "homeSystem",
+            "production": "3",
+            "destroyers": "2",
+            "cruisers": "1",
+            "dreadnoughts": "0"
+        },
+        {
+            "name": "tile4_2",
+            "owner": "neutral",
+            "type": "supernova",
+            "production": "0",
+            "destroyers": "0",
+            "cruisers": "0",
+            "dreadnoughts": "0"
+        },
+        {
+            "name": "tile4_3",
+            "owner": "neutral",
+            "type": "regularSystem",
+            "production": "3",
+            "destroyers": "0",
+            "cruisers": "0",
+            "dreadnoughts": "0"
+        },
+        {
+            "name": "tile4_4",
+            "owner": "neutral",
+            "type": "centerSystem",
+            "production": "5",
+            "destroyers": "0",
+            "cruisers": "0",
+            "dreadnoughts": "0"
+        },
+        {
+            "name": "tile4_5",
+            "owner": "neutral",
+            "type": "regularSystem",
+            "production": "3",
+            "destroyers": "0",
+            "cruisers": "0",
+            "dreadnoughts": "0"
+        },
+        {
+            "name": "tile4_6",
+            "owner": "neutral",
+            "type": "supernova",
+            "production": "0",
+            "destroyers": "0",
+            "cruisers": "0",
+            "dreadnoughts": "0"
+        },
+        {
+            "name": "tile4_7",
+            "owner": "playerFour",
+            "type": "homeSystem",
+            "production": "3",
+            "destroyers": "2",
+            "cruisers": "1",
+            "dreadnoughts": "0"
+        },
+        {
+            "name": "tile5_1",
+            "owner": "neutral",
+            "type": "regularSystem",
+            "production": "1",
+            "destroyers": "0",
+            "cruisers": "0",
+            "dreadnoughts": "0"
+        },
+        {
+            "name": "tile5_2",
+            "owner": "neutral",
+            "type": "regularSystem",
+            "production": "2",
+            "destroyers": "0",
+            "cruisers": "0",
+            "dreadnoughts": "0"
+        },
+        {
+            "name": "tile5_3",
+            "owner": "neutral",
+            "type": "regularSystem",
+            "production": "3",
+            "destroyers": "0",
+            "cruisers": "0",
+            "dreadnoughts": "0"
+        },
+        {
+            "name": "tile5_4",
+            "owner": "neutral",
+            "type": "regularSystem",
+            "production": "3",
+            "destroyers": "0",
+            "cruisers": "0",
+            "dreadnoughts": "0"
+        },
+        {
+            "name": "tile5_5",
+            "owner": "neutral",
+            "type": "regularSystem",
+            "production": "2",
+            "destroyers": "0",
+            "cruisers": "0",
+            "dreadnoughts": "0"
+        },
+        {
+            "name": "tile5_6",
+            "owner": "neutral",
+            "type": "regularSystem",
+            "production": "1",
+            "destroyers": "0",
+            "cruisers": "0",
+            "dreadnoughts": "0"
+        },
+        {
+            "name": "tile6_1",
+            "owner": "neutral",
+            "type": "regularSystem",
+            "production": "1",
+            "destroyers": "0",
+            "cruisers": "0",
+            "dreadnoughts": "0"
+        },
+        {
+            "name": "tile6_2",
+            "owner": "neutral",
+            "type": "supernova",
+            "production": "0",
+            "destroyers": "0",
+            "cruisers": "0",
+            "dreadnoughts": "0"
+        },
+        {
+            "name": "tile6_3",
+            "owner": "neutral",
+            "type": "regularSystem",
+            "production": "2",
+            "destroyers": "0",
+            "cruisers": "0",
+            "dreadnoughts": "0"
+        },
+        {
+            "name": "tile6_4",
+            "owner": "neutral",
+            "type": "supernova",
+            "production": "0",
+            "destroyers": "0",
+            "cruisers": "0",
+            "dreadnoughts": "0"
+        },
+        {
+            "name": "tile6_5",
+            "owner": "neutral",
+            "type": "regularSystem",
+            "production": "1",
+            "destroyers": "0",
+            "cruisers": "0",
+            "dreadnoughts": "0"
+        },
+        {
+            "name": "tile7_1",
+            "owner": "playerFive",
+            "type": "homeSystem",
+            "production": "3",
+            "destroyers": "2",
+            "cruisers": "1",
+            "dreadnoughts": "0"
+        },
+        {
+            "name": "tile7_2",
+            "owner": "neutral",
+            "type": "regularSystem",
+            "production": "1",
+            "destroyers": "0",
+            "cruisers": "0",
+            "dreadnoughts": "0"
+        },
+        {
+            "name": "tile7_3",
+            "owner": "neutral",
+            "type": "regularSystem",
+            "production": "1",
+            "destroyers": "0",
+            "cruisers": "0",
+            "dreadnoughts": "0"
+        },
+        {
+            "name": "tile7_4",
+            "owner": "playerSix",
+            "type": "homeSystem",
+            "production": "3",
+            "destroyers": "2",
+            "cruisers": "1",
+            "dreadnoughts": "0"
+        }
+    ]
+}
