@@ -47,6 +47,7 @@ io.on("connection", function (socket) {
       playerName: socket.playerName,
       playerCount: playerCount
     });
+    console.log(playerName + " joined");
   });
 
   // Chat feature
