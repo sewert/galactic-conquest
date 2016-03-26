@@ -4,27 +4,27 @@
     },
     "players": [
         {
-            "playerOne": "Nolij",
+            "name": "Nolij",
             "resources": "0"
         },
         {
-            "playerTwo": "Tay_Tweets",
+            "name": "Tay_Tweets",
             "resources": "0"
         },
         {
-            "playerThree": "Drumpf",
+            "name": "Drumpf",
             "resources": "0"
         },
         {
-            "playerFour": "EmoBeater",
+            "name": "EmoBeater",
             "resources": "0"
         },
         {
-            "playerFive": "Morgana",
+            "name": "Morgana",
             "resources": "0"
         },
         {
-            "playerSix": "Umbridge",
+            "name": "Umbridge",
             "resources": "0"
         }
     ],
@@ -32,7 +32,7 @@
     "tiles": [
         {
             "name": "tile1_1",
-            "owner": "playerOne",
+            "owner": "0",
             "type": "homeSystem",
             "production": "3",
             "destroyers": "2",
@@ -59,7 +59,7 @@
         },
         {
             "name": "tile1_4",
-            "owner": "playerTwo",
+            "owner": "1",
             "type": "homeSystem",
             "production": "3",
             "destroyers": "2",
@@ -167,7 +167,7 @@
         },
         {
             "name": "tile4_1",
-            "owner": "playerThree",
+            "owner": "2",
             "type": "homeSystem",
             "production": "3",
             "destroyers": "2",
@@ -221,7 +221,7 @@
         },
         {
             "name": "tile4_7",
-            "owner": "playerFour",
+            "owner": "3",
             "type": "homeSystem",
             "production": "3",
             "destroyers": "2",
@@ -329,7 +329,7 @@
         },
         {
             "name": "tile7_1",
-            "owner": "playerFive",
+            "owner": "4",
             "type": "homeSystem",
             "production": "3",
             "destroyers": "2",
@@ -356,7 +356,7 @@
         },
         {
             "name": "tile7_4",
-            "owner": "playerSix",
+            "owner": "5",
             "type": "homeSystem",
             "production": "3",
             "destroyers": "2",
