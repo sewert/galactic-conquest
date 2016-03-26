@@ -1,3 +1,4 @@
+// Connect to MongoDB
 var MongoClient = require("mongodb").MongoClient;
 var ObjectID = require("mongodb").ObjectID;
 MongoClient.connect("mongodb://<username>:<password>@ds025379.mlab.com:25379/galactic-conquest", function (err, db) {
@@ -7,13 +8,13 @@ MongoClient.connect("mongodb://<username>:<password>@ds025379.mlab.com:25379/gal
   //savedGameCollection.insertOne({"test":"message"}, function(err, docs) {
   //});
 
-  // Locate all the entries using find
   savedGamesCollection.find({"_id": new ObjectID("56f5a6e2e4b080b1e46143b3")}).toArray(function(err, results) {
     console.log(results[0].players[0].name);
     db.close();
   });
 });
 
+// Start up server
 var port = 1337;
 var express = require("./config/express");
 var app = express();
@@ -32,10 +33,8 @@ io.on("connection", function (socket) {
 
   // handle join requests from client
   socket.on("addPlayer", function(playerName) {
-    console.log(playerName);
-
     if (playerAdded) return;
-    if (playerCount >= MAX_PLAYERS) return;
+    if (playerCount >= MAX_PLAYERS) return; // TODO: emit error message
 
     socket.playerName = playerName;
     ++playerCount;
@@ -50,7 +49,7 @@ io.on("connection", function (socket) {
     });
   });
 
-  // show when client is typing
+  // Chat feature
   socket.on("typing", function() {
     socket.broadcast.emit("typing", {
       playerName: socket.playerName
@@ -74,14 +73,13 @@ io.on("connection", function (socket) {
   });
 
   socket.on("newMessage", function(data) {
-    console.log(data);
-
     socket.broadcast.emit("newMessage", {
       playerName: socket.playerName,
       message: data
     });
   });
 
+  // Menu
   socket.on("newGame", function() {
     //TODO: write me!
   });
@@ -98,6 +96,7 @@ io.on("connection", function (socket) {
     //TODO: write me!
   });
 
+  // Game actions
   socket.on("startTurn", function(data) {
     //TODO: write me!
   });
@@ -113,5 +112,4 @@ io.on("connection", function (socket) {
   socket.on("sendShips", function(data) {
     //TODO: write me!
   });
-
 });
