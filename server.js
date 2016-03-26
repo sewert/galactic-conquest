@@ -92,11 +92,11 @@ io.on("connection", function (socket) {
     //TODO: write me!
   });
 
+  // Player Game Actions
   socket.on("endTurn", function() {
     //TODO: write me!
   });
 
-  // Game actions
   socket.on("startTurn", function(data) {
     //TODO: write me!
   });

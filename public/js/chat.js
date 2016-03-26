@@ -1,4 +1,5 @@
 // https://github.com/socketio/socket.io/tree/master/examples/chat
+// TODO: attempt to convert to Angular (project was originally planned to be completed in Angular... but tutorials for necessary features were better in jQuery)
 $(function(){
     var FADE_TIME = 150;
     var TYPING_TIMER_LENGTH = 400;
@@ -6,7 +7,7 @@ $(function(){
         '#e21400', '#91580f', '#f8a700', '#f78b00',
         '#58dc00', '#287b00', '#a8f07a', '#4ae8c4',
         '#3b88eb', '#3824aa', '#a700ff', '#d300e7'
-    ];
+    ]; // TODO: update colors
 
     var $window = $(window);
     var $playerNameInput = $(".playerNameInput");
