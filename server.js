@@ -2,12 +2,12 @@ var MongoClient = require("mongodb").MongoClient;
 MongoClient.connect("mongodb://<username>:<password>@ds025379.mlab.com:25379/galactic-conquest", function (err, db) {
   if(err) throw err;
 
-  var collection = db.collection("test_insert");
-  collection.insertOne({"test":"message"}, function(err, docs) {
-  });
+  var savedGameCollection = db.collection("savedGames");
+  //savedGameCollection.insertOne({"test":"message"}, function(err, docs) {
+  //});
 
   // Locate all the entries using find
-  collection.find().toArray(function(err, results) {
+  savedGameCollection.find().toArray(function(err, results) {
     console.log(results);
     db.close();
   });
