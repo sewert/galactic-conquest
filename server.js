@@ -81,4 +81,37 @@ io.on("connection", function (socket) {
       message: data
     });
   });
+
+  socket.on("newGame", function() {
+    //TODO: write me!
+  });
+
+  socket.on("loadGame", function(data) {
+    //TODO: write me!
+  });
+
+  socket.on("saveGame", function() {
+    //TODO: write me!
+  });
+
+  socket.on("endTurn", function() {
+    //TODO: write me!
+  });
+
+  socket.on("startTurn", function(data) {
+    //TODO: write me!
+  });
+
+  socket.on("selectPlanet", function(data) {
+    //TODO: write me!
+  });
+
+  socket.on("buildShips", function(data) {
+    //TODO: write me!
+  });
+
+  socket.on("sendShips", function(data) {
+    //TODO: write me!
+  });
+
 });
