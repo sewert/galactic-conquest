@@ -284,7 +284,7 @@ function loadGame() {
 }
 
 function startTutorial() {
-    removeMainMenu();
+    //removeMainMenu();
     // TODO: write me!
 }
 
