@@ -144,7 +144,7 @@ function showResourceText() {
 
 function showPlayerTurnText() {
     playerTextBackground = game.add.sprite(1160, 25, "textBackground");
-    playerTurnText = game.add.text(1210, 45, playerName + "'s Turn", {font: "50px Arial"});
+    playerTurnText = game.add.text(1210, 45, "'s Turn", {font: "50px Arial"});
     //playerTurnText.anchor.set(0.5);
     playerTurnText.inputEnabled = true;
 }
