@@ -81,11 +81,11 @@ io.on("connection", function (socket) {
   });
 
   // Menu
-  socket.on("newGame", function() {
+  socket.on("loadGame", function(data) {
     //TODO: write me!
   });
 
-  socket.on("loadGame", function(data) {
+  socket.on("newGame", function() {
     //TODO: write me!
   });
 
@@ -94,20 +94,20 @@ io.on("connection", function (socket) {
   });
 
   // Player Game Actions
+  socket.on("buildShips", function(data) {
+    //TODO: write me!
+  });
+
   socket.on("endTurn", function() {
     //TODO: write me!
   });
 
-  socket.on("startTurn", function(data) {
-    //TODO: write me!
-  });
-
   socket.on("selectPlanet", function(data) {
-    //TODO: write me!
-  });
-
-  socket.on("buildShips", function(data) {
-    //TODO: write me!
+    //TODO: write me for reals
+    socket.emit("updatePlanet", {
+      playerName: socket.playerName,
+      planetName: data
+    });
   });
 
   socket.on("sendShips", function(data) {

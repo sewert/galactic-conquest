@@ -25,6 +25,7 @@ var color1 = "#00D000";
 var color2 = "D00076";
 var color3 = "FF7400";
 var game = new Phaser.Game(gameWidth, gameHeight, Phaser.AUTO, "gameDiv", { preload: preload, create: create, update: update });
+var socket = io();
 
 function preload() {
     game.load.image("background", "../assets/backgrounds/SpaceBackground-2.jpg");
@@ -53,6 +54,7 @@ function create() {
     scaleWindow();
     showBackground();
     showMainMenu();
+    setEventHandlers();
 }
 
 function scaleWindow() {
@@ -265,7 +267,7 @@ function outItemAnimation(item) {
 
 function selectTile(item) {
     // TODO: write me!
-    alert(item.name + " selected");
+    socket.emit("selectPlanet", item.name);
 }
 
 function removeMainMenu() {
@@ -290,6 +292,30 @@ function startTutorial() {
 
 function update() {
     // TODO: write me!
+}
+
+function setEventHandlers() {
+    socket.on("gameOver", gameOver);
+    socket.on("startTurn" , startTurn);
+    socket.on("updatePlanet", updatePlanet);
+    socket.on("updateTurn", updateTurn);
+}
+
+function gameOver(data) {
+    // TODO: write me
+}
+
+function startTurn() {
+    // TODO: write me
+}
+
+function updatePlanet(data) {
+    // TODO: write me
+    alert(data.playerName + " selected " + data.planetName);
+}
+
+function updateTurn(data) {
+    //TODO: write me!
 }
 
 // chat system
@@ -317,8 +343,6 @@ $(function(){
     var typing = false;
     var lastTypingTime;
     var $currentInput = $playerNameInput.focus();
-
-    var socket = io();
 
     function addParticipantsMessage (data) {
         var message = '';
