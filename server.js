@@ -29,8 +29,6 @@ var MAX_PLAYERS = 6;
 var players;
 var currentPlayersTurn;
 io.on("connection", function (socket) {
-  console.log("Client connected...");
-
   var playerAdded = false;
 
   // handle join requests from client
@@ -72,6 +70,7 @@ io.on("connection", function (socket) {
         playerName: socket.playerName,
         playerCount: playerCount
       });
+      console.log(socket.playerName + " disconnected");
     }
   });
 
