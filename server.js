@@ -119,6 +119,10 @@ io.on("connection", function (socket) {
   socket.on("sendShips", function(data) {
     //TODO: write me!
   });
+
+  socket.on("updateTurn", function() {
+    socket.emit("updateTurn", currentPlayersTurn);
+  });
 });
 
 function findNextPlayersTurn(data) {

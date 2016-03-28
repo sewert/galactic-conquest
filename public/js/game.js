@@ -150,6 +150,7 @@ function showPlayerTurnText() {
     playerTurnText = game.add.text(1180, 45, " ", {font: "50px Arial"});
     //playerTurnText.anchor.set(0.5);
     playerTurnText.inputEnabled = true;
+    socket.emit("updateTurn");
 }
 
 function showPauseMenuButton() {
