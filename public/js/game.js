@@ -138,7 +138,7 @@ function startNewGame() {
 function showResourceText() {
     resourceTextBackground = game.add.sprite(40, 25, "textBackground");
     resources = 0;
-    resourceText = game.add.text(60, 45, "Resources: " + resources, { font: "50px Arial"});
+    resourceText = game.add.text(50, 50, "Resources: " + resources, { font: "40px Arial"});
     //resourceText.anchor.set(0.5);
     resourceText.inputEnabled = true;
     //resourceText.input.enableDrag();
@@ -147,7 +147,7 @@ function showResourceText() {
 
 function showPlayerTurnText() {
     playerTextBackground = game.add.sprite(1160, 25, "textBackground");
-    playerTurnText = game.add.text(1180, 45, " ", {font: "50px Arial"});
+    playerTurnText = game.add.text(1170, 50, " ", {font: "40px Arial"});
     //playerTurnText.anchor.set(0.5);
     playerTurnText.inputEnabled = true;
     socket.emit("updateTurn");
@@ -155,7 +155,7 @@ function showPlayerTurnText() {
 
 function showPauseMenuButton() {
     menuButton = game.add.sprite(40, 775, "textBackground");
-    menuButtonText = game.add.text(60, 795, "Menu", {font: "50px Arial"});
+    menuButtonText = game.add.text(50, 800, "Menu", {font: "40px Arial"});
     menuButton.inputEnabled = true;
     menuButton.events.onInputOver.add(overItemAnimation, this);
     menuButton.events.onInputOut.add(outItemAnimation, this);
@@ -164,7 +164,7 @@ function showPauseMenuButton() {
 
 function showEndTurnButton() {
     endTurnButton = game.add.sprite(1160, 775, "textBackground");
-    endTurnButtonText = game.add.text(1180, 795, "End Turn", {font: "50px Arial"});
+    endTurnButtonText = game.add.text(1170, 800, "End Turn", {font: "40px Arial"});
     endTurnButton.inputEnabled = true;
     endTurnButton.events.onInputOver.add(overItemAnimation, this);
     endTurnButton.events.onInputOut.add(outItemAnimation, this);
