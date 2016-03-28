@@ -21,9 +21,6 @@ var row6StartWidth = tileRowStartWidth - tileWidthSpacing;
 var row6StartHeight = tileRowStartHeight + tileHeightSpacing * 5;
 var row7StartWidth = tileRowStartWidth;
 var row7StartHeight = tileRowStartHeight + tileHeightSpacing * 6;
-var color1 = "#00D000";
-var color2 = "#D00076";
-var color3 = "#FF7400";
 var game = new Phaser.Game(gameWidth, gameHeight, Phaser.AUTO, "gameDiv", { preload: preload, create: create, update: update });
 var socket = io();
 
@@ -339,9 +336,9 @@ $(function(){
     var FADE_TIME = 150;
     var TYPING_TIMER_LENGTH = 400;
     var COLORS = [
-        '#00D000', '#5ab15a', '#8dd08d', '#167116',
-        '#ff7400', '#ffd2ac', '#dda170', '#8e501c',
-        '#d00076', '#d18db3', '#b15a8b', '#72174a'
+        '#00D000', '#5ab15a',
+        '#ff7400', '#dda170',
+        '#d00076', '#b15a8b'
     ];
 
     var $window = $(window);
