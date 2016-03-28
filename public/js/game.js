@@ -22,8 +22,8 @@ var row6StartHeight = tileRowStartHeight + tileHeightSpacing * 5;
 var row7StartWidth = tileRowStartWidth;
 var row7StartHeight = tileRowStartHeight + tileHeightSpacing * 6;
 var color1 = "#00D000";
-var color2 = "D00076";
-var color3 = "FF7400";
+var color2 = "#D00076";
+var color3 = "#FF7400";
 var game = new Phaser.Game(gameWidth, gameHeight, Phaser.AUTO, "gameDiv", { preload: preload, create: create, update: update });
 var socket = io();
 
@@ -335,16 +335,14 @@ function updateTurn(data) {
 }
 
 // chat system
-// https://github.com/socketio/socket.io/tree/master/examples/chat
-// TODO: attempt to convert to Angular (project was originally planned to be completed in Angular... but tutorials for necessary features were better in jQuery)
 $(function(){
     var FADE_TIME = 150;
     var TYPING_TIMER_LENGTH = 400;
     var COLORS = [
-        '#e21400', '#91580f', '#f8a700', '#f78b00',
-        '#58dc00', '#287b00', '#a8f07a', '#4ae8c4',
-        '#3b88eb', '#3824aa', '#a700ff', '#d300e7'
-    ]; // TODO: update colors
+        '#00D000', '#5ab15a', '#8dd08d', '#167116',
+        '#ff7400', '#ffd2ac', '#dda170', '#8e501c',
+        '#d00076', '#d18db3', '#b15a8b', '#72174a'
+    ];
 
     var $window = $(window);
     var $playerNameInput = $(".playerNameInput");
