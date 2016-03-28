@@ -21,6 +21,13 @@ var row6StartWidth = tileRowStartWidth - tileWidthSpacing;
 var row6StartHeight = tileRowStartHeight + tileHeightSpacing * 5;
 var row7StartWidth = tileRowStartWidth;
 var row7StartHeight = tileRowStartHeight + tileHeightSpacing * 6;
+var FADE_TIME = 150;
+var TYPING_TIMER_LENGTH = 400;
+var COLORS = [
+    '#00D000', '#5ab15a',
+    '#ff7400', '#dda170',
+    '#d00076', '#b15a8b'
+];
 var game = new Phaser.Game(gameWidth, gameHeight, Phaser.AUTO, "gameDiv", { preload: preload, create: create, update: update });
 var socket = io();
 
@@ -333,14 +340,6 @@ function updateTurn(data) {
 
 // chat system
 $(function(){
-    var FADE_TIME = 150;
-    var TYPING_TIMER_LENGTH = 400;
-    var COLORS = [
-        '#00D000', '#5ab15a',
-        '#ff7400', '#dda170',
-        '#d00076', '#b15a8b'
-    ];
-
     var $window = $(window);
     var $playerNameInput = $(".playerNameInput");
     var $messages = $(".messages");
