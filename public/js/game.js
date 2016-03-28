@@ -60,8 +60,8 @@ function scaleWindow() {
     game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
     game.scale.minWidth = 240;
     game.scale.minHeight = 170;
-    game.scale.maxWidth = 2880;
-    game.scale.maxHeight = 1920;
+    game.scale.maxWidth = 1600;
+    game.scale.maxHeight = 900;
     game.scale.pageAlignHorizontally = true;
 }
 
