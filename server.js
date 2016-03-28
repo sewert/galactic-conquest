@@ -9,7 +9,8 @@ MongoClient.connect("mongodb://<username>:<password>@ds025379.mlab.com:25379/gal
   //});
 
   savedGamesCollection.find({"_id": new ObjectID("56f5a6e2e4b080b1e46143b3")}).toArray(function(err, results) {
-    console.log(results[0].players[0].name);
+    players = results[0].players;
+    currentPlayersTurn = results[0].currentTurn;
     db.close();
   });
 });
@@ -25,7 +26,8 @@ console.log("Server running at http://localhost:" + port);
 
 var playerCount = 0;
 var MAX_PLAYERS = 6;
-
+var players;
+var currentPlayersTurn;
 io.on("connection", function (socket) {
   console.log("Client connected...");
 
@@ -98,8 +100,13 @@ io.on("connection", function (socket) {
     //TODO: write me!
   });
 
-  socket.on("endTurn", function() {
-    //TODO: write me!
+  socket.on("endTurn", function(data) {
+    if (currentPlayersTurn === data) {
+      checkVictoryConditions();
+      currentPlayersTurn = findNextPlayersTurn(data);
+      socket.broadcast.emit("updateTurn", currentPlayersTurn);
+      socket.emit("updateTurn", currentPlayersTurn);
+    }
   });
 
   socket.on("selectPlanet", function(data) {
@@ -114,3 +121,20 @@ io.on("connection", function (socket) {
     //TODO: write me!
   });
 });
+
+function findNextPlayersTurn(data) {
+  for (var i = 0; i < players.length; i++) {
+    if (players[i].name === data) {
+      if (i + 1 < players.length) {
+        return players[i+1].name;
+      }
+      else {
+        return players[0].name;
+      }
+    }
+  }
+}
+
+function checkVictoryConditions() {
+  // TODO: write me!
+}

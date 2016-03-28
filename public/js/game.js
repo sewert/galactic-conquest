@@ -33,7 +33,6 @@ function preload() {
     game.load.image("saveGameButton", "../assets/buttons/saveGame_raised.png");
     game.load.image("loadGameButton", "../assets/buttons/loadGame_raised.png");
     game.load.image("tutorialButton", "../assets/buttons/tutorial_raised.png");
-    game.load.image("menuButton", "../assets/buttons/menu_raised.png");
     game.load.image("resumeButton", "../assets/buttons/resumeGame_raised.png");
     game.load.image("tile", "../assets/tiles/purpleTile.png");
     game.load.image("openTile1", "../assets/tiles/openTile1.png");
@@ -95,6 +94,7 @@ function showMainMenu() {
 
 function showPauseMenu() {
     menuButton.destroy();
+    menuButtonText.destroy();
     mapTiles.inputEnabled = false;
 
     mainMenuButtons = game.add.group();
@@ -131,13 +131,14 @@ function startNewGame() {
     setTimeout(showPlayerTurnText, 500);
     setTimeout(addTiles, 500);
     setTimeout(showPauseMenuButton, 500);
+    setTimeout(showEndTurnButton, 500);
     // TODO: write me!
 }
 
 function showResourceText() {
     resourceTextBackground = game.add.sprite(40, 25, "textBackground");
     resources = 0;
-    resourceText = game.add.text(90, 45, "Resources: " + resources, { font: "50px Arial"});
+    resourceText = game.add.text(60, 45, "Resources: " + resources, { font: "50px Arial"});
     //resourceText.anchor.set(0.5);
     resourceText.inputEnabled = true;
     //resourceText.input.enableDrag();
@@ -146,17 +147,31 @@ function showResourceText() {
 
 function showPlayerTurnText() {
     playerTextBackground = game.add.sprite(1160, 25, "textBackground");
-    playerTurnText = game.add.text(1210, 45, "'s Turn", {font: "50px Arial"});
+    playerTurnText = game.add.text(1180, 45, " ", {font: "50px Arial"});
     //playerTurnText.anchor.set(0.5);
     playerTurnText.inputEnabled = true;
 }
 
 function showPauseMenuButton() {
-    menuButton = game.add.sprite(1360, 775, "menuButton");
+    menuButton = game.add.sprite(40, 775, "textBackground");
+    menuButtonText = game.add.text(60, 795, "Menu", {font: "50px Arial"});
     menuButton.inputEnabled = true;
     menuButton.events.onInputOver.add(overItemAnimation, this);
     menuButton.events.onInputOut.add(outItemAnimation, this);
     menuButton.events.onInputDown.add(showPauseMenu);
+}
+
+function showEndTurnButton() {
+    endTurnButton = game.add.sprite(1160, 775, "textBackground");
+    endTurnButtonText = game.add.text(1180, 795, "End Turn", {font: "50px Arial"});
+    endTurnButton.inputEnabled = true;
+    endTurnButton.events.onInputOver.add(overItemAnimation, this);
+    endTurnButton.events.onInputOut.add(outItemAnimation, this);
+    endTurnButton.events.onInputDown.add(endTurn);
+}
+
+function endTurn() {
+    socket.emit("endTurn", playerName);
 }
 
 function incrementResources(item) {
@@ -315,7 +330,7 @@ function updatePlanet(data) {
 }
 
 function updateTurn(data) {
-    //TODO: write me!
+    playerTurnText.setText(data + "'s turn");
 }
 
 // chat system
