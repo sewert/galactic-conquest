@@ -492,10 +492,9 @@ $(function(){
     }
 
     function getPlayerNameColor (playerName) {
-        // Compute hash code
-        var hash = 7;
+        var hash = 3;
         for (var i = 0; i < playerName.length; i++) {
-            hash = playerName.charCodeAt(i) + (hash << 5) - hash;
+            hash = playerName.charCodeAt(i) + (hash << 2); // shift char 2 bits to left
         }
         // Calculate color
         var index = Math.abs(hash % COLORS.length);
