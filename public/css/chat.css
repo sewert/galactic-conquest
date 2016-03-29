@@ -22,10 +22,6 @@ body {
     width: 100%;
 }
 
-#gameDiv {
-    display: none;
-}
-
 html, input {
     font-family: Arial
 }
@@ -52,6 +48,7 @@ html, input {
 
 .loginPage {
     background-color: #D00076;
+    display: none;
 }
 
 .loginPage .form {
