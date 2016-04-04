@@ -353,12 +353,13 @@ function resumeGame() {
 
 function startNewGame() {
     removeMainMenu();
-    setTimeout(showResourceText, 500);
-    setTimeout(showPlayerTurnText, 500);
     setTimeout(addTiles, 500);
-    setTimeout(showPauseMenuButton, 500);
+    setTimeout(showActivatePlanetPanel, 500);
     setTimeout(showEndTurnButton, 500);
-    setTimeout(showTextPanel, 500);
+    setTimeout(showPauseMenuButton, 500);
+    setTimeout(showPlanetInfoPanel, 500);
+    setTimeout(showPlayerTurnText, 500);
+    setTimeout(showResourceText, 500);
     setTimeout(gameDiv.hide(), 500);
     setTimeout(loginPage.fadeIn(), 500);
     // TODO: write me!
@@ -374,12 +375,23 @@ function showResourceText() {
     resourceText.events.onInputDown.add(incrementResources, this);
 }
 
-function showTextPanel() {
-    textPanel = game.add.sprite(40, 145, "textPanel");
+function showPlanetInfoPanel() {
+    planetInfoTextPanel = game.add.sprite(40, 145, "textPanel");
     planetOwnerText = game.add.text(50, 150, "Owner:", { font: "30px Arial"});
     fighterCountText = game.add.text(50, 180, "Fighters:", { font: "30px Arial"});
     destroyerCountText = game.add.text(50, 210, "Destroyers:", { font: "30px Arial"});
     dreadnoughtCountText = game.add.text(50, 240, "Dreadnoughts:", { font: "30px Arial"});
+}
+
+function showActivatePlanetPanel() {
+    activatePlanetTextPanel = game.add.sprite(1280, 145, "textPanel");
+    activatePlanetTextPanel.inputEnabled = true;
+    activatePlanetTextPanel.events.onInputOver.add(overItemAnimation, this);
+    activatePlanetTextPanel.events.onInputOut.add(outItemAnimation, this);
+    activatePlanetTextPanel.events.onInputDown.add(activateSystem);
+    activateSystemText = game.add.text(1290, 150, "Activate:", { font: "30px Arial"});
+    buildableSystemText = game.add.text(1290, 180, " ", { font: "30px Arial"});
+    //alert(data.planetName + " " + data.activated + " " + data.buildable);
 }
 
 function showPlayerTurnText() {
