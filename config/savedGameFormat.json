@@ -28,15 +28,15 @@
             "resources": "0"
         }
     ],
-    "currentTurn": "playerTwo",
+    "currentTurn": "Nolij",
     "tiles": [
         {
             "name": "tile1_1",
-            "owner": "0",
+            "owner": "Nolij",
             "type": "homeSystem",
             "production": "3",
-            "destroyers": "2",
-            "cruisers": "1",
+            "fighters": "2",
+            "destroyers": "1",
             "dreadnoughts": "0"
         },
         {
@@ -44,8 +44,8 @@
             "owner": "neutral",
             "type": "regularSystem",
             "production": "1",
+            "fighters": "0",
             "destroyers": "0",
-            "cruisers": "0",
             "dreadnoughts": "0"
         },
         {
@@ -53,17 +53,17 @@
             "owner": "neutral",
             "type": "regularSystem",
             "production": "1",
+            "fighters": "0",
             "destroyers": "0",
-            "cruisers": "0",
             "dreadnoughts": "0"
         },
         {
             "name": "tile1_4",
-            "owner": "1",
+            "owner": "Tay_Tweets",
             "type": "homeSystem",
             "production": "3",
-            "destroyers": "2",
-            "cruisers": "1",
+            "fighters": "2",
+            "destroyers": "1",
             "dreadnoughts": "0"
         },
         {
@@ -71,8 +71,8 @@
             "owner": "neutral",
             "type": "regularSystem",
             "production": "1",
+            "fighters": "0",
             "destroyers": "0",
-            "cruisers": "0",
             "dreadnoughts": "0"
         },
         {
@@ -80,8 +80,8 @@
             "owner": "neutral",
             "type": "supernova",
             "production": "0",
+            "fighters": "0",
             "destroyers": "0",
-            "cruisers": "0",
             "dreadnoughts": "0"
         },
         {
@@ -89,8 +89,8 @@
             "owner": "neutral",
             "type": "regularSystem",
             "production": "2",
+            "fighters": "0",
             "destroyers": "0",
-            "cruisers": "0",
             "dreadnoughts": "0"
         },
         {
@@ -98,8 +98,8 @@
             "owner": "neutral",
             "type": "supernova",
             "production": "0",
+            "fighters": "0",
             "destroyers": "0",
-            "cruisers": "0",
             "dreadnoughts": "0"
         },
         {
@@ -107,8 +107,8 @@
             "owner": "neutral",
             "type": "regularSystem",
             "production": "1",
+            "fighters": "0",
             "destroyers": "0",
-            "cruisers": "0",
             "dreadnoughts": "0"
         },
         {
@@ -116,8 +116,8 @@
             "owner": "neutral",
             "type": "regularSystem",
             "production": "1",
+            "fighters": "0",
             "destroyers": "0",
-            "cruisers": "0",
             "dreadnoughts": "0"
         },
         {
@@ -125,8 +125,8 @@
             "owner": "neutral",
             "type": "regularSystem",
             "production": "2",
+            "fighters": "0",
             "destroyers": "0",
-            "cruisers": "0",
             "dreadnoughts": "0"
         },
         {
@@ -134,8 +134,8 @@
             "owner": "neutral",
             "type": "regularSystem",
             "production": "3",
+            "fighters": "0",
             "destroyers": "0",
-            "cruisers": "0",
             "dreadnoughts": "0"
         },
         {
@@ -143,8 +143,8 @@
             "owner": "neutral",
             "type": "regularSystem",
             "production": "3",
+            "fighters": "0",
             "destroyers": "0",
-            "cruisers": "0",
             "dreadnoughts": "0"
         },
         {
@@ -152,8 +152,8 @@
             "owner": "neutral",
             "type": "regularSystem",
             "production": "2",
+            "fighters": "0",
             "destroyers": "0",
-            "cruisers": "0",
             "dreadnoughts": "0"
         },
         {
@@ -161,17 +161,17 @@
             "owner": "neutral",
             "type": "regularSystem",
             "production": "1",
+            "fighters": "0",
             "destroyers": "0",
-            "cruisers": "0",
             "dreadnoughts": "0"
         },
         {
             "name": "tile4_1",
-            "owner": "2",
+            "owner": "Drumpf",
             "type": "homeSystem",
             "production": "3",
-            "destroyers": "2",
-            "cruisers": "1",
+            "fighters": "2",
+            "destroyers": "1",
             "dreadnoughts": "0"
         },
         {
@@ -179,8 +179,8 @@
             "owner": "neutral",
             "type": "supernova",
             "production": "0",
+            "fighters": "0",
             "destroyers": "0",
-            "cruisers": "0",
             "dreadnoughts": "0"
         },
         {
@@ -188,8 +188,8 @@
             "owner": "neutral",
             "type": "regularSystem",
             "production": "3",
+            "fighters": "0",
             "destroyers": "0",
-            "cruisers": "0",
             "dreadnoughts": "0"
         },
         {
@@ -197,8 +197,8 @@
             "owner": "neutral",
             "type": "centerSystem",
             "production": "5",
+            "fighters": "0",
             "destroyers": "0",
-            "cruisers": "0",
             "dreadnoughts": "0"
         },
         {
@@ -206,8 +206,8 @@
             "owner": "neutral",
             "type": "regularSystem",
             "production": "3",
+            "fighters": "0",
             "destroyers": "0",
-            "cruisers": "0",
             "dreadnoughts": "0"
         },
         {
@@ -215,17 +215,17 @@
             "owner": "neutral",
             "type": "supernova",
             "production": "0",
+            "fighters": "0",
             "destroyers": "0",
-            "cruisers": "0",
             "dreadnoughts": "0"
         },
         {
             "name": "tile4_7",
-            "owner": "3",
+            "owner": "EmoBeater",
             "type": "homeSystem",
             "production": "3",
-            "destroyers": "2",
-            "cruisers": "1",
+            "fighters": "2",
+            "destroyers": "1",
             "dreadnoughts": "0"
         },
         {
@@ -233,8 +233,8 @@
             "owner": "neutral",
             "type": "regularSystem",
             "production": "1",
+            "fighters": "0",
             "destroyers": "0",
-            "cruisers": "0",
             "dreadnoughts": "0"
         },
         {
@@ -242,8 +242,8 @@
             "owner": "neutral",
             "type": "regularSystem",
             "production": "2",
+            "fighters": "0",
             "destroyers": "0",
-            "cruisers": "0",
             "dreadnoughts": "0"
         },
         {
@@ -251,8 +251,8 @@
             "owner": "neutral",
             "type": "regularSystem",
             "production": "3",
+            "fighters": "0",
             "destroyers": "0",
-            "cruisers": "0",
             "dreadnoughts": "0"
         },
         {
@@ -260,8 +260,8 @@
             "owner": "neutral",
             "type": "regularSystem",
             "production": "3",
+            "fighters": "0",
             "destroyers": "0",
-            "cruisers": "0",
             "dreadnoughts": "0"
         },
         {
@@ -269,8 +269,8 @@
             "owner": "neutral",
             "type": "regularSystem",
             "production": "2",
+            "fighters": "0",
             "destroyers": "0",
-            "cruisers": "0",
             "dreadnoughts": "0"
         },
         {
@@ -278,8 +278,8 @@
             "owner": "neutral",
             "type": "regularSystem",
             "production": "1",
+            "fighters": "0",
             "destroyers": "0",
-            "cruisers": "0",
             "dreadnoughts": "0"
         },
         {
@@ -287,8 +287,8 @@
             "owner": "neutral",
             "type": "regularSystem",
             "production": "1",
+            "fighters": "0",
             "destroyers": "0",
-            "cruisers": "0",
             "dreadnoughts": "0"
         },
         {
@@ -296,8 +296,8 @@
             "owner": "neutral",
             "type": "supernova",
             "production": "0",
+            "fighters": "0",
             "destroyers": "0",
-            "cruisers": "0",
             "dreadnoughts": "0"
         },
         {
@@ -305,8 +305,8 @@
             "owner": "neutral",
             "type": "regularSystem",
             "production": "2",
+            "fighters": "0",
             "destroyers": "0",
-            "cruisers": "0",
             "dreadnoughts": "0"
         },
         {
@@ -314,8 +314,8 @@
             "owner": "neutral",
             "type": "supernova",
             "production": "0",
+            "fighters": "0",
             "destroyers": "0",
-            "cruisers": "0",
             "dreadnoughts": "0"
         },
         {
@@ -323,17 +323,17 @@
             "owner": "neutral",
             "type": "regularSystem",
             "production": "1",
+            "fighters": "0",
             "destroyers": "0",
-            "cruisers": "0",
             "dreadnoughts": "0"
         },
         {
             "name": "tile7_1",
-            "owner": "4",
+            "owner": "Morgana",
             "type": "homeSystem",
             "production": "3",
-            "destroyers": "2",
-            "cruisers": "1",
+            "fighters": "2",
+            "destroyers": "1",
             "dreadnoughts": "0"
         },
         {
@@ -341,8 +341,8 @@
             "owner": "neutral",
             "type": "regularSystem",
             "production": "1",
+            "fighters": "0",
             "destroyers": "0",
-            "cruisers": "0",
             "dreadnoughts": "0"
         },
         {
@@ -350,17 +350,17 @@
             "owner": "neutral",
             "type": "regularSystem",
             "production": "1",
+            "fighters": "0",
             "destroyers": "0",
-            "cruisers": "0",
             "dreadnoughts": "0"
         },
         {
             "name": "tile7_4",
-            "owner": "5",
+            "owner": "Umbridge",
             "type": "homeSystem",
             "production": "3",
-            "destroyers": "2",
-            "cruisers": "1",
+            "fighters": "2",
+            "destroyers": "1",
             "dreadnoughts": "0"
         }
     ]
