@@ -520,8 +520,7 @@ function outItemAnimation(item) {
 }
 
 function selectTile(item) {
-    // TODO: write me!
-    socket.emit("selectPlanet", item.name);
+    socket.emit("selectTile", item.name);
 }
 
 function removeMainMenu() {
@@ -549,11 +548,12 @@ function update() {
 }
 
 function setEventHandlers() {
+    socket.on("activateSystem", activateSystem());
     socket.on("gameOver", gameOver);
     socket.on("startTurn" , startTurn);
     socket.on("updatePlanet", updatePlanetInfo);
     socket.on("updateTurn", updateTurn);
-    socket.on("activateSystem", activateSystem());
+    socket.on("selectTile", showSelectTileResults);
 }
 
 function activateSystem(data) {
@@ -570,6 +570,10 @@ function startTurn() {
 
 function updatePlanet(item) {
     socket.emit("updatePlanet", item.name);
+}
+
+function showSelectTileResults(data) {
+    alert(data.planetName + " " + data.activated + " " + data.buildable);
 }
 
 function updatePlanetInfo(data) {

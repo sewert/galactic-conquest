@@ -32,6 +32,8 @@ var MAX_PLAYERS = 6;
 var players;
 var currentPlayersTurn;
 var tiles;
+var activatedPlanets = [];
+
 io.on("connection", function (socket) {
     var playerAdded = false;
 
@@ -116,6 +118,14 @@ io.on("connection", function (socket) {
         }
     });
 
+    socket.on("selectTile", function (data) {
+        socket.emit("selectTile", {
+            activated: hasPlanetBeenActivated(data),
+            buildable: canPlanetBuild(data, socket.playerName),
+            planetName: data
+        });
+    });
+
     socket.on("sendShips", function (data) {
         //TODO: write me!
     });
@@ -135,6 +145,15 @@ io.on("connection", function (socket) {
         socket.emit("updateTurn", currentPlayersTurn);
     });
 });
+
+function canPlanetBuild(data, playerName) {
+    for (var i = 0; i < tiles.length; i++) {
+        if (tiles[i].name === data && tiles[i].owner === playerName && !hasPlanetBeenActivated(data)) {
+            return true;
+        }
+    }
+    return false;
+}
 
 function checkVictoryConditions() {
     // TODO: write me!
@@ -166,4 +185,13 @@ function getPlanetInfo(data) {
             return data;
         }
     }
+}
+
+function hasPlanetBeenActivated(data) {
+    for (var i = 0; i < activatedPlanets.length; i++) {
+        if (activatedPlanets[i] === data) {
+            return true;
+        }
+    }
+    return false;
 }
