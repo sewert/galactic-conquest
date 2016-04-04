@@ -1,7 +1,7 @@
 // Connect to MongoDB
-var MongoClient = require("mongodb").MongoClient;
+var mongoClient = require("mongodb").MongoClient;
 var ObjectID = require("mongodb").ObjectID;
-MongoClient.connect("mongodb://<username>:<password>@ds025379.mlab.com:25379/galactic-conquest", function (err, db) {
+mongoClient.connect("mongodb://<username>:<password>@ds025379.mlab.com:25379/galactic-conquest", function (err, db) {
   if(err) throw err;
 
   var savedGamesCollection = db.collection("savedGames");
