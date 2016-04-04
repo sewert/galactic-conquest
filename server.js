@@ -3,12 +3,8 @@ var mongoClient = require("mongodb").MongoClient;
 var ObjectID = require("mongodb").ObjectID;
 mongoClient.connect("mongodb://<username>:<password>@ds025379.mlab.com:25379/galactic-conquest", function (err, db) {
   if(err) throw err;
-
-  var savedGamesCollection = db.collection("savedGames");
-  //savedGameCollection.insertOne({"test":"message"}, function(err, docs) {
-  //});
-
-  savedGamesCollection.find({"_id": new ObjectID("56f5a6e2e4b080b1e46143b3")}).toArray(function(err, results) {
+  mongoClient.savedGamesCollection = db.collection("savedGames");
+  mongoClient.savedGamesCollection.find({"_id": new ObjectID("56f5a6e2e4b080b1e46143b3")}).toArray(function(err, results) {
     players = results[0].players;
     currentPlayersTurn = results[0].currentTurn;
     db.close();
