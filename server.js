@@ -116,6 +116,17 @@ io.on("connection", function (socket) {
     });
   });
 
+  socket.on("updatePlanet", function(data) {
+    var planetData = getPlanetInfo(data);
+    socket.emit("updatePlanet", {
+      ownerName: planetData.ownerName,
+      planetName: planetData.planetName,
+      fighters: planetData.fighters,
+      destroyers: planetData.destroyers,
+      dreadnoughts: planetData.dreadnoughts
+    });
+  });
+
   socket.on("sendShips", function(data) {
     //TODO: write me!
   });
@@ -136,6 +147,10 @@ function findNextPlayersTurn(data) {
       }
     }
   }
+}
+
+function getPlanetInfo(data) {
+  // TODO: write me!
 }
 
 function checkVictoryConditions() {

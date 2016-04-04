@@ -272,6 +272,7 @@ function preload() {
     game.load.image("homeTile5", "../assets/tiles/homeTile5.png");
     game.load.image("homeTile6", "../assets/tiles/homeTile6.png");
     game.load.image("textBackground", "../assets/text_background.png");
+    game.load.image("textPanel", "../assets/text_panel.png");
 }
 
 function create() {
@@ -357,6 +358,7 @@ function startNewGame() {
     setTimeout(addTiles, 500);
     setTimeout(showPauseMenuButton, 500);
     setTimeout(showEndTurnButton, 500);
+    setTimeout(showTextPanel, 500);
     setTimeout(gameDiv.hide(), 500);
     setTimeout(loginPage.fadeIn(), 500);
     // TODO: write me!
@@ -370,6 +372,14 @@ function showResourceText() {
     resourceText.inputEnabled = true;
     //resourceText.input.enableDrag();
     resourceText.events.onInputDown.add(incrementResources, this);
+}
+
+function showTextPanel() {
+    textPanel = game.add.sprite(40, 145, "textPanel");
+    planetOwnerText = game.add.text(50, 150, "Owner:", { font: "30px Arial"});
+    fighterCountText = game.add.text(50, 180, "Fighters:", { font: "30px Arial"});
+    destroyerCountText = game.add.text(50, 210, "Destroyers:", { font: "30px Arial"});
+    dreadnoughtCountText = game.add.text(50, 240, "Dreadnoughts:", { font: "30px Arial"});
 }
 
 function showPlayerTurnText() {
