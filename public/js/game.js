@@ -505,6 +505,7 @@ function addTiles() {
         tile.anchor.setTo(0.5, 0.5);
         tile.inputEnabled  = true;
         tile.events.onInputOver.add(overItemAnimation, this);
+        tile.events.onInputOver.add(updatePlanet, this);
         tile.events.onInputOut.add(outItemAnimation, this);
         tile.events.onInputDown.add(selectTile, this);
     })
@@ -550,7 +551,7 @@ function update() {
 function setEventHandlers() {
     socket.on("gameOver", gameOver);
     socket.on("startTurn" , startTurn);
-    socket.on("updatePlanet", updatePlanet);
+    socket.on("updatePlanet", updatePlanetInfo);
     socket.on("updateTurn", updateTurn);
 }
 
@@ -562,9 +563,15 @@ function startTurn() {
     // TODO: write me
 }
 
-function updatePlanet(data) {
-    // TODO: write me
-    alert(data.playerName + " selected " + data.planetName);
+function updatePlanet(item) {
+    socket.emit("updatePlanet", item.name);
+}
+
+function updatePlanetInfo(data) {
+    planetOwnerText.setText("Owner: " + data.ownerName);
+    fighterCountText.setText("Fighters: " + data.fighters);
+    destroyerCountText.setText("Destroyers: " + data.destroyers);
+    dreadnoughtCountText.setText("Dreadnoughts: " + data.dreadnoughts);
 }
 
 function updateTurn(data) {

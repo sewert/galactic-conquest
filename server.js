@@ -14,6 +14,7 @@ function findSavedGame(collection, data, callback) {
   collection.find({"_id": new ObjectID(data)}).toArray(function(err, results) {
     players = results[0].players;
     currentPlayersTurn = results[0].currentTurn;
+    tiles = results[0].tiles;
   });
 }
 
@@ -30,6 +31,7 @@ var playerCount = 0;
 var MAX_PLAYERS = 6;
 var players;
 var currentPlayersTurn;
+var tiles;
 io.on("connection", function (socket) {
   var playerAdded = false;
 
@@ -112,10 +114,6 @@ io.on("connection", function (socket) {
 
   socket.on("selectPlanet", function(data) {
     //TODO: write me for reals
-    socket.emit("updatePlanet", {
-      playerName: socket.playerName,
-      planetName: data
-    });
   });
 
   socket.on("updatePlanet", function(data) {
@@ -152,7 +150,18 @@ function findNextPlayersTurn(data) {
 }
 
 function getPlanetInfo(data) {
-  // TODO: write me!
+  for (var i = 0; i < tiles.length; i++) {
+    if (tiles[i].name === data) {
+      data = {
+        ownerName: tiles[i].owner,
+        planetName: tiles[i].name,
+        fighters: tiles[i].fighters,
+        destroyers: tiles[i].destroyers,
+        dreadnoughts: tiles[i].dreadnoughts
+      }
+      return data;
+    }
+  }
 }
 
 function checkVictoryConditions() {
