@@ -24,9 +24,9 @@ var row7StartHeight = tileRowStartHeight + tileHeightSpacing * 6;
 var FADE_TIME = 150;
 var TYPING_TIMER_LENGTH = 400;
 var COLORS = [
-    '#00D000', '#5ab15a',
-    '#ff7400', '#dda170',
-    '#d00076', '#b15a8b'
+    "#00D000", "#5ab15a",
+    "#ff7400", "#dda170",
+    "#d00076", "#b15a8b"
 ];
 var loginPage = null;
 var gameDiv = null;
@@ -51,7 +51,7 @@ $(function(){
     var $currentInput = $playerNameInput.focus();
 
     function addParticipantsMessage (data) {
-        var message = '';
+        var message = "";
         if (data.playerCount === 1) {
             message += "1 player in chat";
         } else {
@@ -68,10 +68,10 @@ $(function(){
             loginPage.fadeOut();
             gameDiv.show();
             $chatPage.show();
-            loginPage.off('click');
+            loginPage.off("click");
 
             // Tell the server your username
-            socket.emit('addPlayer', playerName);
+            socket.emit("addPlayer", playerName);
         }
     }
 
@@ -81,18 +81,18 @@ $(function(){
         message = cleanInput(message);
         // if there is a non-empty message and a socket connection
         if (message && connected) {
-            $inputMessage.val('');
+            $inputMessage.val("");
             addChatMessage({
                 playerName: playerName,
                 message: message
             });
             // tell server to execute 'new message' and send along one parameter
-            socket.emit('newMessage', message);
+            socket.emit("newMessage", message);
         }
     }
 
     function log (message, options) {
-        var $el = $('<li>').addClass('log').text(message);
+        var $el = $("<li>").addClass("log").text(message);
         addMessageElement($el, options);
     }
 
@@ -105,15 +105,15 @@ $(function(){
             $typingMessages.remove();
         }
 
-        var $playerNameDiv = $('<span class="playerName"/>')
+        var $playerNameDiv = $("<span class='playerName'/>")
             .text(data.playerName)
-            .css('color', getPlayerNameColor(data.playerName));
-        var $messageBodyDiv = $('<span class="messageBody">')
+            .css("color", getPlayerNameColor(data.playerName));
+        var $messageBodyDiv = $("<span class='messageBody'>")
             .text(data.message);
 
-        var typingClass = data.typing ? 'typing' : '';
-        var $messageDiv = $('<li class="message"/>')
-            .data('playerName', data.playerName)
+        var typingClass = data.typing ? "typing" : "";
+        var $messageDiv = $("<li class='message'/>")
+            .data("playerName", data.playerName)
             .addClass(typingClass)
             .append($playerNameDiv, $messageBodyDiv);
 
@@ -122,7 +122,7 @@ $(function(){
 
     function addChatTyping (data) {
         data.typing = true;
-        data.message = 'is typing';
+        data.message = "is typing";
         addChatMessage(data);
     }
 
@@ -139,10 +139,10 @@ $(function(){
         if (!options) {
             options = {};
         }
-        if (typeof options.fade === 'undefined') {
+        if (typeof options.fade === "undefined") {
             options.fade = true;
         }
-        if (typeof options.prepend === 'undefined') {
+        if (typeof options.prepend === "undefined") {
             options.prepend = false;
         }
 
@@ -159,14 +159,14 @@ $(function(){
     }
 
     function cleanInput (input) {
-        return $('<div/>').text(input).text();
+        return $("<div/>").text(input).text();
     }
 
     function updateTyping () {
         if (connected) {
             if (!typing) {
                 typing = true;
-                socket.emit('typing');
+                socket.emit("typing");
             }
             lastTypingTime = (new Date()).getTime();
 
@@ -174,7 +174,7 @@ $(function(){
                 var typingTimer = (new Date()).getTime();
                 var timeDiff = typingTimer - lastTypingTime;
                 if (timeDiff >= TYPING_TIMER_LENGTH && typing) {
-                    socket.emit('stopTyping');
+                    socket.emit("stopTyping");
                     typing = false;
                 }
             }, TYPING_TIMER_LENGTH);
@@ -182,8 +182,8 @@ $(function(){
     }
 
     function getTypingMessages (data) {
-        return $('.typing.message').filter(function (i) {
-            return $(this).data('playerName') === data.playerName;
+        return $(".typing.message").filter(function (i) {
+            return $(this).data("playerName") === data.playerName;
         });
     }
 
@@ -202,7 +202,7 @@ $(function(){
         if (event.which === 13) {
             if (playerName) {
                 sendMessage();
-                socket.emit('stopTyping');
+                socket.emit("stopTyping");
                 typing = false;
             } else {
                 setPlayerName();
@@ -210,7 +210,7 @@ $(function(){
         }
     });
 
-    $inputMessage.on('input', function() {
+    $inputMessage.on("input", function() {
         updateTyping();
     });
 
@@ -218,7 +218,7 @@ $(function(){
         $currentInput.focus();
     });
 
-    socket.on('login', function (data) {
+    socket.on("login", function (data) {
         connected = true;
         // Display the welcome message
         var message = "Welcome to the Galactic Conquest Chat System– ";
@@ -228,26 +228,26 @@ $(function(){
         addParticipantsMessage(data);
     });
 
-    socket.on('newMessage', function (data) {
+    socket.on("newMessage", function (data) {
         addChatMessage(data);
     });
 
-    socket.on('playerAdded', function (data) {
-        log(data.playerName + ' joined');
+    socket.on("playerAdded", function (data) {
+        log(data.playerName + " joined");
         addParticipantsMessage(data);
     });
 
-    socket.on('playerLeft', function (data) {
-        log(data.playerName + ' left');
+    socket.on("playerLeft", function (data) {
+        log(data.playerName + " left");
         addParticipantsMessage(data);
         removeChatTyping(data);
     });
 
-    socket.on('typing', function (data) {
+    socket.on("typing", function (data) {
         addChatTyping(data);
     });
 
-    socket.on('stopTyping', function (data) {
+    socket.on("stopTyping", function (data) {
         removeChatTyping(data);
     });
 });

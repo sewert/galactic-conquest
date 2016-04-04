@@ -99,6 +99,10 @@ io.on("connection", function (socket) {
   });
 
   // Player Game Actions
+  socket.on("activateSystem", function(data) {
+    //TODO: write me for reals
+  });
+
   socket.on("buildShips", function(data) {
     //TODO: write me!
   });
@@ -112,8 +116,8 @@ io.on("connection", function (socket) {
     }
   });
 
-  socket.on("activateSystem", function(data) {
-    //TODO: write me for reals
+  socket.on("sendShips", function(data) {
+    //TODO: write me!
   });
 
   socket.on("updatePlanet", function(data) {
@@ -127,14 +131,14 @@ io.on("connection", function (socket) {
     });
   });
 
-  socket.on("sendShips", function(data) {
-    //TODO: write me!
-  });
-
   socket.on("updateTurn", function() {
     socket.emit("updateTurn", currentPlayersTurn);
   });
 });
+
+function checkVictoryConditions() {
+  // TODO: write me!
+}
 
 function findNextPlayersTurn(data) {
   for (var i = 0; i < players.length; i++) {
@@ -162,8 +166,4 @@ function getPlanetInfo(data) {
       return data;
     }
   }
-}
-
-function checkVictoryConditions() {
-  // TODO: write me!
 }
