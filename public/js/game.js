@@ -553,6 +553,11 @@ function setEventHandlers() {
     socket.on("startTurn" , startTurn);
     socket.on("updatePlanet", updatePlanetInfo);
     socket.on("updateTurn", updateTurn);
+    socket.on("activateSystem", activateSystem());
+}
+
+function activateSystem(data) {
+    // TODO: write me!
 }
 
 function gameOver(data) {

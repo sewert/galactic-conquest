@@ -112,7 +112,7 @@ io.on("connection", function (socket) {
     }
   });
 
-  socket.on("selectPlanet", function(data) {
+  socket.on("activateSystem", function(data) {
     //TODO: write me for reals
   });
 
