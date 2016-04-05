@@ -389,8 +389,10 @@ function showActivatePlanetPanel() {
     activatePlanetTextPanel.events.onInputOver.add(overItemAnimation, this);
     activatePlanetTextPanel.events.onInputOut.add(outItemAnimation, this);
     activatePlanetTextPanel.events.onInputDown.add(activateSystem);
-    activateSystemText = game.add.text(1290, 150, "Activate:", { font: "30px Arial"});
-    buildableSystemText = game.add.text(1290, 180, " ", { font: "30px Arial"});
+    activateSystemText = game.add.text(1290, 150, "Click to Activate", { font: "30px Arial"});
+    activateSystemPlanetText = game.add.text(1290, 180, "Tile: ", { font: "30px Arial"});
+    buildableSystemText = game.add.text(1290, 210, "Can Build? ", { font: "30px Arial"});
+    sendableSystemText = game.add.text(1290, 240, "Can Send? ", { font: "30px Arial"});
     //alert(data.planetName + " " + data.activated + " " + data.buildable);
 }
 
@@ -585,7 +587,9 @@ function updatePlanet(item) {
 }
 
 function showSelectTileResults(data) {
-    alert(data.planetName + " " + data.activated + " " + data.buildable);
+    activateSystemPlanetText.setText("Tile: " + data.planetName);
+    buildableSystemText.setText("Can Build? " + data.buildable);
+    sendableSystemText.setText("Can Send? " + data.sendable);
 }
 
 function updatePlanetInfo(data) {

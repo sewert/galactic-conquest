@@ -122,7 +122,8 @@ io.on("connection", function (socket) {
         socket.emit("selectTile", {
             activated: hasPlanetBeenActivated(data),
             buildable: canPlanetBuild(data, socket.playerName),
-            planetName: data
+            planetName: data,
+            sendable: canSendToPlanet(data, socket.playerName)
         });
     });
 
@@ -147,11 +148,56 @@ io.on("connection", function (socket) {
 });
 
 function canPlanetBuild(data, playerName) {
+    if (hasPlanetBeenActivated(data)) {
+        return false;
+    }
+
     for (var i = 0; i < tiles.length; i++) {
-        if (tiles[i].name === data && tiles[i].owner === playerName && !hasPlanetBeenActivated(data)) {
+        if (tiles[i].name === data && tiles[i].owner === playerName) {
             return true;
         }
     }
+
+    return false;
+}
+
+function canSendToPlanet(data, playerName) {
+    if (hasPlanetBeenActivated(data)) {
+        return false;
+    }
+
+    var targetedTile;
+    for (var i = 0; i < tiles.length; i++) {
+        if (tiles[i].name === data) {
+            targetedTile = tiles[i];
+            break;
+        }
+    }
+    if (targetedTile != null) {
+        for (var i = 0; i < tiles.length; i++) {
+            if (!hasPlanetBeenActivated(tiles[i].name) && tiles[i].owner === playerName) {
+                if (targetedTile.y === tiles[i].y) { // send from same row
+                    if (Math.abs(targetedTile.x - tiles[i].x) === 1 ) {
+                        return true;
+                    }
+                }
+                else if (Math.abs(targetedTile.y - tiles[i].y) > 1) { // more than one row apart
+                    break;
+                }
+                else if (targetedTile.y - tiles[i].y === 1) { // send from row above
+                    if (targetedTile.x === tiles[i].x || targetedTile.x - tiles[i].x === 1) {
+                        return true;
+                    }
+                }
+                else if (targetedTile.y - tiles[i].y === -1) { // send from row below
+                    if (targetedTile.x === tiles[i].x || targetedTile.x + 1 === tiles[i].x) {
+                        return true;
+                    }
+                }
+            }
+        }
+    }
+
     return false;
 }
 

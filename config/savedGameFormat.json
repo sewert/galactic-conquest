@@ -32,6 +32,8 @@
     "tiles": [
         {
             "name": "tile1_1",
+            "x": "1",
+            "y": "1",
             "owner": "Nolij",
             "type": "homeSystem",
             "production": "3",
@@ -41,6 +43,8 @@
         },
         {
             "name": "tile1_2",
+            "x": "2",
+            "y": "1",
             "owner": "neutral",
             "type": "regularSystem",
             "production": "1",
@@ -50,6 +54,8 @@
         },
         {
             "name": "tile1_3",
+            "x": "3",
+            "y": "1",
             "owner": "neutral",
             "type": "regularSystem",
             "production": "1",
@@ -59,6 +65,8 @@
         },
         {
             "name": "tile1_4",
+            "x": "4",
+            "y": "1",
             "owner": "Tay_Tweets",
             "type": "homeSystem",
             "production": "3",
@@ -68,6 +76,8 @@
         },
         {
             "name": "tile2_1",
+            "x": "1",
+            "y": "2",
             "owner": "neutral",
             "type": "regularSystem",
             "production": "1",
@@ -77,6 +87,8 @@
         },
         {
             "name": "tile2_2",
+            "x": "2",
+            "y": "2",
             "owner": "neutral",
             "type": "supernova",
             "production": "0",
@@ -86,6 +98,8 @@
         },
         {
             "name": "tile2_3",
+            "x": "3",
+            "y": "2",
             "owner": "neutral",
             "type": "regularSystem",
             "production": "2",
@@ -95,6 +109,8 @@
         },
         {
             "name": "tile2_4",
+            "x": "4",
+            "y": "2",
             "owner": "neutral",
             "type": "supernova",
             "production": "0",
@@ -104,6 +120,8 @@
         },
         {
             "name": "tile2_5",
+            "x": "5",
+            "y": "2",
             "owner": "neutral",
             "type": "regularSystem",
             "production": "1",
@@ -113,6 +131,8 @@
         },
         {
             "name": "tile3_1",
+            "x": "1",
+            "y": "3",
             "owner": "neutral",
             "type": "regularSystem",
             "production": "1",
@@ -122,6 +142,8 @@
         },
         {
             "name": "tile3_2",
+            "x": "2",
+            "y": "3",
             "owner": "neutral",
             "type": "regularSystem",
             "production": "2",
@@ -131,6 +153,8 @@
         },
         {
             "name": "tile3_3",
+            "x": "3",
+            "y": "3",
             "owner": "neutral",
             "type": "regularSystem",
             "production": "3",
@@ -140,6 +164,8 @@
         },
         {
             "name": "tile3_4",
+            "x": "4",
+            "y": "3",
             "owner": "neutral",
             "type": "regularSystem",
             "production": "3",
@@ -149,6 +175,8 @@
         },
         {
             "name": "tile3_5",
+            "x": "5",
+            "y": "3",
             "owner": "neutral",
             "type": "regularSystem",
             "production": "2",
@@ -158,6 +186,8 @@
         },
         {
             "name": "tile3_6",
+            "x": "6",
+            "y": "3",
             "owner": "neutral",
             "type": "regularSystem",
             "production": "1",
@@ -167,6 +197,8 @@
         },
         {
             "name": "tile4_1",
+            "x": "1",
+            "y": "4",
             "owner": "Drumpf",
             "type": "homeSystem",
             "production": "3",
@@ -176,6 +208,8 @@
         },
         {
             "name": "tile4_2",
+            "x": "2",
+            "y": "4",
             "owner": "neutral",
             "type": "supernova",
             "production": "0",
@@ -185,6 +219,8 @@
         },
         {
             "name": "tile4_3",
+            "x": "3",
+            "y": "4",
             "owner": "neutral",
             "type": "regularSystem",
             "production": "3",
@@ -194,6 +230,8 @@
         },
         {
             "name": "tile4_4",
+            "x": "4",
+            "y": "4",
             "owner": "neutral",
             "type": "centerSystem",
             "production": "5",
@@ -203,6 +241,8 @@
         },
         {
             "name": "tile4_5",
+            "x": "5",
+            "y": "4",
             "owner": "neutral",
             "type": "regularSystem",
             "production": "3",
@@ -212,6 +252,8 @@
         },
         {
             "name": "tile4_6",
+            "x": "6",
+            "y": "4",
             "owner": "neutral",
             "type": "supernova",
             "production": "0",
@@ -221,6 +263,8 @@
         },
         {
             "name": "tile4_7",
+            "x": "7",
+            "y": "4",
             "owner": "EmoBeater",
             "type": "homeSystem",
             "production": "3",
@@ -230,6 +274,8 @@
         },
         {
             "name": "tile5_1",
+            "x": "1",
+            "y": "5",
             "owner": "neutral",
             "type": "regularSystem",
             "production": "1",
@@ -239,6 +285,8 @@
         },
         {
             "name": "tile5_2",
+            "x": "2",
+            "y": "5",
             "owner": "neutral",
             "type": "regularSystem",
             "production": "2",
@@ -248,6 +296,8 @@
         },
         {
             "name": "tile5_3",
+            "x": "3",
+            "y": "5",
             "owner": "neutral",
             "type": "regularSystem",
             "production": "3",
@@ -257,6 +307,8 @@
         },
         {
             "name": "tile5_4",
+            "x": "4",
+            "y": "5",
             "owner": "neutral",
             "type": "regularSystem",
             "production": "3",
@@ -266,6 +318,8 @@
         },
         {
             "name": "tile5_5",
+            "x": "5",
+            "y": "5",
             "owner": "neutral",
             "type": "regularSystem",
             "production": "2",
@@ -275,6 +329,8 @@
         },
         {
             "name": "tile5_6",
+            "x": "6",
+            "y": "5",
             "owner": "neutral",
             "type": "regularSystem",
             "production": "1",
@@ -284,6 +340,8 @@
         },
         {
             "name": "tile6_1",
+            "x": "1",
+            "y": "6",
             "owner": "neutral",
             "type": "regularSystem",
             "production": "1",
@@ -293,6 +351,8 @@
         },
         {
             "name": "tile6_2",
+            "x": "2",
+            "y": "6",
             "owner": "neutral",
             "type": "supernova",
             "production": "0",
@@ -302,6 +362,8 @@
         },
         {
             "name": "tile6_3",
+            "x": "3",
+            "y": "6",
             "owner": "neutral",
             "type": "regularSystem",
             "production": "2",
@@ -311,6 +373,8 @@
         },
         {
             "name": "tile6_4",
+            "x": "4",
+            "y": "6",
             "owner": "neutral",
             "type": "supernova",
             "production": "0",
@@ -320,6 +384,8 @@
         },
         {
             "name": "tile6_5",
+            "x": "5",
+            "y": "6",
             "owner": "neutral",
             "type": "regularSystem",
             "production": "1",
@@ -329,6 +395,8 @@
         },
         {
             "name": "tile7_1",
+            "x": "1",
+            "y": "7",
             "owner": "Morgana",
             "type": "homeSystem",
             "production": "3",
@@ -338,6 +406,8 @@
         },
         {
             "name": "tile7_2",
+            "x": "2",
+            "y": "7",
             "owner": "neutral",
             "type": "regularSystem",
             "production": "1",
@@ -347,6 +417,8 @@
         },
         {
             "name": "tile7_3",
+            "x": "3",
+            "y": "7",
             "owner": "neutral",
             "type": "regularSystem",
             "production": "1",
@@ -356,6 +428,8 @@
         },
         {
             "name": "tile7_4",
+            "x": "4",
+            "y": "7",
             "owner": "Umbridge",
             "type": "homeSystem",
             "production": "3",
