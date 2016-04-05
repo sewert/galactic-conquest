@@ -183,15 +183,25 @@ function canSendToPlanet(data, playerName) {
                     }
                 }
                 else if (Math.abs(targetedTile.y - tiles[i].y) > 1) { // more than one row apart
-                    break;
+                    // do nothing
                 }
                 else if (targetedTile.y - tiles[i].y === 1) { // send from row above
-                    if (targetedTile.x === tiles[i].x || targetedTile.x - tiles[i].x === 1) {
+                    if (targetedTile.y > 3) { // bottom half of board
+                        if (targetedTile.x === tiles[i].x || targetedTile.x - tiles[i].x === -1) {
+                            return true;
+                        }
+                    }
+                    else if (targetedTile.x === tiles[i].x || targetedTile.x - tiles[i].x === 1) { // top half of board
                         return true;
                     }
                 }
                 else if (targetedTile.y - tiles[i].y === -1) { // send from row below
-                    if (targetedTile.x === tiles[i].x || targetedTile.x + 1 === tiles[i].x) {
+                    if (targetedTile.y > 3) { // bottom half of board
+                        if (targetedTile.x === tiles[i].x || targetedTile.x - tiles[i].x === 1) {
+                            return true;
+                        }
+                    }
+                    else if (targetedTile.x === tiles[i].x || targetedTile.x - tiles[i].x === -1) { // top half of board
                         return true;
                     }
                 }
