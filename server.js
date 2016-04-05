@@ -1,8 +1,9 @@
 // Connect to MongoDB
+var fs = require("fs");
+var configJson = JSON.parse(fs.readFileSync("config.json"));
 var mongoClient = require("mongodb").MongoClient;
 var ObjectID = require("mongodb").ObjectID;
-var url = "mongodb://<username>:<password>@ds025379.mlab.com:25379/galactic-conquest";
-mongoClient.connect(url, function (err, db) {
+mongoClient.connect(configJson.url, function (err, db) {
     if (err) throw err;
     mongoClient.savedGamesCollection = db.collection("savedGames");
     findSavedGame(mongoClient.savedGamesCollection, "56f5a6e2e4b080b1e46143b3", function () {
