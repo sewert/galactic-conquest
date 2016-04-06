@@ -288,6 +288,104 @@ $(function(){
 });
 
 // GAME LOGIC
+function activateSystem(data) {
+    // TODO: write me!
+}
+
+function addTiles() {
+    mapTiles = game.add.group();
+
+    tile1_1 = mapTiles.create(row1StartWidth, row1StartHeight, "homeTile1");
+    tile1_1.name = "tile1_1";
+    tile1_2 = mapTiles.create(row1StartWidth + tileWidth, row1StartHeight, "openTile1");
+    tile1_2.name = "tile1_2";
+    tile1_3 = mapTiles.create(row1StartWidth + tileWidth * 2, row1StartHeight, "openTile1");
+    tile1_3.name = "tile1_3";
+    tile1_4 = mapTiles.create(row1StartWidth + tileWidth * 3, row1StartHeight, "homeTile2");
+    tile1_4.name = "tile1_4";
+
+    tile2_1 = mapTiles.create(row2StartWidth, row2StartHeight, "openTile1");
+    tile2_1.name = "tile2_1";
+    tile2_2 = mapTiles.create(row2StartWidth + tileWidth, row2StartHeight, "hazardTile1");
+    tile2_2.name = "tile2_2";
+    tile2_3 = mapTiles.create(row2StartWidth + tileWidth * 2, row2StartHeight, "openTile2");
+    tile2_3.name = "tile2_3";
+    tile2_4 = mapTiles.create(row2StartWidth + tileWidth * 3, row2StartHeight, "hazardTile1");
+    tile2_4.name = "tile2_4";
+    tile2_5 = mapTiles.create(row2StartWidth + tileWidth * 4, row2StartHeight, "openTile1");
+    tile2_5.name = "tile2_5";
+
+    tile3_1 = mapTiles.create(row3StartWidth, row3StartHeight, "openTile1");
+    tile3_1.name = "tile3_1";
+    tile3_2 = mapTiles.create(row3StartWidth + tileWidth, row3StartHeight, "openTile2");
+    tile3_2.name = "tile3_2";
+    tile3_3 = mapTiles.create(row3StartWidth + tileWidth * 2, row3StartHeight, "openTile3");
+    tile3_3.name = "tile3_3";
+    tile3_4 = mapTiles.create(row3StartWidth + tileWidth * 3, row3StartHeight, "openTile3");
+    tile3_4.name = "tile3_4";
+    tile3_5 = mapTiles.create(row3StartWidth + tileWidth * 4, row3StartHeight, "openTile2");
+    tile3_5.name = "tile3_5";
+    tile3_6 = mapTiles.create(row3StartWidth + tileWidth * 5, row3StartHeight, "openTile1");
+    tile3_6.name = "tile3_6";
+
+    tile4_1 = mapTiles.create(row4StartWidth, row4StartHeight, "homeTile3");
+    tile4_1.name = "tile4_1";
+    tile4_2 = mapTiles.create(row4StartWidth + tileWidth, row4StartHeight, "hazardTile1");
+    tile4_2.name = "tile4_2";
+    tile4_3 = mapTiles.create(row4StartWidth + tileWidth * 2, row4StartHeight, "openTile3");
+    tile4_3.name = "tile4_3";
+    tile4_4 = mapTiles.create(row4StartWidth + tileWidth * 3, row4StartHeight, "centerTile");
+    tile4_4.name = "tile4_4";
+    tile4_5 = mapTiles.create(row4StartWidth + tileWidth * 4, row4StartHeight, "openTile3");
+    tile4_5.name = "tile4_5";
+    tile4_6 = mapTiles.create(row4StartWidth + tileWidth * 5, row4StartHeight, "hazardTile1");
+    tile4_6.name = "tile4_6";
+    tile4_7 = mapTiles.create(row4StartWidth + tileWidth * 6, row4StartHeight, "homeTile4");
+    tile4_7.name = "tile4_7";
+
+    tile5_1 = mapTiles.create(row5StartWidth, row5StartHeight, "openTile1");
+    tile5_1.name = "tile5_1";
+    tile5_2 = mapTiles.create(row5StartWidth + tileWidth, row5StartHeight, "openTile2");
+    tile5_2.name = "tile5_2";
+    tile5_3 = mapTiles.create(row5StartWidth + tileWidth * 2, row5StartHeight, "openTile3");
+    tile5_3.name = "tile5_3";
+    tile5_4 = mapTiles.create(row5StartWidth + tileWidth * 3, row5StartHeight, "openTile3");
+    tile5_4.name = "tile5_4";
+    tile5_5 = mapTiles.create(row5StartWidth + tileWidth * 4, row5StartHeight, "openTile2");
+    tile5_5.name = "tile5_5";
+    tile5_6 = mapTiles.create(row5StartWidth + tileWidth * 5, row5StartHeight, "openTile1");
+    tile5_6.name = "tile5_6";
+
+    tile6_1 = mapTiles.create(row6StartWidth, row6StartHeight, "openTile1");
+    tile6_1.name = "tile6_1";
+    tile6_2 = mapTiles.create(row6StartWidth + tileWidth, row6StartHeight, "hazardTile1");
+    tile6_2.name = "tile6_2";
+    tile6_3 = mapTiles.create(row6StartWidth + tileWidth * 2, row6StartHeight, "openTile2");
+    tile6_3.name = "tile6_3";
+    tile6_4 = mapTiles.create(row6StartWidth + tileWidth * 3, row6StartHeight, "hazardTile1");
+    tile6_4.name = "tile6_4";
+    tile6_5 = mapTiles.create(row6StartWidth + tileWidth * 4, row6StartHeight, "openTile1");
+    tile6_5.name = "tile6_5";
+
+    tile7_1 = mapTiles.create(row7StartWidth, row7StartHeight, "homeTile5");
+    tile7_1.name = "tile7_1";
+    tile7_2 = mapTiles.create(row7StartWidth + tileWidth, row7StartHeight, "openTile1");
+    tile7_2.name = "tile7_2";
+    tile7_3 = mapTiles.create(row7StartWidth + tileWidth * 2, row7StartHeight, "openTile1");
+    tile7_3.name = "tile7_3";
+    tile7_4 = mapTiles.create(row7StartWidth + tileWidth * 3, row7StartHeight, "homeTile6");
+    tile7_4.name = "tile7_4";
+
+    mapTiles.forEach(function(tile) {
+        tile.anchor.setTo(0.5, 0.5);
+        tile.inputEnabled  = true;
+        tile.events.onInputOver.add(overItemAnimation, this);
+        tile.events.onInputOver.add(updatePlanet, this);
+        tile.events.onInputOut.add(outItemAnimation, this);
+        tile.events.onInputDown.add(selectTile, this);
+    })
+}
+
 function displayGame() {
     removeMainMenu();
     setTimeout(addTiles, 500);
@@ -303,15 +401,58 @@ function endTurn() {
     socket.emit("endTurn", playerName);
 }
 
+function gameOver(data) {
+    // TODO: write me
+}
+
 function incrementResources(item) {
     resources++;
     item.text = "Resources: " + resources;
+}
+
+function loadGame() {
+    // TODO: write me!
+    // get gameId to load
+    socket.emit("loadGame", "570474cbe4b0f62792ad6884");
+}
+
+function loadGameSuccess() {
+    displayGame();
+    setTimeout(gameDiv.hide(), 500);
+    setTimeout(loginPage.fadeIn(), 500);
+}
+
+function newGameSuccess(data) {
+    // TODO: show gameId and players
+    displayGame();
+    setTimeout(gameDiv.hide(), 500);
+    setTimeout(loginPage.fadeIn(), 500);
+}
+
+function outItemAnimation(item) {
+    game.add.tween(item.scale).to({x: 1.0, y: 1.0}, 300, Phaser.Easing.Exponential.Out, true);
+}
+
+function overItemAnimation(item) {
+    game.add.tween(item.scale).to({x: 1.1, y: 1.1}, 300, Phaser.Easing.Exponential.Out, true);
+}
+
+function removeMainMenu() {
+    var tween = this.game.add.tween(this.mainMenuButtons.scale).to({x: 0.0, y: 1.0}, 500, Phaser.Easing.Exponential.In, true);
+    tween.onComplete.add(function () {
+        mainMenuButtons.destroy();
+    });
 }
 
 function resumeGame() {
     mapTiles.inputEnabled = true;
     removeMainMenu();
     showPauseMenuButton();
+}
+
+function saveGame() {
+    // TODO: write me!
+    // return and display game id
 }
 
 function scaleWindow() {
@@ -321,6 +462,21 @@ function scaleWindow() {
     game.scale.maxWidth = 1600;
     game.scale.maxHeight = 900;
     game.scale.pageAlignHorizontally = true;
+}
+
+function selectTile(item) {
+    socket.emit("selectTile", item.name);
+}
+
+function setEventHandlers() {
+    socket.on("activateSystem", activateSystem());
+    socket.on("gameOver", gameOver);
+    socket.on("startTurn" , startTurn);
+    socket.on("updatePlanet", updatePlanetInfo);
+    socket.on("updateTurnSuccess", updateTurnSuccess);
+    socket.on("selectTile", showSelectTileResults);
+    socket.on("newGameSuccess", newGameSuccess);
+    socket.on("loadGameSuccess", loadGameSuccess);
 }
 
 function showActivatePlanetPanel() {
@@ -434,6 +590,12 @@ function showResourceText() {
     resourceText.events.onInputDown.add(incrementResources, this);
 }
 
+function showSelectTileResults(data) {
+    activateSystemPlanetText.setText("Tile: " + data.planetName);
+    buildableSystemText.setText("Can Build? " + data.buildable);
+    sendableSystemText.setText("Can Send? " + data.sendable);
+}
+
 function startNewGame() {
     // TODO: write me!
     // gather the player names
@@ -447,158 +609,9 @@ function startNewGame() {
     });
 }
 
-function addTiles() {
-    mapTiles = game.add.group();
-
-    tile1_1 = mapTiles.create(row1StartWidth, row1StartHeight, "homeTile1");
-    tile1_1.name = "tile1_1";
-    tile1_2 = mapTiles.create(row1StartWidth + tileWidth, row1StartHeight, "openTile1");
-    tile1_2.name = "tile1_2";
-    tile1_3 = mapTiles.create(row1StartWidth + tileWidth * 2, row1StartHeight, "openTile1");
-    tile1_3.name = "tile1_3";
-    tile1_4 = mapTiles.create(row1StartWidth + tileWidth * 3, row1StartHeight, "homeTile2");
-    tile1_4.name = "tile1_4";
-
-    tile2_1 = mapTiles.create(row2StartWidth, row2StartHeight, "openTile1");
-    tile2_1.name = "tile2_1";
-    tile2_2 = mapTiles.create(row2StartWidth + tileWidth, row2StartHeight, "hazardTile1");
-    tile2_2.name = "tile2_2";
-    tile2_3 = mapTiles.create(row2StartWidth + tileWidth * 2, row2StartHeight, "openTile2");
-    tile2_3.name = "tile2_3";
-    tile2_4 = mapTiles.create(row2StartWidth + tileWidth * 3, row2StartHeight, "hazardTile1");
-    tile2_4.name = "tile2_4";
-    tile2_5 = mapTiles.create(row2StartWidth + tileWidth * 4, row2StartHeight, "openTile1");
-    tile2_5.name = "tile2_5";
-
-    tile3_1 = mapTiles.create(row3StartWidth, row3StartHeight, "openTile1");
-    tile3_1.name = "tile3_1";
-    tile3_2 = mapTiles.create(row3StartWidth + tileWidth, row3StartHeight, "openTile2");
-    tile3_2.name = "tile3_2";
-    tile3_3 = mapTiles.create(row3StartWidth + tileWidth * 2, row3StartHeight, "openTile3");
-    tile3_3.name = "tile3_3";
-    tile3_4 = mapTiles.create(row3StartWidth + tileWidth * 3, row3StartHeight, "openTile3");
-    tile3_4.name = "tile3_4";
-    tile3_5 = mapTiles.create(row3StartWidth + tileWidth * 4, row3StartHeight, "openTile2");
-    tile3_5.name = "tile3_5";
-    tile3_6 = mapTiles.create(row3StartWidth + tileWidth * 5, row3StartHeight, "openTile1");
-    tile3_6.name = "tile3_6";
-
-    tile4_1 = mapTiles.create(row4StartWidth, row4StartHeight, "homeTile3");
-    tile4_1.name = "tile4_1";
-    tile4_2 = mapTiles.create(row4StartWidth + tileWidth, row4StartHeight, "hazardTile1");
-    tile4_2.name = "tile4_2";
-    tile4_3 = mapTiles.create(row4StartWidth + tileWidth * 2, row4StartHeight, "openTile3");
-    tile4_3.name = "tile4_3";
-    tile4_4 = mapTiles.create(row4StartWidth + tileWidth * 3, row4StartHeight, "centerTile");
-    tile4_4.name = "tile4_4";
-    tile4_5 = mapTiles.create(row4StartWidth + tileWidth * 4, row4StartHeight, "openTile3");
-    tile4_5.name = "tile4_5";
-    tile4_6 = mapTiles.create(row4StartWidth + tileWidth * 5, row4StartHeight, "hazardTile1");
-    tile4_6.name = "tile4_6";
-    tile4_7 = mapTiles.create(row4StartWidth + tileWidth * 6, row4StartHeight, "homeTile4");
-    tile4_7.name = "tile4_7";
-
-    tile5_1 = mapTiles.create(row5StartWidth, row5StartHeight, "openTile1");
-    tile5_1.name = "tile5_1";
-    tile5_2 = mapTiles.create(row5StartWidth + tileWidth, row5StartHeight, "openTile2");
-    tile5_2.name = "tile5_2";
-    tile5_3 = mapTiles.create(row5StartWidth + tileWidth * 2, row5StartHeight, "openTile3");
-    tile5_3.name = "tile5_3";
-    tile5_4 = mapTiles.create(row5StartWidth + tileWidth * 3, row5StartHeight, "openTile3");
-    tile5_4.name = "tile5_4";
-    tile5_5 = mapTiles.create(row5StartWidth + tileWidth * 4, row5StartHeight, "openTile2");
-    tile5_5.name = "tile5_5";
-    tile5_6 = mapTiles.create(row5StartWidth + tileWidth * 5, row5StartHeight, "openTile1");
-    tile5_6.name = "tile5_6";
-
-    tile6_1 = mapTiles.create(row6StartWidth, row6StartHeight, "openTile1");
-    tile6_1.name = "tile6_1";
-    tile6_2 = mapTiles.create(row6StartWidth + tileWidth, row6StartHeight, "hazardTile1");
-    tile6_2.name = "tile6_2";
-    tile6_3 = mapTiles.create(row6StartWidth + tileWidth * 2, row6StartHeight, "openTile2");
-    tile6_3.name = "tile6_3";
-    tile6_4 = mapTiles.create(row6StartWidth + tileWidth * 3, row6StartHeight, "hazardTile1");
-    tile6_4.name = "tile6_4";
-    tile6_5 = mapTiles.create(row6StartWidth + tileWidth * 4, row6StartHeight, "openTile1");
-    tile6_5.name = "tile6_5";
-
-    tile7_1 = mapTiles.create(row7StartWidth, row7StartHeight, "homeTile5");
-    tile7_1.name = "tile7_1";
-    tile7_2 = mapTiles.create(row7StartWidth + tileWidth, row7StartHeight, "openTile1");
-    tile7_2.name = "tile7_2";
-    tile7_3 = mapTiles.create(row7StartWidth + tileWidth * 2, row7StartHeight, "openTile1");
-    tile7_3.name = "tile7_3";
-    tile7_4 = mapTiles.create(row7StartWidth + tileWidth * 3, row7StartHeight, "homeTile6");
-    tile7_4.name = "tile7_4";
-
-    mapTiles.forEach(function(tile) {
-        tile.anchor.setTo(0.5, 0.5);
-        tile.inputEnabled  = true;
-        tile.events.onInputOver.add(overItemAnimation, this);
-        tile.events.onInputOver.add(updatePlanet, this);
-        tile.events.onInputOut.add(outItemAnimation, this);
-        tile.events.onInputDown.add(selectTile, this);
-    })
-}
-
-function overItemAnimation(item) {
-    game.add.tween(item.scale).to({x: 1.1, y: 1.1}, 300, Phaser.Easing.Exponential.Out, true);
-}
-
-function outItemAnimation(item) {
-    game.add.tween(item.scale).to({x: 1.0, y: 1.0}, 300, Phaser.Easing.Exponential.Out, true);
-}
-
-function selectTile(item) {
-    socket.emit("selectTile", item.name);
-}
-
-function removeMainMenu() {
-    var tween = this.game.add.tween(this.mainMenuButtons.scale).to({x: 0.0, y: 1.0}, 500, Phaser.Easing.Exponential.In, true);
-    tween.onComplete.add(function () {
-        mainMenuButtons.destroy();
-    });
-}
-
-function saveGame() {
-     // TODO: write me!
-    // return and display game id
-}
-
-function loadGame() {
-    // TODO: write me!
-    // get gameId to load
-    socket.emit("loadGame", "570474cbe4b0f62792ad6884");
-}
-
 function startTutorial() {
     //removeMainMenu();
     // TODO: write me!
-}
-
-function setEventHandlers() {
-    socket.on("activateSystem", activateSystem());
-    socket.on("gameOver", gameOver);
-    socket.on("startTurn" , startTurn);
-    socket.on("updatePlanet", updatePlanetInfo);
-    socket.on("updateTurnSuccess", updateTurnSuccess);
-    socket.on("selectTile", showSelectTileResults);
-    socket.on("newGameSuccess", newGameSuccess);
-    socket.on("loadGameSuccess", loadGameSuccess);
-}
-
-function activateSystem(data) {
-    // TODO: write me!
-}
-
-function gameOver(data) {
-    // TODO: write me
-}
-
-function loadGameSuccess() {
-    displayGame();
-    setTimeout(gameDiv.hide(), 500);
-    setTimeout(loginPage.fadeIn(), 500);
 }
 
 function startTurn() {
@@ -607,19 +620,6 @@ function startTurn() {
 
 function updatePlanet(item) {
     socket.emit("updatePlanet", item.name);
-}
-
-function newGameSuccess(data) {
-    // TODO: show gameId and players
-    displayGame();
-    setTimeout(gameDiv.hide(), 500);
-    setTimeout(loginPage.fadeIn(), 500);
-}
-
-function showSelectTileResults(data) {
-    activateSystemPlanetText.setText("Tile: " + data.planetName);
-    buildableSystemText.setText("Can Build? " + data.buildable);
-    sendableSystemText.setText("Can Send? " + data.sendable);
 }
 
 function updatePlanetInfo(data) {
