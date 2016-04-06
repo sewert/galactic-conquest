@@ -3,6 +3,8 @@ var COLORS = [
     "#ff7400", "#dda170",
     "#d00076", "#b15a8b"
 ];
+var chatPage = null;
+var dialogDiv = null;
 var FADE_TIME = 150;
 var gameHeight = 900;
 var gameDiv = null;
@@ -77,8 +79,10 @@ $(function(){
     var $messages = $(".messages");
     var $inputMessage = $(".inputMessage");
 
+    dialogDiv = $("#dialogDiv");
+    dialogDiv.dialog({autoOpen : false, modal : true, title: "New Game Created"});
     loginPage = $(".loginPage");
-    var $chatPage = $(".chatPage");
+    chatPage = $(".chatPage");
     newGamePage = $("#newGamePage");
     gameDiv = $("#gameDiv");
 
@@ -104,7 +108,7 @@ $(function(){
         if (playerName) {
             loginPage.fadeOut();
             gameDiv.show();
-            $chatPage.show();
+            chatPage.show();
             loginPage.off("click");
 
             // Tell the server your username
@@ -437,10 +441,22 @@ function loadGameSuccess() {
 }
 
 function newGameSuccess(data) {
-    // TODO: show gameId and players, then ask to login as speci player
+    // TODO: show gameId and players, then ask to login as specific player
+    playerName = data.player1;
+    socket.emit("addPlayer", playerName);
     newGamePage.fadeOut();
     setTimeout(gameDiv.show(), 500);
-    alert("New game created with the follow players:\n" + data.player1 + "\n" + data.player2 + "\n" + data.player3 + "\n" + data.player4 + "\n" + data.player5 + "\n" + data.player6 + "\nUse this gameId to load the game: " + data.gameId);
+    setTimeout(chatPage.show(), 500);
+    dialogDiv.append("<p>New game created with the follow players:</p><p> " + data.player1 + "</p>");
+    dialogDiv.append("<p>" + data.player2 + "</p>");
+    dialogDiv.append("<p>" + data.player3 + "</p>");
+    dialogDiv.append("<p>" + data.player4 + "</p>");
+    dialogDiv.append("<p>" + data.player5 + "</p>");
+    dialogDiv.append("<p>" + data.player6 + "</p>");
+    dialogDiv.append("<p>Each player needs to use this gameId to load the game:</p><p>" + data.gameId + "</p>");
+    dialogDiv.append("<p>You can find this gameId again by selected Save Game in the menu</p>");
+    setTimeout(dialogDiv.dialog("open"), 500);
+    displayGame();
 }
 
 function outItemAnimation(item) {
