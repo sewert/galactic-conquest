@@ -94,6 +94,10 @@ html, input {
     color: gray;
 }
 
+#newGamePage {
+    display: none;
+}
+
 .playerName {
     float: left;
     font-weight: 700;

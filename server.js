@@ -110,7 +110,15 @@ io.on("connection", function (socket) {
     socket.on("newGame", function (data) {
         //TODO: write me!
         // create new game with the given players
-        socket.emit("newGameSuccess", "gameId");
+        socket.emit("newGameSuccess", {
+            player1: data.player1,
+            player2: data.player2,
+            player3: data.player3,
+            player4: data.player4,
+            player5: data.player5,
+            player6: data.player6,
+            gameId: "gameIdDefault"
+        });
     });
 
     socket.on("saveGame", function () {

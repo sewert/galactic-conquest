@@ -8,6 +8,7 @@ var gameHeight = 900;
 var gameDiv = null;
 var gameWidth = 1600;
 var loginPage = null;
+var newGamePage = null;
 var playerName;
 var tileHeight = 160;
 var tileHeightSpacing = 120;
@@ -78,6 +79,7 @@ $(function(){
 
     loginPage = $(".loginPage");
     var $chatPage = $(".chatPage");
+    newGamePage = $("#newGamePage");
     gameDiv = $("#gameDiv");
 
     var connected = false;
@@ -231,6 +233,17 @@ $(function(){
         var index = Math.abs(hash % COLORS.length);
         return COLORS[index];
     }
+
+    $("#createGame").click(function() {
+        socket.emit("newGame", {
+            player1: $("#player1Name").val(),
+            player2: $("#player2Name").val(),
+            player3: $("#player3Name").val(),
+            player4: $("#player4Name").val(),
+            player5: $("#player5Name").val(),
+            player6: $("#player6Name").val()
+        });
+    });
 
     $window.keydown(function (event) {
         // When the client hits ENTER on their keyboard
@@ -395,6 +408,7 @@ function displayGame() {
     setTimeout(showPlanetInfoPanel, 500);
     setTimeout(showPlayerTurnText, 500);
     setTimeout(showResourceText, 500);
+    setTimeout(gameDiv.show(), 500);
 }
 
 function endTurn() {
@@ -423,10 +437,10 @@ function loadGameSuccess() {
 }
 
 function newGameSuccess(data) {
-    // TODO: show gameId and players
+    // TODO: show gameId and players, then ask to login as speci player
+    newGamePage.fadeOut();
+    alert(data.gameId + " " + data.player1 + " " + data.player2 + " " + data.player3 + " " + data.player4 + " " + data.player5 + " " + data.player6);
     displayGame();
-    setTimeout(gameDiv.hide(), 500);
-    setTimeout(loginPage.fadeIn(), 500);
 }
 
 function outItemAnimation(item) {
@@ -599,14 +613,8 @@ function showSelectTileResults(data) {
 function startNewGame() {
     // TODO: write me!
     // gather the player names
-    socket.emit("newGame", {
-        player1: "newNolij",
-        player2: "player2",
-        player3: "player3",
-        player4: "player4",
-        player5: "player5",
-        player6: "player6"
-    });
+    setTimeout(gameDiv.hide(), 500);
+    setTimeout(newGamePage.fadeIn(), 500);
 }
 
 function startTurn() {
