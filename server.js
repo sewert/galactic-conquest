@@ -13,10 +13,7 @@ mongoClient.connect(configJson.url, function (err, db) {
 
 function findSavedGame(collection, gameId, callback) {
     collection.find({"_id": new ObjectID(gameId)}).toArray(function (err, results) {
-        players = results[0].players;
-        currentPlayersTurn = results[0].currentTurn;
-        tiles = results[0].tiles;
-        currentGameId = gameId;
+        currentGame = results[0];
     });
 }
 
@@ -40,11 +37,8 @@ server.listen(port);
 console.log("Server running at http://localhost:" + port);
 
 var playerCount = 0;
-var players;
-var currentPlayersTurn;
-var tiles;
 var activatedPlanets = [];
-var currentGameId;
+var currentGame;
 
 io.on("connection", function (socket) {
     var playerAdded = false;
@@ -133,12 +127,12 @@ io.on("connection", function (socket) {
     });
 
     socket.on("endTurn", function (data) {
-        if (currentPlayersTurn === data) {
+        if (currentGame.currentTurn === data) {
             checkVictoryConditions();
-            currentPlayersTurn = findNextPlayersTurn(data);
+            currentGame.currentTurn = findNextPlayersTurn(data);
             // TODO: update MongoDB
-            socket.broadcast.emit("updateTurnSuccess", currentPlayersTurn);
-            socket.emit("updateTurnSuccess", currentPlayersTurn);
+            socket.broadcast.emit("updateTurnSuccess", currentGame.currentTurn);
+            socket.emit("updateTurnSuccess", currentGame.currentTurn);
         }
     });
 
@@ -167,7 +161,7 @@ io.on("connection", function (socket) {
     });
 
     socket.on("updateTurn", function () {
-        socket.emit("updateTurnSuccess", currentPlayersTurn);
+        socket.emit("updateTurnSuccess", currentGame.currentTurn);
     });
 });
 
@@ -176,8 +170,8 @@ function canPlanetBuild(data, playerName) {
         return false;
     }
 
-    for (var i = 0; i < tiles.length; i++) {
-        if (tiles[i].name === data && tiles[i].owner === playerName) {
+    for (var i = 0; i < currentGame.tiles.length; i++) {
+        if (currentGame.tiles[i].name === data && currentGame.tiles[i].owner === playerName) {
             return true;
         }
     }
@@ -191,40 +185,40 @@ function canSendToPlanet(data, playerName) {
     }
 
     var targetedTile;
-    for (var i = 0; i < tiles.length; i++) {
-        if (tiles[i].name === data) {
-            targetedTile = tiles[i];
+    for (var i = 0; i < currentGame.tiles.length; i++) {
+        if (currentGame.tiles[i].name === data) {
+            targetedTile = currentGame.tiles[i];
             break;
         }
     }
     if (targetedTile != null) {
-        for (var i = 0; i < tiles.length; i++) {
-            if (!hasPlanetBeenActivated(tiles[i].name) && tiles[i].owner === playerName) {
-                if (targetedTile.y === tiles[i].y) { // send from same row
-                    if (Math.abs(targetedTile.x - tiles[i].x) === 1 ) {
+        for (var i = 0; i < currentGame.tiles.length; i++) {
+            if (!hasPlanetBeenActivated(currentGame.tiles[i].name) && currentGame.tiles[i].owner === playerName) {
+                if (targetedTile.y === currentGame.tiles[i].y) { // send from same row
+                    if (Math.abs(targetedTile.x - currentGame.tiles[i].x) === 1 ) {
                         return true;
                     }
                 }
-                else if (Math.abs(targetedTile.y - tiles[i].y) > 1) { // more than one row apart
+                else if (Math.abs(targetedTile.y - currentGame.tiles[i].y) > 1) { // more than one row apart
                     // do nothing
                 }
-                else if (targetedTile.y - tiles[i].y === 1) { // send from row above
+                else if (targetedTile.y - currentGame.tiles[i].y === 1) { // send from row above
                     if (targetedTile.y > 3) { // bottom half of board
-                        if (targetedTile.x === tiles[i].x || targetedTile.x - tiles[i].x === -1) {
+                        if (targetedTile.x === currentGame.tiles[i].x || targetedTile.x - currentGame.tiles[i].x === -1) {
                             return true;
                         }
                     }
-                    else if (targetedTile.x === tiles[i].x || targetedTile.x - tiles[i].x === 1) { // top half of board
+                    else if (targetedTile.x === currentGame.tiles[i].x || targetedTile.x - currentGame.tiles[i].x === 1) { // top half of board
                         return true;
                     }
                 }
-                else if (targetedTile.y - tiles[i].y === -1) { // send from row below
+                else if (targetedTile.y - currentGame.tiles[i].y === -1) { // send from row below
                     if (targetedTile.y > 3) { // bottom half of board
-                        if (targetedTile.x === tiles[i].x || targetedTile.x - tiles[i].x === 1) {
+                        if (targetedTile.x === currentGame.tiles[i].x || targetedTile.x - currentGame.tiles[i].x === 1) {
                             return true;
                         }
                     }
-                    else if (targetedTile.x === tiles[i].x || targetedTile.x - tiles[i].x === -1) { // top half of board
+                    else if (targetedTile.x === currentGame.tiles[i].x || targetedTile.x - currentGame.tiles[i].x === -1) { // top half of board
                         return true;
                     }
                 }
@@ -240,27 +234,27 @@ function checkVictoryConditions() {
 }
 
 function findNextPlayersTurn(data) {
-    for (var i = 0; i < players.length; i++) {
-        if (players[i].name === data) {
-            if (i + 1 < players.length) {
-                return players[i + 1].name;
+    for (var i = 0; i < currentGame.players.length; i++) {
+        if (currentGame.players[i].name === data) {
+            if (i + 1 < currentGame.players.length) {
+                return currentGame.players[i + 1].name;
             }
             else {
-                return players[0].name;
+                return currentGame.players[0].name;
             }
         }
     }
 }
 
 function getPlanetInfo(data) {
-    for (var i = 0; i < tiles.length; i++) {
-        if (tiles[i].name === data) {
+    for (var i = 0; i < currentGame.tiles.length; i++) {
+        if (currentGame.tiles[i].name === data) {
             data = {
-                ownerName: tiles[i].owner,
-                planetName: tiles[i].name,
-                fighters: tiles[i].fighters,
-                destroyers: tiles[i].destroyers,
-                dreadnoughts: tiles[i].dreadnoughts
+                ownerName: currentGame.tiles[i].owner,
+                planetName: currentGame.tiles[i].name,
+                fighters: currentGame.tiles[i].fighters,
+                destroyers: currentGame.tiles[i].destroyers,
+                dreadnoughts: currentGame.tiles[i].dreadnoughts
             };
             return data;
         }
