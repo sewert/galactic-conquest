@@ -34,6 +34,7 @@ var gameDiv = null;
 var game = new Phaser.Game(gameWidth, gameHeight, Phaser.AUTO, "gameDiv", { preload: preload, create: create, update: update });
 var socket = io();
 
+// PHASER FUNCTIONS
 function preload() {
     game.load.image("background", "../assets/backgrounds/SpaceBackground-2.jpg");
     game.load.image("newGameButton", "../assets/buttons/newGame_raised.png");
@@ -68,7 +69,7 @@ function update() {
     // TODO: write me!
 }
 
-// chat system
+// CHAT SYSTEM
 $(function(){
     var $window = $(window);
     var $playerNameInput = $(".playerNameInput");
@@ -286,6 +287,33 @@ $(function(){
     });
 });
 
+// GAME LOGIC
+function displayGame() {
+    removeMainMenu();
+    setTimeout(addTiles, 500);
+    setTimeout(showActivatePlanetPanel, 500);
+    setTimeout(showEndTurnButton, 500);
+    setTimeout(showPauseMenuButton, 500);
+    setTimeout(showPlanetInfoPanel, 500);
+    setTimeout(showPlayerTurnText, 500);
+    setTimeout(showResourceText, 500);
+}
+
+function endTurn() {
+    socket.emit("endTurn", playerName);
+}
+
+function incrementResources(item) {
+    resources++;
+    item.text = "Resources: " + resources;
+}
+
+function resumeGame() {
+    mapTiles.inputEnabled = true;
+    removeMainMenu();
+    showPauseMenuButton();
+}
+
 function scaleWindow() {
     game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
     game.scale.minWidth = 240;
@@ -295,8 +323,30 @@ function scaleWindow() {
     game.scale.pageAlignHorizontally = true;
 }
 
+function showActivatePlanetPanel() {
+    activatePlanetTextPanel = game.add.sprite(1280, 145, "textPanel");
+    activatePlanetTextPanel.inputEnabled = true;
+    activatePlanetTextPanel.events.onInputOver.add(overItemAnimation, this);
+    activatePlanetTextPanel.events.onInputOut.add(outItemAnimation, this);
+    activatePlanetTextPanel.events.onInputDown.add(activateSystem);
+    activateSystemText = game.add.text(1290, 150, "Click to Activate", { font: "30px Arial"});
+    activateSystemPlanetText = game.add.text(1290, 180, "Tile: ", { font: "30px Arial"});
+    buildableSystemText = game.add.text(1290, 210, "Can Build? ", { font: "30px Arial"});
+    sendableSystemText = game.add.text(1290, 240, "Can Send? ", { font: "30px Arial"});
+    //alert(data.planetName + " " + data.activated + " " + data.buildable);
+}
+
 function showBackground() {
     this.background = game.add.sprite(0, 0, "background");
+}
+
+function showEndTurnButton() {
+    endTurnButton = game.add.sprite(1160, 775, "textBackground");
+    endTurnButtonText = game.add.text(1170, 800, "End Turn", {font: "40px Arial"});
+    endTurnButton.inputEnabled = true;
+    endTurnButton.events.onInputOver.add(overItemAnimation, this);
+    endTurnButton.events.onInputOut.add(outItemAnimation, this);
+    endTurnButton.events.onInputDown.add(endTurn);
 }
 
 function showMainMenu() {
@@ -349,10 +399,39 @@ function showPauseMenu() {
     })
 }
 
-function resumeGame() {
-    mapTiles.inputEnabled = true;
-    removeMainMenu();
-    showPauseMenuButton();
+function showPauseMenuButton() {
+    menuButton = game.add.sprite(40, 775, "textBackground");
+    menuButtonText = game.add.text(50, 800, "Menu", {font: "40px Arial"});
+    menuButton.inputEnabled = true;
+    menuButton.events.onInputOver.add(overItemAnimation, this);
+    menuButton.events.onInputOut.add(outItemAnimation, this);
+    menuButton.events.onInputDown.add(showPauseMenu);
+}
+
+function showPlanetInfoPanel() {
+    planetInfoTextPanel = game.add.sprite(40, 145, "textPanel");
+    planetOwnerText = game.add.text(50, 150, "Owner:", { font: "30px Arial"});
+    fighterCountText = game.add.text(50, 180, "Fighters:", { font: "30px Arial"});
+    destroyerCountText = game.add.text(50, 210, "Destroyers:", { font: "30px Arial"});
+    dreadnoughtCountText = game.add.text(50, 240, "Dreadnoughts:", { font: "30px Arial"});
+}
+
+function showPlayerTurnText() {
+    playerTextBackground = game.add.sprite(1160, 25, "textBackground");
+    playerTurnText = game.add.text(1170, 50, " ", {font: "40px Arial"});
+    //playerTurnText.anchor.set(0.5);
+    playerTurnText.inputEnabled = true;
+    socket.emit("updateTurn");
+}
+
+function showResourceText() {
+    resourceTextBackground = game.add.sprite(40, 25, "textBackground");
+    resources = 0;
+    resourceText = game.add.text(50, 50, "Resources: " + resources, { font: "40px Arial"});
+    //resourceText.anchor.set(0.5);
+    resourceText.inputEnabled = true;
+    //resourceText.input.enableDrag();
+    resourceText.events.onInputDown.add(incrementResources, this);
 }
 
 function startNewGame() {
@@ -366,83 +445,6 @@ function startNewGame() {
         player5: "player5",
         player6: "player6"
     });
-}
-
-function displayGame() {
-    removeMainMenu();
-    setTimeout(addTiles, 500);
-    setTimeout(showActivatePlanetPanel, 500);
-    setTimeout(showEndTurnButton, 500);
-    setTimeout(showPauseMenuButton, 500);
-    setTimeout(showPlanetInfoPanel, 500);
-    setTimeout(showPlayerTurnText, 500);
-    setTimeout(showResourceText, 500);
-}
-
-function showResourceText() {
-    resourceTextBackground = game.add.sprite(40, 25, "textBackground");
-    resources = 0;
-    resourceText = game.add.text(50, 50, "Resources: " + resources, { font: "40px Arial"});
-    //resourceText.anchor.set(0.5);
-    resourceText.inputEnabled = true;
-    //resourceText.input.enableDrag();
-    resourceText.events.onInputDown.add(incrementResources, this);
-}
-
-function showPlanetInfoPanel() {
-    planetInfoTextPanel = game.add.sprite(40, 145, "textPanel");
-    planetOwnerText = game.add.text(50, 150, "Owner:", { font: "30px Arial"});
-    fighterCountText = game.add.text(50, 180, "Fighters:", { font: "30px Arial"});
-    destroyerCountText = game.add.text(50, 210, "Destroyers:", { font: "30px Arial"});
-    dreadnoughtCountText = game.add.text(50, 240, "Dreadnoughts:", { font: "30px Arial"});
-}
-
-function showActivatePlanetPanel() {
-    activatePlanetTextPanel = game.add.sprite(1280, 145, "textPanel");
-    activatePlanetTextPanel.inputEnabled = true;
-    activatePlanetTextPanel.events.onInputOver.add(overItemAnimation, this);
-    activatePlanetTextPanel.events.onInputOut.add(outItemAnimation, this);
-    activatePlanetTextPanel.events.onInputDown.add(activateSystem);
-    activateSystemText = game.add.text(1290, 150, "Click to Activate", { font: "30px Arial"});
-    activateSystemPlanetText = game.add.text(1290, 180, "Tile: ", { font: "30px Arial"});
-    buildableSystemText = game.add.text(1290, 210, "Can Build? ", { font: "30px Arial"});
-    sendableSystemText = game.add.text(1290, 240, "Can Send? ", { font: "30px Arial"});
-    //alert(data.planetName + " " + data.activated + " " + data.buildable);
-}
-
-function showPlayerTurnText() {
-    playerTextBackground = game.add.sprite(1160, 25, "textBackground");
-    playerTurnText = game.add.text(1170, 50, " ", {font: "40px Arial"});
-    //playerTurnText.anchor.set(0.5);
-    playerTurnText.inputEnabled = true;
-    socket.emit("updateTurn");
-}
-
-function showPauseMenuButton() {
-    menuButton = game.add.sprite(40, 775, "textBackground");
-    menuButtonText = game.add.text(50, 800, "Menu", {font: "40px Arial"});
-    menuButton.inputEnabled = true;
-    menuButton.events.onInputOver.add(overItemAnimation, this);
-    menuButton.events.onInputOut.add(outItemAnimation, this);
-    menuButton.events.onInputDown.add(showPauseMenu);
-}
-
-function showEndTurnButton() {
-    endTurnButton = game.add.sprite(1160, 775, "textBackground");
-    endTurnButtonText = game.add.text(1170, 800, "End Turn", {font: "40px Arial"});
-    endTurnButton.inputEnabled = true;
-    endTurnButton.events.onInputOver.add(overItemAnimation, this);
-    endTurnButton.events.onInputOut.add(outItemAnimation, this);
-    endTurnButton.events.onInputDown.add(endTurn);
-}
-
-function endTurn() {
-    socket.emit("endTurn", playerName);
-}
-
-function incrementResources(item) {
-    resources++;
-    item.text = "Resources: " + resources;
 }
 
 function addTiles() {
