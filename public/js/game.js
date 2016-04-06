@@ -1,12 +1,14 @@
-var playerName;
+var COLORS = [
+    "#00D000", "#5ab15a",
+    "#ff7400", "#dda170",
+    "#d00076", "#b15a8b"
+];
+var FADE_TIME = 150;
 var gameHeight = 900;
+var gameDiv = null;
 var gameWidth = 1600;
-var tileHeight = 160;
-var tileWidth = 160;
-var tileWidthSpacing = 80;
-var tileHeightSpacing = 120;
-var tileRowStartWidth = 560;
-var tileRowStartHeight = 90;
+var loginPage = null;
+var playerName;
 var row1StartWidth = tileRowStartWidth;
 var row1StartHeight = tileRowStartHeight;
 var row2StartWidth = tileRowStartWidth - tileWidthSpacing;
@@ -21,15 +23,13 @@ var row6StartWidth = tileRowStartWidth - tileWidthSpacing;
 var row6StartHeight = tileRowStartHeight + tileHeightSpacing * 5;
 var row7StartWidth = tileRowStartWidth;
 var row7StartHeight = tileRowStartHeight + tileHeightSpacing * 6;
-var FADE_TIME = 150;
+var tileHeight = 160;
+var tileHeightSpacing = 120;
+var tileRowStartHeight = 90;
+var tileRowStartWidth = 560;
+var tileWidth = 160;
+var tileWidthSpacing = 80;
 var TYPING_TIMER_LENGTH = 400;
-var COLORS = [
-    "#00D000", "#5ab15a",
-    "#ff7400", "#dda170",
-    "#d00076", "#b15a8b"
-];
-var loginPage = null;
-var gameDiv = null;
 
 var game = new Phaser.Game(gameWidth, gameHeight, Phaser.AUTO, "gameDiv", { preload: preload, create: create, update: update });
 var socket = io();
