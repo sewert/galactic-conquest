@@ -105,8 +105,10 @@ io.on("connection", function (socket) {
         loadSavedGame(data);
     });
 
-    socket.on("newGame", function () {
+    socket.on("newGame", function (data) {
         //TODO: write me!
+        // create new game with the given players
+        socket.emit("newGameSuccess", "gameId");
     });
 
     socket.on("saveGame", function () {
@@ -126,8 +128,8 @@ io.on("connection", function (socket) {
         if (currentPlayersTurn === data) {
             checkVictoryConditions();
             currentPlayersTurn = findNextPlayersTurn(data);
-            socket.broadcast.emit("updateTurn", currentPlayersTurn);
-            socket.emit("updateTurn", currentPlayersTurn);
+            socket.broadcast.emit("updateTurnSuccess", currentPlayersTurn);
+            socket.emit("updateTurnSuccess", currentPlayersTurn);
         }
     });
 

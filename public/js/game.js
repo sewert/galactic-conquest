@@ -352,11 +352,16 @@ function resumeGame() {
 }
 
 function startNewGame() {
-    displayGame();
-    setTimeout(gameDiv.hide(), 500);
-    setTimeout(loginPage.fadeIn(), 500);
     // TODO: write me!
-    // socket.emit("newGame");
+    // gather the player names
+    socket.emit("newGame", {
+        player1: "newNolij",
+        player2: "player2",
+        player3: "player3",
+        player4: "player4",
+        player5: "player5",
+        player6: "player6"
+    });
 }
 
 function displayGame() {
@@ -580,6 +585,7 @@ function setEventHandlers() {
     socket.on("updatePlanet", updatePlanetInfo);
     socket.on("updateTurnSuccess", updateTurnSuccess);
     socket.on("selectTile", showSelectTileResults);
+    socket.on("newGameSuccess", newGameSuccess);
 }
 
 function activateSystem(data) {
@@ -596,6 +602,13 @@ function startTurn() {
 
 function updatePlanet(item) {
     socket.emit("updatePlanet", item.name);
+}
+
+function newGameSuccess(data) {
+    // TODO: show gameId and players
+    displayGame();
+    setTimeout(gameDiv.hide(), 500);
+    setTimeout(loginPage.fadeIn(), 500);
 }
 
 function showSelectTileResults(data) {
