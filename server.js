@@ -4,18 +4,6 @@ var configJson = JSON.parse(fs.readFileSync("config.json"));
 var mongoClient = require("mongodb").MongoClient;
 var ObjectID = require("mongodb").ObjectID;
 
-function loadSavedGame(gameId, callback) {
-    mongoClient.connect(configJson.url, function (err, db) {
-        if (err) console.log(err);
-        mongoClient.savedGamesCollection = db.collection("savedGames");
-        mongoClient.savedGamesCollection.find({"_id": new ObjectID(gameId)}).toArray(function (err, results) {
-            if (err) console.log(err);
-            db.close();
-            callback(results[0]);
-        });
-    });
-}
-
 // Start up server
 var port = 1337;
 var express = require("./config/express");
@@ -82,7 +70,6 @@ io.on("connection", function (socket) {
 
     // Menu
     socket.on("loadGame", function (data) {
-        // TODO: finish
         loadSavedGame(data, function (currentGame) {
             socket.currentGame = currentGame;
             socket.emit("loadGameSuccess");
@@ -316,4 +303,16 @@ function hasPlanetBeenActivated(data) {
         }
     }
     return false;
+}
+
+function loadSavedGame(gameId, callback) {
+    mongoClient.connect(configJson.url, function (err, db) {
+        if (err) console.log(err);
+        mongoClient.savedGamesCollection = db.collection("savedGames");
+        mongoClient.savedGamesCollection.find({"_id": new ObjectID(gameId)}).toArray(function (err, results) {
+            if (err) console.log(err);
+            db.close();
+            callback(results[0]);
+        });
+    });
 }

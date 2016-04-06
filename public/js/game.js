@@ -447,7 +447,7 @@ function newGameSuccess(data) {
     newGamePage.fadeOut();
     setTimeout(gameDiv.show(), 500);
     setTimeout(chatPage.show(), 500);
-    dialogDiv.append("<p>New game created with the follow players:</p><p> " + data.player1 + "</p>");
+    dialogDiv.append("<p>New game created with the following players:</p><p> " + data.player1 + "</p>");
     dialogDiv.append("<p>" + data.player2 + "</p>");
     dialogDiv.append("<p>" + data.player3 + "</p>");
     dialogDiv.append("<p>" + data.player4 + "</p>");
