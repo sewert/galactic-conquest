@@ -70,7 +70,7 @@ function update() {
     // TODO: write me!
 }
 
-// CHAT SYSTEM
+// CHAT SYSTEM .... has evolved from chat only to jQuery
 $(function(){
     var $window = $(window);
     var $playerNameInput = $(".playerNameInput");
