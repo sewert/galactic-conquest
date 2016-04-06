@@ -609,13 +609,13 @@ function startNewGame() {
     });
 }
 
+function startTurn() {
+    // TODO: write me
+}
+
 function startTutorial() {
     //removeMainMenu();
     // TODO: write me!
-}
-
-function startTurn() {
-    // TODO: write me
 }
 
 function updatePlanet(item) {
