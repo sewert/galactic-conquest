@@ -3,18 +3,15 @@ var fs = require("fs");
 var configJson = JSON.parse(fs.readFileSync("config.json"));
 var mongoClient = require("mongodb").MongoClient;
 var ObjectID = require("mongodb").ObjectID;
-function findSavedGame(collection, gameId, callback) {
-    collection.find({"_id": new ObjectID(gameId)}).toArray(function (err, results) {
-        currentGame = results[0];
-    });
-}
 
-function loadSavedGame(gameId) {
+function loadSavedGame(gameId, callback) {
     mongoClient.connect(configJson.url, function (err, db) {
-        if (err) throw err;
+        if (err) console.log(err);
         mongoClient.savedGamesCollection = db.collection("savedGames");
-        findSavedGame(mongoClient.savedGamesCollection, gameId, function () {
+        mongoClient.savedGamesCollection.find({"_id": new ObjectID(gameId)}).toArray(function (err, results) {
+            if (err) console.log(err);
             db.close();
+            callback(results[0]);
         });
     });
 }
@@ -30,11 +27,10 @@ console.log("Server running at http://localhost:" + port);
 
 var playerCount = 0;
 var activatedPlanets = [];
-var currentGame;
 
 io.on("connection", function (socket) {
     var playerAdded = false;
-
+    socket.currentGame = null;
     // handle join requests from client
     socket.on("addPlayer", function (playerName) {
         if (playerAdded) return;
@@ -87,17 +83,19 @@ io.on("connection", function (socket) {
     // Menu
     socket.on("loadGame", function (data) {
         // TODO: finish
-        loadSavedGame(data);
-        socket.emit("loadGameSuccess");
+        loadSavedGame(data, function (currentGame) {
+            socket.currentGame = currentGame;
+            socket.emit("loadGameSuccess");
+        });
     });
 
     socket.on("newGame", function (data) {
-        currentGame = JSON.parse(fs.readFileSync("config/newGameTemplate.json"));
-        addPlayersToGame(data);
+        socket.currentGame = JSON.parse(fs.readFileSync("config/newGameTemplate.json"));
+        addPlayersToGame(data, socket.currentGame);
         mongoClient.connect(configJson.url, function (err, db) {
             if (err) throw err;
             mongoClient.savedGamesCollection = db.collection("savedGames");
-            mongoClient.savedGamesCollection.insertOne(currentGame, function(err, docsInserted) {
+            mongoClient.savedGamesCollection.insertOne(socket.currentGame, function(err, docsInserted) {
                 if (err) throw err;
                 db.close();
                 socket.emit("newGameSuccess", {
@@ -127,21 +125,21 @@ io.on("connection", function (socket) {
     });
 
     socket.on("endTurn", function (data) {
-        if (currentGame.currentTurn === data) {
+        if (socket.currentGame.currentTurn === data) {
             checkVictoryConditions();
-            currentGame.currentTurn = findNextPlayersTurn(data);
+            socket.currentGame.currentTurn = findNextPlayersTurn(data, socket.currentGame);
             // TODO: update MongoDB
-            socket.broadcast.emit("updateTurnSuccess", currentGame.currentTurn);
-            socket.emit("updateTurnSuccess", currentGame.currentTurn);
+            socket.broadcast.emit("updateTurnSuccess", socket.currentGame.currentTurn);
+            socket.emit("updateTurnSuccess", socket.currentGame.currentTurn);
         }
     });
 
     socket.on("selectTile", function (data) {
         socket.emit("selectTile", {
             activated: hasPlanetBeenActivated(data),
-            buildable: canPlanetBuild(data, socket.playerName),
+            buildable: canPlanetBuild(data, socket.playerName, socket.currentGame),
             planetName: data,
-            sendable: canSendToPlanet(data, socket.playerName)
+            sendable: canSendToPlanet(data, socket.playerName, socket.currentGame)
         });
     });
 
@@ -150,7 +148,7 @@ io.on("connection", function (socket) {
     });
 
     socket.on("updatePlanet", function (data) {
-        var planetData = getPlanetInfo(data);
+        var planetData = getPlanetInfo(data, socket.currentGame);
         socket.emit("updatePlanet", {
             ownerName: planetData.ownerName,
             planetName: planetData.planetName,
@@ -161,11 +159,13 @@ io.on("connection", function (socket) {
     });
 
     socket.on("updateTurn", function () {
-        socket.emit("updateTurnSuccess", currentGame.currentTurn);
+        if (socket.currentGame != null) {
+            socket.emit("updateTurnSuccess", socket.currentGame.currentTurn);
+        }
     });
 });
 
-function addPlayersToGame(data) {
+function addPlayersToGame(data, currentGame) {
     currentGame.currentTurn = data.player1;
 
     for (var i = 0; i < currentGame.players.length; i++) {
@@ -209,9 +209,11 @@ function addPlayersToGame(data) {
             currentGame.tiles[i].owner = data.player6;
         }
     }
+
+    return currentGame;
 }
 
-function canPlanetBuild(data, playerName) {
+function canPlanetBuild(data, playerName, currentGame) {
     if (hasPlanetBeenActivated(data)) {
         return false;
     }
@@ -225,7 +227,7 @@ function canPlanetBuild(data, playerName) {
     return false;
 }
 
-function canSendToPlanet(data, playerName) {
+function canSendToPlanet(data, playerName, currentGame) {
     if (hasPlanetBeenActivated(data)) {
         return false;
     }
@@ -279,7 +281,7 @@ function checkVictoryConditions() {
     // TODO: write me!
 }
 
-function findNextPlayersTurn(data) {
+function findNextPlayersTurn(data, currentGame) {
     for (var i = 0; i < currentGame.players.length; i++) {
         if (currentGame.players[i].name === data) {
             if (i + 1 < currentGame.players.length) {
@@ -292,7 +294,7 @@ function findNextPlayersTurn(data) {
     }
 }
 
-function getPlanetInfo(data) {
+function getPlanetInfo(data, currentGame) {
     for (var i = 0; i < currentGame.tiles.length; i++) {
         if (currentGame.tiles[i].name === data) {
             data = {
