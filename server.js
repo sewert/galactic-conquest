@@ -40,7 +40,6 @@ server.listen(port);
 console.log("Server running at http://localhost:" + port);
 
 var playerCount = 0;
-var MAX_PLAYERS = 6;
 var players;
 var currentPlayersTurn;
 var tiles;
@@ -53,7 +52,6 @@ io.on("connection", function (socket) {
     // handle join requests from client
     socket.on("addPlayer", function (playerName) {
         if (playerAdded) return;
-        if (playerCount >= MAX_PLAYERS) return; // TODO: emit error message
 
         socket.playerName = playerName;
         ++playerCount;
