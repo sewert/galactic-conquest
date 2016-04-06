@@ -561,12 +561,8 @@ function saveGame() {
 
 function loadGame() {
     // TODO: write me!
+    // get gameId to load
     socket.emit("loadGame", "570474cbe4b0f62792ad6884");
-    displayGame();
-    setTimeout(gameDiv.hide(), 500);
-    setTimeout(loginPage.fadeIn(), 500);
-    // ask for game id
-    // populate board with game and players
 }
 
 function startTutorial() {
@@ -586,6 +582,7 @@ function setEventHandlers() {
     socket.on("updateTurnSuccess", updateTurnSuccess);
     socket.on("selectTile", showSelectTileResults);
     socket.on("newGameSuccess", newGameSuccess);
+    socket.on("loadGameSuccess", loadGameSuccess);
 }
 
 function activateSystem(data) {
@@ -594,6 +591,12 @@ function activateSystem(data) {
 
 function gameOver(data) {
     // TODO: write me
+}
+
+function loadGameSuccess() {
+    displayGame();
+    setTimeout(gameDiv.hide(), 500);
+    setTimeout(loginPage.fadeIn(), 500);
 }
 
 function startTurn() {

@@ -102,7 +102,9 @@ io.on("connection", function (socket) {
 
     // Menu
     socket.on("loadGame", function (data) {
+        // TODO: finish
         loadSavedGame(data);
+        socket.emit("loadGameSuccess");
     });
 
     socket.on("newGame", function (data) {
