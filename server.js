@@ -130,6 +130,7 @@ io.on("connection", function (socket) {
         if (currentPlayersTurn === data) {
             checkVictoryConditions();
             currentPlayersTurn = findNextPlayersTurn(data);
+            // TODO: update MongoDB
             socket.broadcast.emit("updateTurnSuccess", currentPlayersTurn);
             socket.emit("updateTurnSuccess", currentPlayersTurn);
         }

@@ -34,6 +34,40 @@ var gameDiv = null;
 var game = new Phaser.Game(gameWidth, gameHeight, Phaser.AUTO, "gameDiv", { preload: preload, create: create, update: update });
 var socket = io();
 
+function preload() {
+    game.load.image("background", "../assets/backgrounds/SpaceBackground-2.jpg");
+    game.load.image("newGameButton", "../assets/buttons/newGame_raised.png");
+    game.load.image("saveGameButton", "../assets/buttons/saveGame_raised.png");
+    game.load.image("loadGameButton", "../assets/buttons/loadGame_raised.png");
+    game.load.image("tutorialButton", "../assets/buttons/tutorial_raised.png");
+    game.load.image("resumeButton", "../assets/buttons/resumeGame_raised.png");
+    game.load.image("tile", "../assets/tiles/purpleTile.png");
+    game.load.image("openTile1", "../assets/tiles/openTile1.png");
+    game.load.image("openTile2", "../assets/tiles/openTile2.png");
+    game.load.image("openTile3", "../assets/tiles/openTile3.png");
+    game.load.image("centerTile", "../assets/tiles/centerTile.png");
+    game.load.image("hazardTile1", "../assets/tiles/hazardTile1.png");
+    game.load.image("homeTile1", "../assets/tiles/homeTile1.png");
+    game.load.image("homeTile2", "../assets/tiles/homeTile2.png");
+    game.load.image("homeTile3", "../assets/tiles/homeTile3.png");
+    game.load.image("homeTile4", "../assets/tiles/homeTile4.png");
+    game.load.image("homeTile5", "../assets/tiles/homeTile5.png");
+    game.load.image("homeTile6", "../assets/tiles/homeTile6.png");
+    game.load.image("textBackground", "../assets/text_background.png");
+    game.load.image("textPanel", "../assets/text_panel.png");
+}
+
+function create() {
+    scaleWindow();
+    showBackground();
+    showMainMenu();
+    setEventHandlers();
+}
+
+function update() {
+    // TODO: write me!
+}
+
 // chat system
 $(function(){
     var $window = $(window);
@@ -251,36 +285,6 @@ $(function(){
         removeChatTyping(data);
     });
 });
-
-function preload() {
-    game.load.image("background", "../assets/backgrounds/SpaceBackground-2.jpg");
-    game.load.image("newGameButton", "../assets/buttons/newGame_raised.png");
-    game.load.image("saveGameButton", "../assets/buttons/saveGame_raised.png");
-    game.load.image("loadGameButton", "../assets/buttons/loadGame_raised.png");
-    game.load.image("tutorialButton", "../assets/buttons/tutorial_raised.png");
-    game.load.image("resumeButton", "../assets/buttons/resumeGame_raised.png");
-    game.load.image("tile", "../assets/tiles/purpleTile.png");
-    game.load.image("openTile1", "../assets/tiles/openTile1.png");
-    game.load.image("openTile2", "../assets/tiles/openTile2.png");
-    game.load.image("openTile3", "../assets/tiles/openTile3.png");
-    game.load.image("centerTile", "../assets/tiles/centerTile.png");
-    game.load.image("hazardTile1", "../assets/tiles/hazardTile1.png");
-    game.load.image("homeTile1", "../assets/tiles/homeTile1.png");
-    game.load.image("homeTile2", "../assets/tiles/homeTile2.png");
-    game.load.image("homeTile3", "../assets/tiles/homeTile3.png");
-    game.load.image("homeTile4", "../assets/tiles/homeTile4.png");
-    game.load.image("homeTile5", "../assets/tiles/homeTile5.png");
-    game.load.image("homeTile6", "../assets/tiles/homeTile6.png");
-    game.load.image("textBackground", "../assets/text_background.png");
-    game.load.image("textPanel", "../assets/text_panel.png");
-}
-
-function create() {
-    scaleWindow();
-    showBackground();
-    showMainMenu();
-    setEventHandlers();
-}
 
 function scaleWindow() {
     game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
@@ -567,10 +571,6 @@ function loadGame() {
 
 function startTutorial() {
     //removeMainMenu();
-    // TODO: write me!
-}
-
-function update() {
     // TODO: write me!
 }
 
