@@ -3,14 +3,6 @@ var fs = require("fs");
 var configJson = JSON.parse(fs.readFileSync("config.json"));
 var mongoClient = require("mongodb").MongoClient;
 var ObjectID = require("mongodb").ObjectID;
-mongoClient.connect(configJson.url, function (err, db) {
-    if (err) throw err;
-    mongoClient.savedGamesCollection = db.collection("savedGames");
-    findSavedGame(mongoClient.savedGamesCollection, "56f5a6e2e4b080b1e46143b3", function () {
-        db.close();
-    });
-});
-
 function findSavedGame(collection, gameId, callback) {
     collection.find({"_id": new ObjectID(gameId)}).toArray(function (err, results) {
         currentGame = results[0];
@@ -100,16 +92,24 @@ io.on("connection", function (socket) {
     });
 
     socket.on("newGame", function (data) {
-        //TODO: write me!
-        // create new game with the given players
-        socket.emit("newGameSuccess", {
-            player1: data.player1,
-            player2: data.player2,
-            player3: data.player3,
-            player4: data.player4,
-            player5: data.player5,
-            player6: data.player6,
-            gameId: "gameIdDefault"
+        currentGame = JSON.parse(fs.readFileSync("config/newGameTemplate.json"));
+        addPlayersToGame(data);
+        mongoClient.connect(configJson.url, function (err, db) {
+            if (err) throw err;
+            mongoClient.savedGamesCollection = db.collection("savedGames");
+            mongoClient.savedGamesCollection.insertOne(currentGame, function(err, docsInserted) {
+                if (err) throw err;
+                db.close();
+                socket.emit("newGameSuccess", {
+                    player1: data.player1,
+                    player2: data.player2,
+                    player3: data.player3,
+                    player4: data.player4,
+                    player5: data.player5,
+                    player6: data.player6,
+                    gameId: docsInserted.insertedId.valueOf()
+                });
+            });
         });
     });
 
@@ -164,6 +164,52 @@ io.on("connection", function (socket) {
         socket.emit("updateTurnSuccess", currentGame.currentTurn);
     });
 });
+
+function addPlayersToGame(data) {
+    currentGame.currentTurn = data.player1;
+
+    for (var i = 0; i < currentGame.players.length; i++) {
+        if (currentGame.players[i].name === "player1") {
+            currentGame.players[i].name = data.player1;
+        }
+        else if (currentGame.players[i].name === "player2") {
+            currentGame.players[i].name = data.player2;
+        }
+        else if (currentGame.players[i].name === "player3") {
+            currentGame.players[i].name = data.player3;
+        }
+        else if (currentGame.players[i].name === "player4") {
+            currentGame.players[i].name = data.player4;
+        }
+        else if (currentGame.players[i].name === "player5") {
+            currentGame.players[i].name = data.player5;
+        }
+        else if (currentGame.players[i].name === "player6") {
+            currentGame.players[i].name = data.player6;
+        }
+    }
+
+    for (var i = 0; i < currentGame.tiles.length; i++) {
+        if (currentGame.tiles[i].owner === "player1") {
+            currentGame.tiles[i].owner = data.player1;
+        }
+        else if (currentGame.tiles[i].owner === "player2") {
+            currentGame.tiles[i].owner = data.player2;
+        }
+        else if (currentGame.tiles[i].owner === "player3") {
+            currentGame.tiles[i].owner = data.player3;
+        }
+        else if (currentGame.tiles[i].owner === "player4") {
+            currentGame.tiles[i].owner = data.player4;
+        }
+        else if (currentGame.tiles[i].owner === "player5") {
+            currentGame.tiles[i].owner = data.player5;
+        }
+        else if (currentGame.tiles[i].owner === "player6") {
+            currentGame.tiles[i].owner = data.player6;
+        }
+    }
+}
 
 function canPlanetBuild(data, playerName) {
     if (hasPlanetBeenActivated(data)) {

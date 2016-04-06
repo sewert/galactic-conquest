@@ -439,8 +439,8 @@ function loadGameSuccess() {
 function newGameSuccess(data) {
     // TODO: show gameId and players, then ask to login as speci player
     newGamePage.fadeOut();
-    alert(data.gameId + " " + data.player1 + " " + data.player2 + " " + data.player3 + " " + data.player4 + " " + data.player5 + " " + data.player6);
-    displayGame();
+    setTimeout(gameDiv.show(), 500);
+    alert("New game created with the follow players:\n" + data.player1 + "\n" + data.player2 + "\n" + data.player3 + "\n" + data.player4 + "\n" + data.player5 + "\n" + data.player6 + "\nUse this gameId to load the game: " + data.gameId);
 }
 
 function outItemAnimation(item) {
