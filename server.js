@@ -11,11 +11,22 @@ mongoClient.connect(configJson.url, function (err, db) {
     });
 });
 
-function findSavedGame(collection, data, callback) {
-    collection.find({"_id": new ObjectID(data)}).toArray(function (err, results) {
+function findSavedGame(collection, gameId, callback) {
+    collection.find({"_id": new ObjectID(gameId)}).toArray(function (err, results) {
         players = results[0].players;
         currentPlayersTurn = results[0].currentTurn;
         tiles = results[0].tiles;
+        currentGameId = gameId;
+    });
+}
+
+function loadSavedGame(gameId) {
+    mongoClient.connect(configJson.url, function (err, db) {
+        if (err) throw err;
+        mongoClient.savedGamesCollection = db.collection("savedGames");
+        findSavedGame(mongoClient.savedGamesCollection, gameId, function () {
+            db.close();
+        });
     });
 }
 
@@ -34,6 +45,7 @@ var players;
 var currentPlayersTurn;
 var tiles;
 var activatedPlanets = [];
+var currentGameId;
 
 io.on("connection", function (socket) {
     var playerAdded = false;
@@ -90,7 +102,7 @@ io.on("connection", function (socket) {
 
     // Menu
     socket.on("loadGame", function (data) {
-        //TODO: write me!
+        loadSavedGame(data);
     });
 
     socket.on("newGame", function () {
@@ -103,7 +115,7 @@ io.on("connection", function (socket) {
 
     // Player Game Actions
     socket.on("activateSystem", function (data) {
-        //TODO: write me for reals
+        //TODO: write me!
     });
 
     socket.on("buildShips", function (data) {

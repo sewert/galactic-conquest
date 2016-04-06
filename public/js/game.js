@@ -363,6 +363,7 @@ function startNewGame() {
     setTimeout(gameDiv.hide(), 500);
     setTimeout(loginPage.fadeIn(), 500);
     // TODO: write me!
+    // socket.emit("newGame");
 }
 
 function showResourceText() {
@@ -546,10 +547,24 @@ function removeMainMenu() {
 
 function saveGame() {
      // TODO: write me!
+    // return and display game id
 }
 
 function loadGame() {
     // TODO: write me!
+    socket.emit("loadGame", "570474cbe4b0f62792ad6884");
+    removeMainMenu();
+    setTimeout(addTiles, 500);
+    setTimeout(showActivatePlanetPanel, 500);
+    setTimeout(showEndTurnButton, 500);
+    setTimeout(showPauseMenuButton, 500);
+    setTimeout(showPlanetInfoPanel, 500);
+    setTimeout(showPlayerTurnText, 500);
+    setTimeout(showResourceText, 500);
+    setTimeout(gameDiv.hide(), 500);
+    setTimeout(loginPage.fadeIn(), 500);
+    // ask for game id
+    // populate board with game and players
 }
 
 function startTutorial() {
