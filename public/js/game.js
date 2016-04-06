@@ -581,7 +581,7 @@ function setEventHandlers() {
     socket.on("gameOver", gameOver);
     socket.on("startTurn" , startTurn);
     socket.on("updatePlanet", updatePlanetInfo);
-    socket.on("updateTurn", updateTurn);
+    socket.on("updateTurnSuccess", updateTurnSuccess);
     socket.on("selectTile", showSelectTileResults);
 }
 
@@ -614,6 +614,10 @@ function updatePlanetInfo(data) {
     dreadnoughtCountText.setText("Dreadnoughts: " + data.dreadnoughts);
 }
 
-function updateTurn(data) {
+function updateTurn() {
+    socket.emit("updateTurn");
+}
+
+function updateTurnSuccess(data) {
     playerTurnText.setText(data + "'s turn");
 }

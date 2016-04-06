@@ -156,7 +156,7 @@ io.on("connection", function (socket) {
     });
 
     socket.on("updateTurn", function () {
-        socket.emit("updateTurn", currentPlayersTurn);
+        socket.emit("updateTurnSuccess", currentPlayersTurn);
     });
 });
 
