@@ -426,8 +426,11 @@ function endTurn() {
     socket.emit("endTurn", playerName);
 }
 
-function gameOver(data) {
-    // TODO: write me
+function gameOver(playerName) {
+    dialogDiv.empty();
+    dialogDiv.dialog("option", "title", "Game Finished");
+    dialogDiv.append("<p>" + playerName + " won the game!</p>");
+    setTimeout(dialogDiv.dialog("open"), 500);
 }
 
 function incrementResources(item) {

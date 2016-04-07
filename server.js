@@ -120,10 +120,9 @@ io.on("connection", function (socket) {
         //TODO: write me!
     });
 
-    socket.on("endTurn", function (data) {
-        if (socket.currentGame.currentTurn === data) {
-            checkVictoryConditions();
-            socket.currentGame.currentTurn = findNextPlayersTurn(data, socket.currentGame);
+    socket.on("endTurn", function (playerName) {
+        if (socket.currentGame.currentTurn === playerName) {
+            socket.currentGame.currentTurn = findNextPlayersTurn(playerName, socket.currentGame);
             socket.activatedPlanets = [];
             saveCurrentTurn(socket.currentGame._id.valueOf(), socket.currentGame.currentTurn, function () {
                 socket.broadcast.emit("updateTurnSuccess", socket.currentGame.currentTurn);
@@ -137,6 +136,13 @@ io.on("connection", function (socket) {
                 socket.emit("updateTurnSuccess", socket.currentGame.currentTurn);
             });
         }
+
+        checkVictoryConditions(socket.currentGame._id.valueOf(), playerName, function (victoryResult) {
+            if (victoryResult === true) {
+                socket.emit("gameOver", playerName);
+                socket.broadcast.emit("gameOver", playerName);
+            }
+        });
     });
 
     socket.on("selectTile", function (data) {
@@ -282,8 +288,16 @@ function canSendToPlanet(data, playerName, currentGame, activatedPlanets) {
     return false;
 }
 
-function checkVictoryConditions() {
-    // TODO: write me!
+function checkVictoryConditions(gameId, playerName, callback) {
+    var victoryResult = true;
+    loadSavedGame(gameId, function (currentGame) {
+        for (var i = 0; i < currentGame.tiles.length; i++) {
+            if (currentGame.tiles[i].owner !== playerName && currentGame.tiles[i].owner !== "neutral") {
+                victoryResult = false;
+            }
+        }
+        callback(victoryResult);
+    });
 }
 
 function findNextPlayersTurn(data, currentGame) {
