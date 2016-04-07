@@ -125,9 +125,10 @@ io.on("connection", function (socket) {
             checkVictoryConditions();
             socket.currentGame.currentTurn = findNextPlayersTurn(data, socket.currentGame);
             socket.activatedPlanets = [];
-            // TODO: update MongoDB
-            socket.broadcast.emit("updateTurnSuccess", socket.currentGame.currentTurn);
-            socket.emit("updateTurnSuccess", socket.currentGame.currentTurn);
+            saveCurrentTurn(socket.currentGame._id.valueOf(), socket.currentGame.currentTurn, function () {
+                socket.broadcast.emit("updateTurnSuccess", socket.currentGame.currentTurn);
+                socket.emit("updateTurnSuccess", socket.currentGame.currentTurn);
+            });
         }
     });
 
@@ -324,5 +325,14 @@ function loadSavedGame(gameId, callback) {
             db.close();
             callback(results[0]);
         });
+    });
+}
+
+function saveCurrentTurn(gameId, currentTurn, callback) {
+    mongoClient.connect(configJson.url, function (err, db) {
+        if (err) console.log(err);
+        mongoClient.savedGamesCollection = db.collection("savedGames");
+        mongoClient.savedGamesCollection.updateOne({"_id": new ObjectID(gameId)}, {$set:{"currentTurn":currentTurn}});
+        callback();
     });
 }
