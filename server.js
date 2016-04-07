@@ -14,10 +14,9 @@ server.listen(port);
 console.log("Server running at http://localhost:" + port);
 
 var playerCount = 0;
-var activatedPlanets = [];
-
 io.on("connection", function (socket) {
     var playerAdded = false;
+    socket.activatedPlanets = [];
     socket.currentGame = null;
     // handle join requests from client
     socket.on("addPlayer", function (playerName) {
@@ -125,6 +124,7 @@ io.on("connection", function (socket) {
         if (socket.currentGame.currentTurn === data) {
             checkVictoryConditions();
             socket.currentGame.currentTurn = findNextPlayersTurn(data, socket.currentGame);
+            socket.activatedPlanets = [];
             // TODO: update MongoDB
             socket.broadcast.emit("updateTurnSuccess", socket.currentGame.currentTurn);
             socket.emit("updateTurnSuccess", socket.currentGame.currentTurn);
@@ -133,10 +133,10 @@ io.on("connection", function (socket) {
 
     socket.on("selectTile", function (data) {
         socket.emit("selectTile", {
-            activated: hasPlanetBeenActivated(data),
-            buildable: canPlanetBuild(data, socket.playerName, socket.currentGame),
+            activated: hasPlanetBeenActivated(data, socket.activatedPlanets),
+            buildable: canPlanetBuild(data, socket.playerName, socket.currentGame, socket.activatedPlanets),
             planetName: data,
-            sendable: canSendToPlanet(data, socket.playerName, socket.currentGame)
+            sendable: canSendToPlanet(data, socket.playerName, socket.currentGame, socket.activatedPlanets)
         });
     });
 
@@ -210,8 +210,8 @@ function addPlayersToGame(data, currentGame) {
     return currentGame;
 }
 
-function canPlanetBuild(data, playerName, currentGame) {
-    if (hasPlanetBeenActivated(data)) {
+function canPlanetBuild(data, playerName, currentGame, activatedPlanets) {
+    if (hasPlanetBeenActivated(data, activatedPlanets)) {
         return false;
     }
 
@@ -224,8 +224,8 @@ function canPlanetBuild(data, playerName, currentGame) {
     return false;
 }
 
-function canSendToPlanet(data, playerName, currentGame) {
-    if (hasPlanetBeenActivated(data)) {
+function canSendToPlanet(data, playerName, currentGame, activatedPlanets) {
+    if (hasPlanetBeenActivated(data, activatedPlanets)) {
         return false;
     }
 
@@ -238,7 +238,7 @@ function canSendToPlanet(data, playerName, currentGame) {
     }
     if (targetedTile != null) {
         for (var i = 0; i < currentGame.tiles.length; i++) {
-            if (!hasPlanetBeenActivated(currentGame.tiles[i].name) && currentGame.tiles[i].owner === playerName) {
+            if (!hasPlanetBeenActivated(currentGame.tiles[i].name, activatedPlanets) && currentGame.tiles[i].owner === playerName) {
                 if (targetedTile.y === currentGame.tiles[i].y) { // send from same row
                     if (Math.abs(targetedTile.x - currentGame.tiles[i].x) === 1 ) {
                         return true;
@@ -306,7 +306,7 @@ function getPlanetInfo(data, currentGame) {
     }
 }
 
-function hasPlanetBeenActivated(data) {
+function hasPlanetBeenActivated(data, activatedPlanets) {
     for (var i = 0; i < activatedPlanets.length; i++) {
         if (activatedPlanets[i] === data) {
             return true;
