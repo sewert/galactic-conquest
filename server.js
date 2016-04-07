@@ -87,10 +87,10 @@ io.on("connection", function (socket) {
         socket.currentGame = JSON.parse(fs.readFileSync("config/newGameTemplate.json"));
         addPlayersToGame(data, socket.currentGame);
         mongoClient.connect(configJson.url, function (err, db) {
-            if (err) throw err;
+            if (err) console.log(err);
             mongoClient.savedGamesCollection = db.collection("savedGames");
             mongoClient.savedGamesCollection.insertOne(socket.currentGame, function(err, docsInserted) {
-                if (err) throw err;
+                if (err) console.log(err);
                 db.close();
                 socket.emit("newGameSuccess", {
                     player1: data.player1,
