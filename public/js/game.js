@@ -472,8 +472,8 @@ function newGameSuccess(data) {
     dialogDiv.append("<p>" + data.player4 + "</p>");
     dialogDiv.append("<p>" + data.player5 + "</p>");
     dialogDiv.append("<p>" + data.player6 + "</p>");
-    dialogDiv.append("<p>Each player needs to use this gameId to load the game:</p><p>" + data.gameId + "</p>");
-    dialogDiv.append("<p>You can find this gameId again by selected Save Game in the menu</p>");
+    dialogDiv.append("<p>Each player needs to use this GameId to load the game:</p><p>" + data.gameId + "</p>");
+    dialogDiv.append("<p>You can find this GameId again by selecting Save Game from the menu</p>");
     setTimeout(dialogDiv.dialog("open"), 500);
     displayGame();
 }
