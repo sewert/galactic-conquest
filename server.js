@@ -333,6 +333,7 @@ function saveCurrentTurn(gameId, currentTurn, callback) {
         if (err) console.log(err);
         mongoClient.savedGamesCollection = db.collection("savedGames");
         mongoClient.savedGamesCollection.updateOne({"_id": new ObjectID(gameId)}, {$set:{"currentTurn":currentTurn}});
+        db.close();
         callback();
     });
 }
