@@ -81,7 +81,7 @@ $(function(){
     var $inputMessage = $(".inputMessage");
 
     dialogDiv = $("#dialogDiv");
-    dialogDiv.dialog({autoOpen : false, modal : true, title: "New Game Created"});
+    dialogDiv.dialog({autoOpen : false, modal : true});
     loginPage = $(".loginPage");
     chatPage = $(".chatPage");
     loadGamePage = $("#loadGamePage");
@@ -461,6 +461,8 @@ function newGameSuccess(data) {
     newGamePage.fadeOut();
     setTimeout(gameDiv.show(), 500);
     setTimeout(chatPage.show(), 500);
+    dialogDiv.empty();
+    dialogDiv.dialog("option", "title", "New Game Created");
     dialogDiv.append("<p>New game created with the following players:</p><p> " + data.player1 + "</p>");
     dialogDiv.append("<p>" + data.player2 + "</p>");
     dialogDiv.append("<p>" + data.player3 + "</p>");
@@ -495,8 +497,14 @@ function resumeGame() {
 }
 
 function saveGame() {
-    // TODO: write me!
-    // return and display game id
+    socket.emit("saveGame");
+}
+
+function saveGameSuccess(data) {
+    dialogDiv.empty();
+    dialogDiv.dialog("option", "title", "Game Saved");
+    dialogDiv.append("<p>Game saved with GameId: " + data + "</p>");
+    setTimeout(dialogDiv.dialog("open"), 500);
 }
 
 function scaleWindow() {
@@ -521,6 +529,7 @@ function setEventHandlers() {
     socket.on("selectTile", showSelectTileResults);
     socket.on("newGameSuccess", newGameSuccess);
     socket.on("loadGameSuccess", loadGameSuccess);
+    socket.on("saveGameSuccess", saveGameSuccess);
 }
 
 function showActivatePlanetPanel() {

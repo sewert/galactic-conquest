@@ -107,7 +107,7 @@ io.on("connection", function (socket) {
     });
 
     socket.on("saveGame", function () {
-        //TODO: write me!
+        socket.emit("saveGameSuccess", socket.currentGame._id.valueOf());
     });
 
     // Player Game Actions
