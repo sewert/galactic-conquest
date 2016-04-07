@@ -130,6 +130,13 @@ io.on("connection", function (socket) {
                 socket.emit("updateTurnSuccess", socket.currentGame.currentTurn);
             });
         }
+        else {
+            readCurrentTurn(socket.currentGame._id.valueOf(), function (currentTurn) {
+                socket.currentGame.currentTurn = currentTurn;
+                socket.broadcast.emit("updateTurnSuccess", socket.currentGame.currentTurn);
+                socket.emit("updateTurnSuccess", socket.currentGame.currentTurn);
+            });
+        }
     });
 
     socket.on("selectTile", function (data) {
@@ -324,6 +331,18 @@ function loadSavedGame(gameId, callback) {
             if (err) console.log(err);
             db.close();
             callback(results[0]);
+        });
+    });
+}
+
+function readCurrentTurn(gameId, callback) {
+    mongoClient.connect(configJson.url, function (err, db) {
+        if (err) console.log(err);
+        mongoClient.savedGamesCollection = db.collection("savedGames");
+        mongoClient.savedGamesCollection.find({"_id": new ObjectID(gameId)}).toArray(function (err, results) {
+            if (err) console.log(err);
+            db.close();
+            callback(results[0].currentTurn);
         });
     });
 }
