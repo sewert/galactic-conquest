@@ -81,7 +81,7 @@ $(function(){
     var $inputMessage = $(".inputMessage");
 
     dialogDiv = $("#dialogDiv");
-    dialogDiv.dialog({autoOpen : false, modal : true});
+    dialogDiv.dialog({autoOpen : false, modal : false});
     loginPage = $(".loginPage");
     chatPage = $(".chatPage");
     loadGamePage = $("#loadGamePage");
@@ -441,17 +441,20 @@ function loadGame() {
 }
 
 function loadGameSuccess(data) {
-    loadGamePage.append("<p>GameId " + data.gameId + " successfully loaded</p>");
-    loadGamePage.append("<p>Player names are:</p>");
-    loadGamePage.append("<p>" + data.player1 + "</p>");
-    loadGamePage.append("<p>" + data.player2 + "</p>");
-    loadGamePage.append("<p>" + data.player3 + "</p>");
-    loadGamePage.append("<p>" + data.player4 + "</p>");
-    loadGamePage.append("<p>" + data.player5 + "</p>");
-    loadGamePage.append("<p>" + data.player6 + "</p>");
+    dialogDiv.empty();
+    dialogDiv.dialog("option", "title", "Game Loaded");
+    dialogDiv.append("<p>GameId " + data.gameId + " successfully loaded</p>");
+    dialogDiv.append("<p>Player names are:</p>");
+    dialogDiv.append("<p>" + data.player1 + "</p>");
+    dialogDiv.append("<p>" + data.player2 + "</p>");
+    dialogDiv.append("<p>" + data.player3 + "</p>");
+    dialogDiv.append("<p>" + data.player4 + "</p>");
+    dialogDiv.append("<p>" + data.player5 + "</p>");
+    dialogDiv.append("<p>" + data.player6 + "</p>");
+    setTimeout(dialogDiv.dialog("open"), 500);
     displayGame();
     setTimeout(gameDiv.hide(), 500);
-    setTimeout(loginPage.fadeIn(), 500); // TODO: clean me up... currently ugly
+    setTimeout(loginPage.fadeIn(), 500);
 }
 
 function newGameSuccess(data) {
