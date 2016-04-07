@@ -458,7 +458,6 @@ function loadGameSuccess(data) {
 }
 
 function newGameSuccess(data) {
-    // TODO: show gameId and players, then ask to login as specific player
     playerName = data.player1;
     socket.emit("addPlayer", playerName);
     newGamePage.fadeOut();
@@ -526,7 +525,6 @@ function selectTile(item) {
 function setEventHandlers() {
     socket.on("activateSystem", activateSystem());
     socket.on("gameOver", gameOver);
-    socket.on("startTurn" , startTurn);
     socket.on("updatePlanet", updatePlanetInfo);
     socket.on("updateTurnSuccess", updateTurnSuccess);
     socket.on("selectTile", showSelectTileResults);
@@ -655,10 +653,6 @@ function showSelectTileResults(data) {
 function startNewGame() {
     setTimeout(gameDiv.hide(), 500);
     setTimeout(newGamePage.fadeIn(), 500);
-}
-
-function startTurn() {
-    // TODO: write me
 }
 
 function startTutorial() {
