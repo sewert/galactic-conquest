@@ -72,7 +72,15 @@ io.on("connection", function (socket) {
     socket.on("loadGame", function (data) {
         loadSavedGame(data, function (currentGame) {
             socket.currentGame = currentGame;
-            socket.emit("loadGameSuccess");
+            socket.emit("loadGameSuccess", {
+                gameId: socket.currentGame._id.valueOf(),
+                player1: socket.currentGame.players[0].name,
+                player2: socket.currentGame.players[1].name,
+                player3: socket.currentGame.players[2].name,
+                player4: socket.currentGame.players[3].name,
+                player5: socket.currentGame.players[4].name,
+                player6: socket.currentGame.players[5].name
+            });
         });
     });
 

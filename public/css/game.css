@@ -22,6 +22,10 @@ body {
     width: 100%;
 }
 
+#loadGamePage {
+    display:none;
+}
+
 html, input {
     font-family: Arial
 }

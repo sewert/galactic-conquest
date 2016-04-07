@@ -9,6 +9,7 @@ var FADE_TIME = 150;
 var gameHeight = 900;
 var gameDiv = null;
 var gameWidth = 1600;
+var loadGamePage = null;
 var loginPage = null;
 var newGamePage = null;
 var playerName;
@@ -83,6 +84,7 @@ $(function(){
     dialogDiv.dialog({autoOpen : false, modal : true, title: "New Game Created"});
     loginPage = $(".loginPage");
     chatPage = $(".chatPage");
+    loadGamePage = $("#loadGamePage");
     newGamePage = $("#newGamePage");
     gameDiv = $("#gameDiv");
 
@@ -110,6 +112,7 @@ $(function(){
             gameDiv.show();
             chatPage.show();
             loginPage.off("click");
+            loadGamePage.hide();
 
             // Tell the server your username
             socket.emit("addPlayer", playerName);
@@ -247,6 +250,10 @@ $(function(){
             player5: $("#player5Name").val(),
             player6: $("#player6Name").val()
         });
+    });
+
+    $("#loadGame").click(function() {
+        socket.emit("loadGame", $("#gameId").val());
     });
 
     $window.keydown(function (event) {
@@ -429,15 +436,22 @@ function incrementResources(item) {
 }
 
 function loadGame() {
-    // TODO: write me!
-    // get gameId to load
-    socket.emit("loadGame", "570474cbe4b0f62792ad6884");
+    setTimeout(gameDiv.hide(), 500);
+    setTimeout(loadGamePage.fadeIn(), 500);
 }
 
-function loadGameSuccess() {
+function loadGameSuccess(data) {
+    loadGamePage.append("<p>GameId " + data.gameId + " successfully loaded</p>");
+    loadGamePage.append("<p>Player names are:</p>");
+    loadGamePage.append("<p>" + data.player1 + "</p>");
+    loadGamePage.append("<p>" + data.player2 + "</p>");
+    loadGamePage.append("<p>" + data.player3 + "</p>");
+    loadGamePage.append("<p>" + data.player4 + "</p>");
+    loadGamePage.append("<p>" + data.player5 + "</p>");
+    loadGamePage.append("<p>" + data.player6 + "</p>");
     displayGame();
     setTimeout(gameDiv.hide(), 500);
-    setTimeout(loginPage.fadeIn(), 500);
+    setTimeout(loginPage.fadeIn(), 500); // TODO: clean me up... currently ugly
 }
 
 function newGameSuccess(data) {
@@ -627,8 +641,6 @@ function showSelectTileResults(data) {
 }
 
 function startNewGame() {
-    // TODO: write me!
-    // gather the player names
     setTimeout(gameDiv.hide(), 500);
     setTimeout(newGamePage.fadeIn(), 500);
 }
