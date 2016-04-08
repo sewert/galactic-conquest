@@ -127,6 +127,7 @@ io.on("connection", function (socket) {
             saveCurrentTurn(socket.currentGame._id.valueOf(), socket.currentGame.currentTurn, function () {
                 socket.broadcast.emit("updateTurnSuccess", socket.currentGame.currentTurn);
                 socket.emit("updateTurnSuccess", socket.currentGame.currentTurn);
+                socket.broadcast.emit("startTurn", socket.currentGame.currentTurn);
             });
         }
         else {
@@ -145,6 +146,14 @@ io.on("connection", function (socket) {
         });
     });
 
+    socket.on("getCurrentResources", function(playerName) {
+        for (var i = 0; i < socket.currentGame.players.length; i++) {
+            if (socket.currentGame.players[i].name === playerName) {
+                socket.emit("getCurrentResourcesSuccess", socket.currentGame.players[i].resources);
+            }
+        }
+    });
+
     socket.on("selectTile", function (data) {
         socket.emit("selectTile", {
             activated: hasPlanetBeenActivated(data, socket.activatedPlanets),
@@ -156,6 +165,19 @@ io.on("connection", function (socket) {
 
     socket.on("sendShips", function (data) {
         //TODO: write me!
+    });
+
+    socket.on("startTurn", function(playerName) {
+        loadSavedGame(socket.currentGame._id.valueOf(), function(currentGame) {
+            socket.currentGame = currentGame;
+            if (socket.currentGame.currentTurn === playerName) {
+                produceResources(socket.currentGame, function (currentGame, resources) {
+                    socket.currentGame = currentGame;
+                    socket.emit("startTurnSuccess", resources);
+                });
+            }
+        });
+
     });
 
     socket.on("updatePlanet", function (data) {
@@ -346,6 +368,30 @@ function loadSavedGame(gameId, callback) {
             db.close();
             callback(results[0]);
         });
+    });
+}
+
+function produceResources(currentGame, callback) {
+    var playerIndex;
+    for (var i = 0; i < currentGame.players.length; i++) {
+        if (currentGame.players[i].name === currentGame.currentTurn) {
+            playerIndex = i;
+        }
+    }
+    var resources = parseInt(currentGame.players[playerIndex].resources);
+    for (i = 0; i < currentGame.tiles.length; i++) {
+        if (currentGame.tiles[i].owner === currentGame.currentTurn) {
+            resources += parseInt(currentGame.tiles[i].production);
+        }
+    }
+    currentGame.players[playerIndex].resources = resources;
+
+    mongoClient.connect(configJson.url, function (err, db) {
+        if (err) console.log(err);
+        mongoClient.savedGamesCollection = db.collection("savedGames");
+        mongoClient.savedGamesCollection.updateOne({"_id": new ObjectID(currentGame._id.valueOf())}, {$set:{"players":currentGame.players}});
+        db.close();
+        callback(currentGame, currentGame.players[playerIndex].resources);
     });
 }
 

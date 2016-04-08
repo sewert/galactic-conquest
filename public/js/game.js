@@ -433,9 +433,12 @@ function gameOver(playerName) {
     setTimeout(dialogDiv.dialog("open"), 500);
 }
 
-function incrementResources(item) {
-    resources++;
-    item.text = "Resources: " + resources;
+function getCurrentResources() {
+    socket.emit("getCurrentResources", playerName);
+}
+
+function getCurrentResourcesSuccess(resources) {
+    resourceText.text = "Resources: " + resources;
 }
 
 function loadGame() {
@@ -528,12 +531,15 @@ function selectTile(item) {
 function setEventHandlers() {
     socket.on("activateSystem", activateSystem());
     socket.on("gameOver", gameOver);
+    socket.on("getCurrentResourcesSucces", getCurrentResourcesSuccess);
+    socket.on("loadGameSuccess", loadGameSuccess);
+    socket.on("newGameSuccess", newGameSuccess);
+    socket.on("saveGameSuccess", saveGameSuccess);
+    socket.on("selectTile", showSelectTileResults);
+    socket.on("startTurn", startTurn);
+    socket.on("startTurnSuccess", startTurnSuccess);
     socket.on("updatePlanet", updatePlanetInfo);
     socket.on("updateTurnSuccess", updateTurnSuccess);
-    socket.on("selectTile", showSelectTileResults);
-    socket.on("newGameSuccess", newGameSuccess);
-    socket.on("loadGameSuccess", loadGameSuccess);
-    socket.on("saveGameSuccess", saveGameSuccess);
 }
 
 function showActivatePlanetPanel() {
@@ -639,12 +645,8 @@ function showPlayerTurnText() {
 
 function showResourceText() {
     resourceTextBackground = game.add.sprite(40, 25, "textBackground");
-    resources = 0;
-    resourceText = game.add.text(50, 50, "Resources: " + resources, { font: "40px Arial"});
-    //resourceText.anchor.set(0.5);
-    resourceText.inputEnabled = true;
-    //resourceText.input.enableDrag();
-    resourceText.events.onInputDown.add(incrementResources, this);
+    resourceText = game.add.text(50, 50, "Resources: ", { font: "40px Arial"});
+    getCurrentResources();
 }
 
 function showSelectTileResults(data) {
@@ -656,6 +658,20 @@ function showSelectTileResults(data) {
 function startNewGame() {
     setTimeout(gameDiv.hide(), 500);
     setTimeout(newGamePage.fadeIn(), 500);
+}
+
+function startTurn(data) {
+    if (playerName === data) {
+        socket.emit("startTurn", playerName);
+    }
+}
+
+function startTurnSuccess(data) {
+    updateResourceText(data);
+    dialogDiv.empty();
+    dialogDiv.dialog("option", "title", "Your Turn!");
+    dialogDiv.append("<p>Its your turn!</p>");
+    dialogDiv.dialog("open");
 }
 
 function startTutorial() {
@@ -672,6 +688,10 @@ function updatePlanetInfo(data) {
     fighterCountText.setText("Fighters: " + data.fighters);
     destroyerCountText.setText("Destroyers: " + data.destroyers);
     dreadnoughtCountText.setText("Dreadnoughts: " + data.dreadnoughts);
+}
+
+function updateResourceText(resources) {
+    resourceText.text = "Resources: " + resources;
 }
 
 function updateTurn() {
