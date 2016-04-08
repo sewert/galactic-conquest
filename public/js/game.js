@@ -525,7 +525,31 @@ function scaleWindow() {
 }
 
 function selectTile(item) {
-    socket.emit("selectTile", item.name);
+    socket.emit("selectTile", {
+        planetName: item.name,
+        playerName: playerName
+    });
+}
+
+function selectTileSuccess(data) {
+    dialogDiv.empty();
+    dialogDiv.dialog("option", "title", "Activate Planet");
+    if (data.activated === false) {
+        dialogDiv.append("<p>Activate " + data.planetName + "?</p>");
+        dialogDiv.append("<p>");
+        if (data.buildable === true) {
+            dialogDiv.append("<input type='submit' id='build' value='Build Ships Here'>");
+        }
+        if (data.sendable === true) {
+            dialogDiv.append("<input type='submit' id='send' value='Send Ships Here'>");
+        }
+        dialogDiv.append("</p>");
+    }
+    else {
+        dialogDiv.append("<p>Tile has already been activated.</p>")
+    }
+
+    dialogDiv.dialog("open");
 }
 
 function setEventHandlers() {
@@ -535,7 +559,7 @@ function setEventHandlers() {
     socket.on("loadGameSuccess", loadGameSuccess);
     socket.on("newGameSuccess", newGameSuccess);
     socket.on("saveGameSuccess", saveGameSuccess);
-    socket.on("selectTile", showSelectTileResults);
+    socket.on("selectTileSuccess", selectTileSuccess);
     socket.on("startTurn", startTurn);
     socket.on("startTurnSuccess", startTurnSuccess);
     socket.on("updatePlanetSuccess", updatePlanetSuccess);
@@ -645,10 +669,6 @@ function showResourceText() {
     resourceText = game.add.text(50, 50, "Resources: ", { font: "40px Arial"});
     resourceText.inputEnabled = true;
     resourceText.events.onInputOver.add(getCurrentResources);
-}
-
-function showSelectTileResults(data) {
-    // TODO: write me!
 }
 
 function startNewGame() {
