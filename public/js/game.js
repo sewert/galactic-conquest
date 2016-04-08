@@ -538,21 +538,16 @@ function setEventHandlers() {
     socket.on("selectTile", showSelectTileResults);
     socket.on("startTurn", startTurn);
     socket.on("startTurnSuccess", startTurnSuccess);
-    socket.on("updatePlanet", updatePlanetInfo);
+    socket.on("updatePlanetSuccess", updatePlanetSuccess);
     socket.on("updateTurnSuccess", updateTurnSuccess);
 }
 
 function showActivatePlanetPanel() {
     activatePlanetTextPanel = game.add.sprite(1280, 145, "textPanel");
-    activatePlanetTextPanel.inputEnabled = true;
-    activatePlanetTextPanel.events.onInputOver.add(overItemAnimation, this);
-    activatePlanetTextPanel.events.onInputOut.add(outItemAnimation, this);
-    activatePlanetTextPanel.events.onInputDown.add(activateSystem);
     activateSystemText = game.add.text(1290, 150, "Click to Activate", { font: "30px Arial"});
     activateSystemPlanetText = game.add.text(1290, 180, "Tile: ", { font: "30px Arial"});
     buildableSystemText = game.add.text(1290, 210, "Can Build? ", { font: "30px Arial"});
     sendableSystemText = game.add.text(1290, 240, "Can Send? ", { font: "30px Arial"});
-    //alert(data.planetName + " " + data.activated + " " + data.buildable);
 }
 
 function showBackground() {
@@ -653,9 +648,7 @@ function showResourceText() {
 }
 
 function showSelectTileResults(data) {
-    activateSystemPlanetText.setText("Tile: " + data.planetName);
-    buildableSystemText.setText("Can Build? " + data.buildable);
-    sendableSystemText.setText("Can Send? " + data.sendable);
+    // TODO: write me!
 }
 
 function startNewGame() {
@@ -686,11 +679,14 @@ function updatePlanet(item) {
     socket.emit("updatePlanet", item.name);
 }
 
-function updatePlanetInfo(data) {
+function updatePlanetSuccess(data) {
     planetOwnerText.setText("Owner: " + data.ownerName);
     fighterCountText.setText("Fighters: " + data.fighters);
     destroyerCountText.setText("Destroyers: " + data.destroyers);
     dreadnoughtCountText.setText("Dreadnoughts: " + data.dreadnoughts);
+    activateSystemPlanetText.setText("Tile: " + data.planetName);
+    buildableSystemText.setText("Can Build? " + data.buildable);
+    sendableSystemText.setText("Can Send? " + data.sendable);
 }
 
 function updateResourceText(resources) {

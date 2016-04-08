@@ -155,12 +155,7 @@ io.on("connection", function (socket) {
     });
 
     socket.on("selectTile", function (data) {
-        socket.emit("selectTile", {
-            activated: hasPlanetBeenActivated(data, socket.activatedPlanets),
-            buildable: canPlanetBuild(data, socket.playerName, socket.currentGame, socket.activatedPlanets),
-            planetName: data,
-            sendable: canSendToPlanet(data, socket.playerName, socket.currentGame, socket.activatedPlanets)
-        });
+        // TODO: write me!
     });
 
     socket.on("sendShips", function (data) {
@@ -182,12 +177,17 @@ io.on("connection", function (socket) {
 
     socket.on("updatePlanet", function (data) {
         var planetData = getPlanetInfo(data, socket.currentGame);
-        socket.emit("updatePlanet", {
+        socket.emit("updatePlanetSuccess", {
             ownerName: planetData.ownerName,
             planetName: planetData.planetName,
             fighters: planetData.fighters,
             destroyers: planetData.destroyers,
-            dreadnoughts: planetData.dreadnoughts
+            dreadnoughts: planetData.dreadnoughts,
+            activated: hasPlanetBeenActivated(planetData.planetName, socket.activatedPlanets),
+            buildable: canPlanetBuild(planetData.planetName, socket.playerName, socket.currentGame, socket.activatedPlanets),
+            planetName: planetData.planetName,
+            sendable: canSendToPlanet(planetData.planetName, socket.playerName, socket.currentGame, socket.activatedPlanets)
+
         });
     });
 
