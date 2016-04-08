@@ -537,13 +537,13 @@ function selectTileSuccess(data) {
     if (data.activated === false) {
         dialogDiv.append("<p>Activate " + data.planetName + "?</p>");
         if (data.buildable === true) {
-            dialogDiv.append("<p><input type='submit' id='build' value='Build Ships Here'></p>");
+            dialogDiv.append("<p><input type='submit' id='buildShips' value='Build Ships Here'></p>");
         }
         else {
             dialogDiv.append("<p>Unable to build ships here.</p>");
         }
         if (data.sendable === true) {
-            dialogDiv.append("<p></p><input type='submit' id='send' value='Send Ships Here'></p>");
+            dialogDiv.append("<p><input type='submit' id='sendShips' value='Send Ships Here'></p>");
         }
         else {
             dialogDiv.append("<p>Unable to send ships here.</p>");
@@ -553,7 +553,24 @@ function selectTileSuccess(data) {
         dialogDiv.append("<p>Tile has already been activated.</p>")
     }
 
+    dialogDiv.find("#buildShips").click(function() {
+        buildShips(data.planetName)
+    });
+    dialogDiv.find("#sendShips").click(function() {
+        sendShips(data.planetName)
+    });
     dialogDiv.dialog("open");
+
+}
+
+function sendShips(planetName) {
+    //TODO: update dialog and send ships
+    alert("you clicked on sendShips" + planetName);
+}
+
+function buildShips(planetName) {
+    // TODO: update dialog and build ships
+    alert("you clicked on buildships" + planetName);
 }
 
 function setEventHandlers() {
