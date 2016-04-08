@@ -536,14 +536,18 @@ function selectTileSuccess(data) {
     dialogDiv.dialog("option", "title", "Activate Planet");
     if (data.activated === false) {
         dialogDiv.append("<p>Activate " + data.planetName + "?</p>");
-        dialogDiv.append("<p>");
         if (data.buildable === true) {
-            dialogDiv.append("<input type='submit' id='build' value='Build Ships Here'>");
+            dialogDiv.append("<p><input type='submit' id='build' value='Build Ships Here'></p>");
+        }
+        else {
+            dialogDiv.append("<p>Unable to build ships here.</p>");
         }
         if (data.sendable === true) {
-            dialogDiv.append("<input type='submit' id='send' value='Send Ships Here'>");
+            dialogDiv.append("<p></p><input type='submit' id='send' value='Send Ships Here'></p>");
         }
-        dialogDiv.append("</p>");
+        else {
+            dialogDiv.append("<p>Unable to send ships here.</p>");
+        }
     }
     else {
         dialogDiv.append("<p>Tile has already been activated.</p>")
