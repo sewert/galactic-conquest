@@ -531,7 +531,7 @@ function selectTile(item) {
 function setEventHandlers() {
     socket.on("activateSystem", activateSystem());
     socket.on("gameOver", gameOver);
-    socket.on("getCurrentResourcesSucces", getCurrentResourcesSuccess);
+    socket.on("getCurrentResourcesSuccess", getCurrentResourcesSuccess);
     socket.on("loadGameSuccess", loadGameSuccess);
     socket.on("newGameSuccess", newGameSuccess);
     socket.on("saveGameSuccess", saveGameSuccess);
@@ -645,8 +645,11 @@ function showPlayerTurnText() {
 
 function showResourceText() {
     resourceTextBackground = game.add.sprite(40, 25, "textBackground");
+    resourceTextBackground.inputEnabled = true;
+    resourceTextBackground.events.onInputOver.add(getCurrentResources);
     resourceText = game.add.text(50, 50, "Resources: ", { font: "40px Arial"});
-    getCurrentResources();
+    resourceText.inputEnabled = true;
+    resourceText.events.onInputOver.add(getCurrentResources);
 }
 
 function showSelectTileResults(data) {
