@@ -26,6 +26,7 @@
     }
   ],
   "currentTurn": "player1",
+  "activatedPlanets": [],
   "tiles": [
     {
       "name": "tile1_1",

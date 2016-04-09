@@ -16,8 +16,6 @@ console.log("Server running at http://localhost:" + port);
 var playerCount = 0;
 io.on("connection", function (socket) {
     var playerAdded = false;
-    socket.activatedPlanets = [];
-    socket.currentGame = null;
     // handle join requests from client
     socket.on("addPlayer", function (playerName) {
         if (playerAdded) return;
@@ -123,8 +121,8 @@ io.on("connection", function (socket) {
     socket.on("endTurn", function (playerName) {
         if (socket.currentGame.currentTurn === playerName) {
             socket.currentGame.currentTurn = findNextPlayersTurn(playerName, socket.currentGame);
-            socket.activatedPlanets = [];
-            saveCurrentTurn(socket.currentGame._id.valueOf(), socket.currentGame.currentTurn, function () {
+            socket.currentGame.activatedPlanets = [];
+            saveCurrentTurn(socket.currentGame, function () {
                 socket.broadcast.emit("updateTurnSuccess", socket.currentGame.currentTurn);
                 socket.emit("updateTurnSuccess", socket.currentGame.currentTurn);
                 socket.broadcast.emit("startTurn", socket.currentGame.currentTurn);
@@ -166,10 +164,10 @@ io.on("connection", function (socket) {
             fighters: planetData.fighters,
             destroyers: planetData.destroyers,
             dreadnoughts: planetData.dreadnoughts,
-            activated: hasPlanetBeenActivated(planetData.planetName, socket.activatedPlanets),
-            buildable: canPlanetBuild(planetData.planetName, socket.playerName, socket.currentGame, socket.activatedPlanets),
+            activated: hasPlanetBeenActivated(planetData.planetName, socket.currentGame.activatedPlanets),
+            buildable: canPlanetBuild(planetData.planetName, socket.playerName, socket.currentGame),
             planetName: planetData.planetName,
-            sendable: canSendToPlanet(planetData.planetName, socket.playerName, socket.currentGame, socket.activatedPlanets)
+            sendable: canSendToPlanet(planetData.planetName, socket.playerName, socket.currentGame)
         });
     });
 
@@ -198,10 +196,10 @@ io.on("connection", function (socket) {
             fighters: planetData.fighters,
             destroyers: planetData.destroyers,
             dreadnoughts: planetData.dreadnoughts,
-            activated: hasPlanetBeenActivated(planetData.planetName, socket.activatedPlanets),
-            buildable: canPlanetBuild(planetData.planetName, socket.playerName, socket.currentGame, socket.activatedPlanets),
+            activated: hasPlanetBeenActivated(planetData.planetName, socket.currentGame.activatedPlanets),
+            buildable: canPlanetBuild(planetData.planetName, socket.playerName, socket.currentGame),
             planetName: planetData.planetName,
-            sendable: canSendToPlanet(planetData.planetName, socket.playerName, socket.currentGame, socket.activatedPlanets)
+            sendable: canSendToPlanet(planetData.planetName, socket.playerName, socket.currentGame)
         });
     });
 
@@ -260,13 +258,17 @@ function addPlayersToGame(data, currentGame) {
     return currentGame;
 }
 
-function canPlanetBuild(data, playerName, currentGame, activatedPlanets) {
-    if (hasPlanetBeenActivated(data, activatedPlanets)) {
+function canPlanetBuild(planetName, playerName, currentGame) {
+    if (currentGame.currentTurn !== playerName) {
+        return false;
+    }
+
+    if (hasPlanetBeenActivated(planetName, currentGame.activatedPlanets)) {
         return false;
     }
 
     for (var i = 0; i < currentGame.tiles.length; i++) {
-        if (currentGame.tiles[i].name === data && currentGame.tiles[i].owner === playerName) {
+        if (currentGame.tiles[i].name === planetName && currentGame.tiles[i].owner === playerName) {
             return true;
         }
     }
@@ -274,8 +276,8 @@ function canPlanetBuild(data, playerName, currentGame, activatedPlanets) {
     return false;
 }
 
-function canSendToPlanet(data, playerName, currentGame, activatedPlanets) {
-    if (hasPlanetBeenActivated(data, activatedPlanets)) {
+function canSendToPlanet(data, playerName, currentGame) {
+    if (hasPlanetBeenActivated(data, currentGame.activatedPlanets)) {
         return false;
     }
 
@@ -288,7 +290,7 @@ function canSendToPlanet(data, playerName, currentGame, activatedPlanets) {
     }
     if (targetedTile != null) {
         for (var i = 0; i < currentGame.tiles.length; i++) {
-            if (!hasPlanetBeenActivated(currentGame.tiles[i].name, activatedPlanets) && currentGame.tiles[i].owner === playerName) {
+            if (!hasPlanetBeenActivated(currentGame.tiles[i].name, currentGame.activatedPlanets) && currentGame.tiles[i].owner === playerName) {
                 if (targetedTile.y === currentGame.tiles[i].y) { // send from same row
                     if (Math.abs(targetedTile.x - currentGame.tiles[i].x) === 1 ) {
                         return true;
@@ -364,6 +366,14 @@ function getPlanetInfo(data, currentGame) {
     }
 }
 
+function getPlayerIndex(playerName, currentGame) {
+    for (var i = 0; i < currentGame.players.length; i++) {
+        if (currentGame.players[i].name === playerName) {
+            return i;
+        }
+    }
+}
+
 function hasPlanetBeenActivated(data, activatedPlanets) {
     for (var i = 0; i < activatedPlanets.length; i++) {
         if (activatedPlanets[i] === data) {
@@ -421,11 +431,11 @@ function readCurrentTurn(gameId, callback) {
     });
 }
 
-function saveCurrentTurn(gameId, currentTurn, callback) {
+function saveCurrentTurn(currentGame, callback) {
     mongoClient.connect(configJson.url, function (err, db) {
         if (err) console.log(err);
         mongoClient.savedGamesCollection = db.collection("savedGames");
-        mongoClient.savedGamesCollection.updateOne({"_id": new ObjectID(gameId)}, {$set:{"currentTurn":currentTurn}});
+        mongoClient.savedGamesCollection.updateOne({"_id": new ObjectID(currentGame._id.valueOf())}, {$set:{"currentTurn":currentGame.currentTurn, "activatedPlanets": currentGame.activatedPlanets}});
         db.close();
         callback();
     });
