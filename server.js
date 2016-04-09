@@ -308,46 +308,46 @@ function canPlanetBuild(planetName, playerName, currentGame) {
     return false;
 }
 
-function canSendToPlanet(targetPlanet, senderName, currentGame) {
-    if (hasPlanetBeenActivated(targetPlanet, currentGame.activatedPlanets)) {
+function canSendToPlanet(targetPlanetName, senderName, currentGame) {
+    if (hasPlanetBeenActivated(targetPlanetName, currentGame.activatedPlanets)) {
         return false;
     }
 
-    var targetedTile;
+    var targetedPlanet;
     for (var i = 0; i < currentGame.tiles.length; i++) {
-        if (currentGame.tiles[i].name === targetPlanet) {
-            targetedTile = currentGame.tiles[i];
+        if (currentGame.tiles[i].name === targetPlanetName) {
+            targetedPlanet = currentGame.tiles[i];
             break;
         }
     }
-    if (targetedTile != null) {
+    if (targetedPlanet != null) {
         for (var i = 0; i < currentGame.tiles.length; i++) {
             if (!hasPlanetBeenActivated(currentGame.tiles[i].name, currentGame.activatedPlanets) && currentGame.tiles[i].owner === senderName) {
-                if (targetedTile.y === currentGame.tiles[i].y) { // send from same row
-                    if (Math.abs(targetedTile.x - currentGame.tiles[i].x) === 1 ) {
+                if (targetedPlanet.y === currentGame.tiles[i].y) { // send from same row
+                    if (Math.abs(targetedPlanet.x - currentGame.tiles[i].x) === 1 ) {
                         return true;
                     }
                 }
-                else if (Math.abs(targetedTile.y - currentGame.tiles[i].y) > 1) { // more than one row apart
+                else if (Math.abs(targetedPlanet.y - currentGame.tiles[i].y) > 1) { // more than one row apart
                     // do nothing
                 }
-                else if (targetedTile.y - currentGame.tiles[i].y === 1) { // send from row above
-                    if (targetedTile.y > 3) { // bottom half of board
-                        if (targetedTile.x === currentGame.tiles[i].x || targetedTile.x - currentGame.tiles[i].x === -1) {
+                else if (targetedPlanet.y - currentGame.tiles[i].y === 1) { // send from row above
+                    if (targetedPlanet.y > 3) { // bottom half of board
+                        if (targetedPlanet.x === currentGame.tiles[i].x || targetedPlanet.x - currentGame.tiles[i].x === -1) {
                             return true;
                         }
                     }
-                    else if (targetedTile.x === currentGame.tiles[i].x || targetedTile.x - currentGame.tiles[i].x === 1) { // top half of board
+                    else if (targetedPlanet.x === currentGame.tiles[i].x || targetedPlanet.x - currentGame.tiles[i].x === 1) { // top half of board
                         return true;
                     }
                 }
-                else if (targetedTile.y - currentGame.tiles[i].y === -1) { // send from row below
-                    if (targetedTile.y > 3) { // bottom half of board
-                        if (targetedTile.x === currentGame.tiles[i].x || targetedTile.x - currentGame.tiles[i].x === 1) {
+                else if (targetedPlanet.y - currentGame.tiles[i].y === -1) { // send from row below
+                    if (targetedPlanet.y > 3) { // bottom half of board
+                        if (targetedPlanet.x === currentGame.tiles[i].x || targetedPlanet.x - currentGame.tiles[i].x === 1) {
                             return true;
                         }
                     }
-                    else if (targetedTile.x === currentGame.tiles[i].x || targetedTile.x - currentGame.tiles[i].x === -1) { // top half of board
+                    else if (targetedPlanet.x === currentGame.tiles[i].x || targetedPlanet.x - currentGame.tiles[i].x === -1) { // top half of board
                         return true;
                     }
                 }
