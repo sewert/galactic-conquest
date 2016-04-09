@@ -125,10 +125,13 @@ io.on("connection", function (socket) {
         if (socket.currentGame.currentTurn === playerName) {
             socket.currentGame.currentTurn = findNextPlayersTurn(playerName, socket.currentGame);
             socket.currentGame.activatedPlanets = [];
-            saveCurrentTurn(socket.currentGame, function () {
-                socket.broadcast.emit("updateTurnSuccess", socket.currentGame.currentTurn);
-                socket.emit("updateTurnSuccess", socket.currentGame.currentTurn);
-                socket.broadcast.emit("startTurn", socket.currentGame.currentTurn);
+            produceResources(socket.currentGame, function (players) {
+                socket.currentGame.players = players;
+                saveCurrentTurn(socket.currentGame, function () {
+                    socket.broadcast.emit("updateTurnSuccess", socket.currentGame.currentTurn);
+                    socket.emit("updateTurnSuccess", socket.currentGame.currentTurn);
+                    socket.broadcast.emit("startTurn", socket.currentGame.currentTurn);
+                });
             });
         }
         else {
@@ -176,19 +179,6 @@ io.on("connection", function (socket) {
 
     socket.on("sendShips", function (data) {
         //TODO: write me!
-    });
-
-    socket.on("startTurn", function(playerName) {
-        loadSavedGame(socket.currentGame._id.valueOf(), function(currentGame) {
-            socket.currentGame = currentGame;
-            if (socket.currentGame.currentTurn === playerName) {
-                produceResources(socket.currentGame, function (currentGame, resources) {
-                    socket.currentGame = currentGame;
-                    socket.emit("startTurnSuccess", resources);
-                });
-            }
-        });
-
     });
 
     socket.on("updatePlanet", function (data) {
@@ -417,12 +407,8 @@ function loadSavedGame(gameId, callback) {
 }
 
 function produceResources(currentGame, callback) {
-    var playerIndex;
-    for (var i = 0; i < currentGame.players.length; i++) {
-        if (currentGame.players[i].name === currentGame.currentTurn) {
-            playerIndex = i;
-        }
-    }
+    var playerIndex = getPlayerIndex(currentGame.currentTurn, currentGame);
+
     var resources = parseInt(currentGame.players[playerIndex].resources);
     for (i = 0; i < currentGame.tiles.length; i++) {
         if (currentGame.tiles[i].owner === currentGame.currentTurn) {
@@ -431,13 +417,7 @@ function produceResources(currentGame, callback) {
     }
     currentGame.players[playerIndex].resources = resources;
 
-    mongoClient.connect(configJson.url, function (err, db) {
-        if (err) console.log(err);
-        mongoClient.savedGamesCollection = db.collection("savedGames");
-        mongoClient.savedGamesCollection.updateOne({"_id": new ObjectID(currentGame._id.valueOf())}, {$set:{"players":currentGame.players}});
-        db.close();
-        callback(currentGame, currentGame.players[playerIndex].resources);
-    });
+    callback(currentGame.players);
 }
 
 function readCurrentTurn(gameId, callback) {
@@ -456,7 +436,7 @@ function saveCurrentTurn(currentGame, callback) {
     mongoClient.connect(configJson.url, function (err, db) {
         if (err) console.log(err);
         mongoClient.savedGamesCollection = db.collection("savedGames");
-        mongoClient.savedGamesCollection.updateOne({"_id": new ObjectID(currentGame._id.valueOf())}, {$set:{"currentTurn":currentGame.currentTurn, "activatedPlanets": currentGame.activatedPlanets}});
+        mongoClient.savedGamesCollection.updateOne({"_id": new ObjectID(currentGame._id.valueOf())}, {$set:{"currentTurn":currentGame.currentTurn, "activatedPlanets": currentGame.activatedPlanets, "players":currentGame.players}});
         db.close();
         callback();
     });
