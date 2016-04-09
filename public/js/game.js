@@ -743,11 +743,13 @@ function startNewGame() {
 }
 
 function startTurn(data) {
-    getCurrentResources();
-    dialogDiv.empty();
-    dialogDiv.dialog("option", "title", "Your Turn!");
-    dialogDiv.append("<p>Its your turn!</p>");
-    dialogDiv.dialog("open");
+    if (data === playerTurn) {
+        getCurrentResources();
+        dialogDiv.empty();
+        dialogDiv.dialog("option", "title", "Your Turn!");
+        dialogDiv.append("<p>Its your turn!</p>");
+        dialogDiv.dialog("open");
+    }
 }
 
 function startTutorial() {
