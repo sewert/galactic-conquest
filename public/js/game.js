@@ -440,7 +440,7 @@ function getCurrentResources() {
 
 function getCurrentResourcesSuccess(data) {
     resources = data;
-    resourceText.text = "Resources: " + resources;
+    updateResourceText(resources);
 }
 
 function loadGame() {
@@ -616,7 +616,6 @@ function setEventHandlers() {
     socket.on("saveGameSuccess", saveGameSuccess);
     socket.on("selectTileSuccess", selectTileSuccess);
     socket.on("startTurn", startTurn);
-    socket.on("startTurnSuccess", startTurnSuccess);
     socket.on("updatePlanetSuccess", updatePlanetSuccess);
     socket.on("updateTurnSuccess", updateTurnSuccess);
 }
@@ -732,13 +731,7 @@ function startNewGame() {
 }
 
 function startTurn(data) {
-    if (playerName === data) {
-        socket.emit("startTurn", playerName);
-    }
-}
-
-function startTurnSuccess(data) {
-    updateResourceText(data);
+    getCurrentResources();
     dialogDiv.empty();
     dialogDiv.dialog("option", "title", "Your Turn!");
     dialogDiv.append("<p>Its your turn!</p>");
