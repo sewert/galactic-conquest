@@ -313,10 +313,6 @@ $(function(){
 });
 
 // GAME LOGIC
-function activateSystem(data) {
-    // TODO: write me!
-}
-
 function addTiles() {
     mapTiles = game.add.group();
 
@@ -569,6 +565,21 @@ function sendShips(planetName) {
     alert("you clicked on sendShips" + planetName);
 }
 
+function sendShipsSuccess(response) {
+    if (response !== "Success") {
+        dialogDiv.empty();
+        dialogDiv.dialog("option", "title", "Unable to send ships");
+        dialogDiv.append("<p>" + response + "</p>");
+        dialogDiv.dialog("open");
+    }
+    else {
+        dialogDiv.empty();
+        dialogDiv.dialog("option", "title", "Send ships success!");
+        dialogDiv.append("<p>Ships sent successfully! System has now been activated.</p>");
+        dialogDiv.dialog("open");
+    }
+}
+
 function buildShips(planetName) {
     dialogDiv.empty();
     dialogDiv.dialog("option", "title", "Build Ships at " + planetName);
@@ -607,13 +618,13 @@ function buildShipsSuccess(response) {
 }
 
 function setEventHandlers() {
-    socket.on("activateSystem", activateSystem);
     socket.on("buildShipsSuccess", buildShipsSuccess);
     socket.on("gameOver", gameOver);
     socket.on("getCurrentResourcesSuccess", getCurrentResourcesSuccess);
     socket.on("loadGameSuccess", loadGameSuccess);
     socket.on("newGameSuccess", newGameSuccess);
     socket.on("saveGameSuccess", saveGameSuccess);
+    socket.on("sendShipsSuccess", sendShipsSuccess);
     socket.on("selectTileSuccess", selectTileSuccess);
     socket.on("startTurn", startTurn);
     socket.on("updatePlanetSuccess", updatePlanetSuccess);

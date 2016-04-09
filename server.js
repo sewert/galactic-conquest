@@ -110,10 +110,6 @@ io.on("connection", function (socket) {
     });
 
     // Player Game Actions
-    socket.on("activateSystem", function (data) {
-        //TODO: write me!
-    });
-
     socket.on("buildShips", function (buildData) {
         buildShips(socket.currentGame, buildData, function(response) {
            socket.emit("buildShipsSuccess", response);
