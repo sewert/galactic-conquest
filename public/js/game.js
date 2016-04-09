@@ -561,8 +561,26 @@ function selectTileSuccess(data) {
 }
 
 function sendShips(planetName) {
-    //TODO: update dialog and send ships
-    alert("you clicked on sendShips" + planetName);
+    dialogDiv.empty();
+    dialogDiv.dialog("option", "title", "Send ships to " + planetName);
+    dialogDiv.append("<p>Send Ships from planet:<input type='text' id='sourcePlanet'></p>");
+    dialogDiv.append("<p>Quantity of fighters:<input type='number' id='fighters' min='0' value='0'></p>");
+    dialogDiv.append("<p>Quantity of destroyers:<input type='number' id='destroyers' min='0' value='0'></p>");
+    dialogDiv.append("<p>Quantity of dreadnoughts:<input type='number' id='dreadnoughts' min='0' value='0'></p>");
+    dialogDiv.append("<p><input type='submit' id='send' value='Send Ships'></p>");
+
+    dialogDiv.find("#send").click(function() {
+        socket.emit("sendShips", {
+            playerName: playerName,
+            targetPlanet: planetName,
+            sourcePlanet: dialogDiv.find("#sourcePlanet").val(),
+            fighters: dialogDiv.find("#fighters").val(),
+            destroyers: dialogDiv.find("#destroyers").val(),
+            dreadnoughts: dialogDiv.find("#dreadnoughts").val()
+        });
+
+        dialogDiv.find("#send").hide();
+    });
 }
 
 function sendShipsSuccess(response) {
@@ -584,9 +602,9 @@ function buildShips(planetName) {
     dialogDiv.empty();
     dialogDiv.dialog("option", "title", "Build Ships at " + planetName);
     dialogDiv.append("<p>" + resources + " resources available for construction" + "</p>");
-    dialogDiv.append("<p>Quantity of fighters:<input type='number' id='fighters' min='0' value='0'</p>");
-    dialogDiv.append("<p>Quantity of destroyers:<input type='number' id='destroyers' min='0' value='0'</p>");
-    dialogDiv.append("<p>Quantity of dreadnoughts:<input type='number' id='dreadnoughts' min='0' value='0'</p>");
+    dialogDiv.append("<p>Quantity of fighters:<input type='number' id='fighters' min='0' value='0'></p>");
+    dialogDiv.append("<p>Quantity of destroyers:<input type='number' id='destroyers' min='0' value='0'></p>");
+    dialogDiv.append("<p>Quantity of dreadnoughts:<input type='number' id='dreadnoughts' min='0' value='0'></p>");
     dialogDiv.append("<p><input type='submit' id='build' value='Build Ships'></p>");
 
     dialogDiv.find("#build").click(function() {
