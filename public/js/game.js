@@ -13,6 +13,7 @@ var loadGamePage = null;
 var loginPage = null;
 var newGamePage = null;
 var playerName;
+var resources;
 var tileHeight = 160;
 var tileHeightSpacing = 120;
 var tileRowStartHeight = 90;
@@ -437,7 +438,8 @@ function getCurrentResources() {
     socket.emit("getCurrentResources", playerName);
 }
 
-function getCurrentResourcesSuccess(resources) {
+function getCurrentResourcesSuccess(data) {
+    resources = data;
     resourceText.text = "Resources: " + resources;
 }
 
@@ -560,7 +562,6 @@ function selectTileSuccess(data) {
         sendShips(data.planetName)
     });
     dialogDiv.dialog("open");
-
 }
 
 function sendShips(planetName) {
@@ -569,12 +570,45 @@ function sendShips(planetName) {
 }
 
 function buildShips(planetName) {
-    // TODO: update dialog and build ships
-    alert("you clicked on buildships" + planetName);
+    dialogDiv.empty();
+    dialogDiv.dialog("option", "title", "Build Ships at " + planetName);
+    dialogDiv.append("<p>" + resources + " resources available for construction" + "</p>");
+    dialogDiv.append("<p>Quantity of fighters:<input type='number' id='fighters' min='0'</p>");
+    dialogDiv.append("<p>Quantity of destroyers:<input type='number' id='destroyers' min='0'</p>");
+    dialogDiv.append("<p>Quantity of dreadnoughts:<input type='number' id='dreadnoughts' min='0'</p>");
+    dialogDiv.append("<p><input type='submit' id='build' value='Build Ships'></p>");
+
+    dialogDiv.find("#build").click(function() {
+        socket.emit("buildShips", {
+            playerName: playerName,
+            planetName: planetName,
+            fighters: dialogDiv.find("#fighters").val(),
+            destroyers: dialogDiv.find("#destroyers").val(),
+            dreadnoughts: dialogDiv.find("#dreadnoughts").val()
+        });
+
+        dialogDiv.find("#build").hide();
+    });
+}
+
+function buildShipsSuccess(response) {
+    if (response !== "Success") {
+        dialogDiv.empty();
+        dialogDiv.dialog("option", "title", "Unable to build ships");
+        dialogDiv.append("<p>" + response + "</p>");
+        dialogDiv.dialog("open");
+    }
+    else {
+        dialogDiv.empty();
+        dialogDiv.dialog("option", "title", "Build ship success!");
+        dialogDiv.append("<p>Ships built successfully! System has now been activated.</p>");
+        dialogDiv.dialog("open");
+    }
 }
 
 function setEventHandlers() {
-    socket.on("activateSystem", activateSystem());
+    socket.on("activateSystem", activateSystem);
+    socket.on("buildShipsSuccess", buildShipsSuccess);
     socket.on("gameOver", gameOver);
     socket.on("getCurrentResourcesSuccess", getCurrentResourcesSuccess);
     socket.on("loadGameSuccess", loadGameSuccess);

@@ -114,8 +114,11 @@ io.on("connection", function (socket) {
         //TODO: write me!
     });
 
-    socket.on("buildShips", function (data) {
-        //TODO: write me!
+    socket.on("buildShips", function (buildData) {
+        buildShips(socket.currentGame, buildData, function(response) {
+           socket.emit("buildShipsSuccess", response);
+        });
+
     });
 
     socket.on("endTurn", function (playerName) {
@@ -256,6 +259,24 @@ function addPlayersToGame(data, currentGame) {
     }
 
     return currentGame;
+}
+
+function buildShips(currentGame, buildData, callback) {
+    if (canPlanetBuild(buildData.planetName, buildData.playerName, currentGame, currentGame.activatedPlanets)) {
+        var playerIndex = getPlayerIndex(buildData.playerName, currentGame);
+        var necessaryResources = parseInt(buildData.fighters);
+        necessaryResources += (parseInt(buildData.destroyers) * 2);
+        necessaryResources += (parseInt(buildData.dreadnoughts) * 3);
+        if (currentGame.players[playerIndex].resources >= necessaryResources) {
+            // TODO: finish me! build ships and save game
+        }
+        else {
+            callback("Insufficient resources. Costs " + necessaryResources + " to build but only " + currentGame.players[playerIndex].resources + " available");
+        }
+    }
+    else {
+        callback("Planet cannot build ships this turn.");
+    }
 }
 
 function canPlanetBuild(planetName, playerName, currentGame) {
