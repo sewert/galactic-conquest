@@ -2,7 +2,7 @@
   "players": [
     {
       "name": "player1",
-      "resources": "0"
+      "resources": "3"
     },
     {
       "name": "player2",
