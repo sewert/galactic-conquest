@@ -584,9 +584,9 @@ function buildShips(planetName) {
     dialogDiv.empty();
     dialogDiv.dialog("option", "title", "Build Ships at " + planetName);
     dialogDiv.append("<p>" + resources + " resources available for construction" + "</p>");
-    dialogDiv.append("<p>Quantity of fighters:<input type='number' id='fighters' min='0'</p>");
-    dialogDiv.append("<p>Quantity of destroyers:<input type='number' id='destroyers' min='0'</p>");
-    dialogDiv.append("<p>Quantity of dreadnoughts:<input type='number' id='dreadnoughts' min='0'</p>");
+    dialogDiv.append("<p>Quantity of fighters:<input type='number' id='fighters' min='0' value='0'</p>");
+    dialogDiv.append("<p>Quantity of destroyers:<input type='number' id='destroyers' min='0' value='0'</p>");
+    dialogDiv.append("<p>Quantity of dreadnoughts:<input type='number' id='dreadnoughts' min='0' value='0'</p>");
     dialogDiv.append("<p><input type='submit' id='build' value='Build Ships'></p>");
 
     dialogDiv.find("#build").click(function() {
@@ -615,6 +615,7 @@ function buildShipsSuccess(response) {
         dialogDiv.append("<p>Ships built successfully! System has now been activated.</p>");
         dialogDiv.dialog("open");
     }
+    getCurrentResources();
 }
 
 function setEventHandlers() {

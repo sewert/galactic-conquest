@@ -111,8 +111,9 @@ io.on("connection", function (socket) {
 
     // Player Game Actions
     socket.on("buildShips", function (buildData) {
-        buildShips(socket.currentGame, buildData, function(response) {
-           socket.emit("buildShipsSuccess", response);
+        buildShips(socket.currentGame, buildData, function(data) {
+            socket.currentGame = data.currentGame;
+            socket.emit("buildShipsSuccess", data.response);
         });
 
     });
@@ -123,7 +124,7 @@ io.on("connection", function (socket) {
             socket.currentGame.activatedPlanets = [];
             produceResources(socket.currentGame, function (players) {
                 socket.currentGame.players = players;
-                saveCurrentTurn(socket.currentGame, function () {
+                saveCurrentGame(socket.currentGame, function () {
                     socket.broadcast.emit("updateTurnSuccess", socket.currentGame.currentTurn);
                     socket.emit("updateTurnSuccess", socket.currentGame.currentTurn);
                     socket.broadcast.emit("startTurn", socket.currentGame.currentTurn);
@@ -248,20 +249,37 @@ function addPlayersToGame(data, currentGame) {
 }
 
 function buildShips(currentGame, buildData, callback) {
-    if (canPlanetBuild(buildData.planetName, buildData.playerName, currentGame, currentGame.activatedPlanets)) {
+    if (canPlanetBuild(buildData.planetName, buildData.playerName, currentGame)) {
         var playerIndex = getPlayerIndex(buildData.playerName, currentGame);
         var necessaryResources = parseInt(buildData.fighters);
         necessaryResources += (parseInt(buildData.destroyers) * 2);
         necessaryResources += (parseInt(buildData.dreadnoughts) * 3);
         if (currentGame.players[playerIndex].resources >= necessaryResources) {
-            // TODO: finish me! build ships and save game
+            var planetIndex = getPlanetIndex(buildData.planetName, currentGame.tiles);
+            currentGame.tiles[planetIndex].fighters = parseInt(buildData.fighters) + parseInt(currentGame.tiles[planetIndex].fighters);
+            currentGame.tiles[planetIndex].destroyers = parseInt(buildData.destroyers) + parseInt(currentGame.tiles[planetIndex].destroyers);
+            currentGame.tiles[planetIndex].dreadnoughts = parseInt(buildData.dreadnoughts) + parseInt(currentGame.tiles[planetIndex].dreadnoughts);
+            currentGame.players[playerIndex].resources = parseInt(currentGame.players[playerIndex].resources) - necessaryResources;
+            currentGame.activatedPlanets.push(buildData.planetName);
+            saveCurrentGame(currentGame, function () {
+                callback({
+                    response: "Success",
+                    currentGame: currentGame
+                });
+            });
         }
         else {
-            callback("Insufficient resources. Costs " + necessaryResources + " to build but only " + currentGame.players[playerIndex].resources + " available");
+            callback({
+                response: "Insufficient resources. Costs " + necessaryResources + " to build but only " + currentGame.players[playerIndex].resources + " available",
+                currentGame: currentGame
+            });
         }
     }
     else {
-        callback("Planet cannot build ships this turn.");
+        callback({
+            response: "Planet cannot build ships this turn.",
+            currentGame: currentGame
+        });
     }
 }
 
@@ -358,6 +376,14 @@ function findNextPlayersTurn(data, currentGame) {
     }
 }
 
+function getPlanetIndex(planetName, tiles) {
+    for (var i = 0; i < tiles.length; i++) {
+        if (tiles[i].name === planetName) {
+            return i;
+        }
+    }
+}
+
 function getPlanetInfo(data, currentGame) {
     for (var i = 0; i < currentGame.tiles.length; i++) {
         if (currentGame.tiles[i].name === data) {
@@ -428,11 +454,11 @@ function readCurrentTurn(gameId, callback) {
     });
 }
 
-function saveCurrentTurn(currentGame, callback) {
+function saveCurrentGame(currentGame, callback) {
     mongoClient.connect(configJson.url, function (err, db) {
         if (err) console.log(err);
         mongoClient.savedGamesCollection = db.collection("savedGames");
-        mongoClient.savedGamesCollection.updateOne({"_id": new ObjectID(currentGame._id.valueOf())}, {$set:{"currentTurn":currentGame.currentTurn, "activatedPlanets": currentGame.activatedPlanets, "players":currentGame.players}});
+        mongoClient.savedGamesCollection.updateOne({"_id": new ObjectID(currentGame._id.valueOf())}, {$set:{"currentTurn":currentGame.currentTurn, "activatedPlanets": currentGame.activatedPlanets, "players":currentGame.players, "tiles":currentGame.tiles}});
         db.close();
         callback();
     });
