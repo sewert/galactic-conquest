@@ -128,6 +128,7 @@ io.on("connection", function (socket) {
                     socket.broadcast.emit("updateTurnSuccess", socket.currentGame.currentTurn);
                     socket.emit("updateTurnSuccess", socket.currentGame.currentTurn);
                     socket.broadcast.emit("startTurn", socket.currentGame.currentTurn);
+                    socket.emit("startTurn", socket.currentGame.currentTurn);
                 });
             });
         }
@@ -148,9 +149,11 @@ io.on("connection", function (socket) {
     });
 
     socket.on("getCurrentResources", function(playerName) {
-        for (var i = 0; i < socket.currentGame.players.length; i++) {
-            if (socket.currentGame.players[i].name === playerName) {
-                socket.emit("getCurrentResourcesSuccess", socket.currentGame.players[i].resources);
+        if (playerName) {
+            for (var i = 0; i < socket.currentGame.players.length; i++) {
+                if (socket.currentGame.players[i].name === playerName) {
+                    socket.emit("getCurrentResourcesSuccess", socket.currentGame.players[i].resources);
+                }
             }
         }
     });
@@ -179,23 +182,28 @@ io.on("connection", function (socket) {
     });
 
     socket.on("updatePlanet", function (data) {
-        var planetData = getPlanetInfo(data, socket.currentGame);
-        socket.emit("updatePlanetSuccess", {
-            ownerName: planetData.ownerName,
-            planetName: planetData.planetName,
-            fighters: planetData.fighters,
-            destroyers: planetData.destroyers,
-            dreadnoughts: planetData.dreadnoughts,
-            activated: hasPlanetBeenActivated(planetData.planetName, socket.currentGame.activatedPlanets),
-            buildable: canPlanetBuild(planetData.planetName, socket.playerName, socket.currentGame),
-            planetName: planetData.planetName,
-            sendable: canSendToPlanet(planetData.planetName, socket.playerName, socket.currentGame)
-        });
+        if (socket.currentGame != null) {
+            var planetData = getPlanetInfo(data, socket.currentGame);
+            socket.emit("updatePlanetSuccess", {
+                ownerName: planetData.ownerName,
+                planetName: planetData.planetName,
+                fighters: planetData.fighters,
+                destroyers: planetData.destroyers,
+                dreadnoughts: planetData.dreadnoughts,
+                activated: hasPlanetBeenActivated(planetData.planetName, socket.currentGame.activatedPlanets),
+                buildable: canPlanetBuild(planetData.planetName, socket.playerName, socket.currentGame),
+                planetName: planetData.planetName,
+                sendable: canSendToPlanet(planetData.planetName, socket.playerName, socket.currentGame)
+            });
+        }
     });
 
     socket.on("updateTurn", function () {
         if (socket.currentGame != null) {
-            socket.emit("updateTurnSuccess", socket.currentGame.currentTurn);
+            loadSavedGame(socket.currentGame._id.valueOf(), function(currentGame) {
+                socket.currentGame = currentGame;
+                socket.emit("updateTurnSuccess", socket.currentGame.currentTurn);
+            });
         }
     });
 });
