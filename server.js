@@ -115,7 +115,6 @@ io.on("connection", function (socket) {
             socket.currentGame = data.currentGame;
             socket.emit("buildShipsSuccess", data.response);
         });
-
     });
 
     socket.on("endTurn", function (playerName) {
@@ -309,21 +308,21 @@ function canPlanetBuild(planetName, playerName, currentGame) {
     return false;
 }
 
-function canSendToPlanet(data, playerName, currentGame) {
-    if (hasPlanetBeenActivated(data, currentGame.activatedPlanets)) {
+function canSendToPlanet(targetPlanet, senderName, currentGame) {
+    if (hasPlanetBeenActivated(targetPlanet, currentGame.activatedPlanets)) {
         return false;
     }
 
     var targetedTile;
     for (var i = 0; i < currentGame.tiles.length; i++) {
-        if (currentGame.tiles[i].name === data) {
+        if (currentGame.tiles[i].name === targetPlanet) {
             targetedTile = currentGame.tiles[i];
             break;
         }
     }
     if (targetedTile != null) {
         for (var i = 0; i < currentGame.tiles.length; i++) {
-            if (!hasPlanetBeenActivated(currentGame.tiles[i].name, currentGame.activatedPlanets) && currentGame.tiles[i].owner === playerName) {
+            if (!hasPlanetBeenActivated(currentGame.tiles[i].name, currentGame.activatedPlanets) && currentGame.tiles[i].owner === senderName) {
                 if (targetedTile.y === currentGame.tiles[i].y) { // send from same row
                     if (Math.abs(targetedTile.x - currentGame.tiles[i].x) === 1 ) {
                         return true;
@@ -415,9 +414,9 @@ function getPlayerIndex(playerName, currentGame) {
     }
 }
 
-function hasPlanetBeenActivated(data, activatedPlanets) {
+function hasPlanetBeenActivated(planetName, activatedPlanets) {
     for (var i = 0; i < activatedPlanets.length; i++) {
-        if (activatedPlanets[i] === data) {
+        if (activatedPlanets[i] === planetName) {
             return true;
         }
     }
