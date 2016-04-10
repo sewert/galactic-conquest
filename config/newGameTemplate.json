@@ -46,7 +46,7 @@
       "owner": "neutral",
       "type": "regularSystem",
       "production": "1",
-      "fighters": "0",
+      "fighters": "2",
       "destroyers": "0",
       "dreadnoughts": "0"
     },
@@ -57,7 +57,7 @@
       "owner": "neutral",
       "type": "regularSystem",
       "production": "1",
-      "fighters": "0",
+      "fighters": "2",
       "destroyers": "0",
       "dreadnoughts": "0"
     },
@@ -79,7 +79,7 @@
       "owner": "neutral",
       "type": "regularSystem",
       "production": "1",
-      "fighters": "0",
+      "fighters": "2",
       "destroyers": "0",
       "dreadnoughts": "0"
     },
@@ -90,9 +90,9 @@
       "owner": "neutral",
       "type": "supernova",
       "production": "0",
-      "fighters": "0",
-      "destroyers": "0",
-      "dreadnoughts": "0"
+      "fighters": "3",
+      "destroyers": "3",
+      "dreadnoughts": "3"
     },
     {
       "name": "Virgo",
@@ -101,8 +101,8 @@
       "owner": "neutral",
       "type": "regularSystem",
       "production": "2",
-      "fighters": "0",
-      "destroyers": "0",
+      "fighters": "2",
+      "destroyers": "1",
       "dreadnoughts": "0"
     },
     {
@@ -112,9 +112,9 @@
       "owner": "neutral",
       "type": "supernova",
       "production": "0",
-      "fighters": "0",
-      "destroyers": "0",
-      "dreadnoughts": "0"
+      "fighters": "3",
+      "destroyers": "3",
+      "dreadnoughts": "3"
     },
     {
       "name": "Ursa",
@@ -123,7 +123,7 @@
       "owner": "neutral",
       "type": "regularSystem",
       "production": "1",
-      "fighters": "0",
+      "fighters": "2",
       "destroyers": "0",
       "dreadnoughts": "0"
     },
@@ -134,7 +134,7 @@
       "owner": "neutral",
       "type": "regularSystem",
       "production": "1",
-      "fighters": "0",
+      "fighters": "2",
       "destroyers": "0",
       "dreadnoughts": "0"
     },
@@ -145,8 +145,8 @@
       "owner": "neutral",
       "type": "regularSystem",
       "production": "2",
-      "fighters": "0",
-      "destroyers": "0",
+      "fighters": "2",
+      "destroyers": "1",
       "dreadnoughts": "0"
     },
     {
@@ -156,9 +156,9 @@
       "owner": "neutral",
       "type": "regularSystem",
       "production": "3",
-      "fighters": "0",
+      "fighters": "2",
       "destroyers": "0",
-      "dreadnoughts": "0"
+      "dreadnoughts": "1"
     },
     {
       "name": "Orion",
@@ -167,9 +167,9 @@
       "owner": "neutral",
       "type": "regularSystem",
       "production": "3",
-      "fighters": "0",
+      "fighters": "2",
       "destroyers": "0",
-      "dreadnoughts": "0"
+      "dreadnoughts": "1"
     },
     {
       "name": "Hydra",
@@ -178,8 +178,8 @@
       "owner": "neutral",
       "type": "regularSystem",
       "production": "2",
-      "fighters": "0",
-      "destroyers": "0",
+      "fighters": "2",
+      "destroyers": "1",
       "dreadnoughts": "0"
     },
     {
@@ -189,7 +189,7 @@
       "owner": "neutral",
       "type": "regularSystem",
       "production": "1",
-      "fighters": "0",
+      "fighters": "2",
       "destroyers": "0",
       "dreadnoughts": "0"
     },
@@ -211,9 +211,9 @@
       "owner": "neutral",
       "type": "supernova",
       "production": "0",
-      "fighters": "0",
-      "destroyers": "0",
-      "dreadnoughts": "0"
+      "fighters": "3",
+      "destroyers": "3",
+      "dreadnoughts": "3"
     },
     {
       "name": "Avalon",
@@ -222,9 +222,9 @@
       "owner": "neutral",
       "type": "regularSystem",
       "production": "3",
-      "fighters": "0",
+      "fighters": "2",
       "destroyers": "0",
-      "dreadnoughts": "0"
+      "dreadnoughts": "1"
     },
     {
       "name": "Sol",
@@ -233,9 +233,9 @@
       "owner": "neutral",
       "type": "centerSystem",
       "production": "5",
-      "fighters": "0",
-      "destroyers": "0",
-      "dreadnoughts": "0"
+      "fighters": "5",
+      "destroyers": "3",
+      "dreadnoughts": "2"
     },
     {
       "name": "Pertinax",
@@ -244,9 +244,9 @@
       "owner": "neutral",
       "type": "regularSystem",
       "production": "3",
-      "fighters": "0",
+      "fighters": "2",
       "destroyers": "0",
-      "dreadnoughts": "0"
+      "dreadnoughts": "1"
     },
     {
       "name": "Peelar",
@@ -255,9 +255,9 @@
       "owner": "neutral",
       "type": "supernova",
       "production": "0",
-      "fighters": "0",
-      "destroyers": "0",
-      "dreadnoughts": "0"
+      "fighters": "3",
+      "destroyers": "3",
+      "dreadnoughts": "3"
     },
     {
       "name": "Aman",
@@ -277,7 +277,7 @@
       "owner": "neutral",
       "type": "regularSystem",
       "production": "1",
-      "fighters": "0",
+      "fighters": "2",
       "destroyers": "0",
       "dreadnoughts": "0"
     },
@@ -288,8 +288,8 @@
       "owner": "neutral",
       "type": "regularSystem",
       "production": "2",
-      "fighters": "0",
-      "destroyers": "0",
+      "fighters": "2",
+      "destroyers": "1",
       "dreadnoughts": "0"
     },
     {
@@ -299,9 +299,9 @@
       "owner": "neutral",
       "type": "regularSystem",
       "production": "3",
-      "fighters": "0",
+      "fighters": "2",
       "destroyers": "0",
-      "dreadnoughts": "0"
+      "dreadnoughts": "1"
     },
     {
       "name": "Tiye",
@@ -310,9 +310,9 @@
       "owner": "neutral",
       "type": "regularSystem",
       "production": "3",
-      "fighters": "0",
+      "fighters": "2",
       "destroyers": "0",
-      "dreadnoughts": "0"
+      "dreadnoughts": "1"
     },
     {
       "name": "Gordian",
@@ -321,8 +321,8 @@
       "owner": "neutral",
       "type": "regularSystem",
       "production": "2",
-      "fighters": "0",
-      "destroyers": "0",
+      "fighters": "2",
+      "destroyers": "1",
       "dreadnoughts": "0"
     },
     {
@@ -332,7 +332,7 @@
       "owner": "neutral",
       "type": "regularSystem",
       "production": "1",
-      "fighters": "0",
+      "fighters": "2",
       "destroyers": "0",
       "dreadnoughts": "0"
     },
@@ -343,7 +343,7 @@
       "owner": "neutral",
       "type": "regularSystem",
       "production": "1",
-      "fighters": "0",
+      "fighters": "2",
       "destroyers": "0",
       "dreadnoughts": "0"
     },
@@ -354,9 +354,9 @@
       "owner": "neutral",
       "type": "supernova",
       "production": "0",
-      "fighters": "0",
-      "destroyers": "0",
-      "dreadnoughts": "0"
+      "fighters": "3",
+      "destroyers": "3",
+      "dreadnoughts": "3"
     },
     {
       "name": "Sarapis",
@@ -365,8 +365,8 @@
       "owner": "neutral",
       "type": "regularSystem",
       "production": "2",
-      "fighters": "0",
-      "destroyers": "0",
+      "fighters": "2",
+      "destroyers": "1",
       "dreadnoughts": "0"
     },
     {
@@ -376,9 +376,9 @@
       "owner": "neutral",
       "type": "supernova",
       "production": "0",
-      "fighters": "0",
-      "destroyers": "0",
-      "dreadnoughts": "0"
+      "fighters": "3",
+      "destroyers": "3",
+      "dreadnoughts": "3"
     },
     {
       "name": "Excalibur",
@@ -387,7 +387,7 @@
       "owner": "neutral",
       "type": "regularSystem",
       "production": "1",
-      "fighters": "0",
+      "fighters": "2",
       "destroyers": "0",
       "dreadnoughts": "0"
     },
@@ -409,7 +409,7 @@
       "owner": "neutral",
       "type": "regularSystem",
       "production": "1",
-      "fighters": "0",
+      "fighters": "2",
       "destroyers": "0",
       "dreadnoughts": "0"
     },
@@ -420,7 +420,7 @@
       "owner": "neutral",
       "type": "regularSystem",
       "production": "1",
-      "fighters": "0",
+      "fighters": "2",
       "destroyers": "0",
       "dreadnoughts": "0"
     },
