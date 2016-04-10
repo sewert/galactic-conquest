@@ -540,12 +540,7 @@ function selectTileSuccess(data) {
         else {
             dialogDiv.append("<p>Unable to build ships here.</p>");
         }
-        if (data.sendable === true) {
-            dialogDiv.append("<p><input type='submit' id='sendShips' value='Send Ships Here'></p>");
-        }
-        else {
-            dialogDiv.append("<p>Unable to send ships here.</p>");
-        }
+        dialogDiv.append("<p><input type='submit' id='sendShips' value='Send Ships Here'></p>");
     }
     else {
         dialogDiv.append("<p>Tile has already been activated.</p>")
