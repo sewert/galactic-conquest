@@ -148,7 +148,7 @@ io.on("connection", function (socket) {
     });
 
     socket.on("getCurrentResources", function(playerName) {
-        if (playerName) {
+        if (playerName && socket.currentGame) {
             for (var i = 0; i < socket.currentGame.players.length; i++) {
                 if (socket.currentGame.players[i].name === playerName) {
                     socket.emit("getCurrentResourcesSuccess", socket.currentGame.players[i].resources);
@@ -158,26 +158,31 @@ io.on("connection", function (socket) {
     });
 
     socket.on("selectTile", function (data) {
-        if (data.playerName !== socket.currentGame.currentTurn) {
+        if (socket.currentGame && data.playerName !== socket.currentGame.currentTurn) {
            return;
         }
 
         var planetData = getPlanetInfo(data.planetName, socket.currentGame);
-        socket.emit("selectTileSuccess", {
-            ownerName: planetData.ownerName,
-            planetName: planetData.planetName,
-            fighters: planetData.fighters,
-            destroyers: planetData.destroyers,
-            dreadnoughts: planetData.dreadnoughts,
-            activated: hasPlanetBeenActivated(planetData.planetName, socket.currentGame.activatedPlanets),
-            buildable: canPlanetBuild(planetData.planetName, socket.playerName, socket.currentGame),
-            planetName: planetData.planetName,
-            sendable: canSendToPlanet(planetData.planetName, socket.playerName, socket.currentGame)
-        });
+        if (planetData) {
+            socket.emit("selectTileSuccess", {
+                ownerName: planetData.ownerName,
+                planetName: planetData.planetName,
+                fighters: planetData.fighters,
+                destroyers: planetData.destroyers,
+                dreadnoughts: planetData.dreadnoughts,
+                activated: hasPlanetBeenActivated(planetData.planetName, socket.currentGame.activatedPlanets),
+                buildable: canPlanetBuild(planetData.planetName, socket.playerName, socket.currentGame),
+                planetName: planetData.planetName,
+                sendable: canSendToPlanet(planetData.planetName, socket.playerName, socket.currentGame)
+            });
+        }
     });
 
-    socket.on("sendShips", function (data) {
-        //TODO: write me!
+    socket.on("sendShips", function (sendData) {
+        sendShips(socket.currentGame, sendData, function(data) {
+            socket.currentGame = data.currentGame;
+            socket.emit("sendShipsSuccess", data.response);
+        });
     });
 
     socket.on("updatePlanet", function (data) {
@@ -308,6 +313,58 @@ function canPlanetBuild(planetName, playerName, currentGame) {
     return false;
 }
 
+function canSendFromSpecificPlanet(targetPlanetName, sourcePlanetName, senderPlayerName, currentGame) {
+    if (hasPlanetBeenActivated(targetPlanetName, currentGame.activatedPlanets)) {
+        return false;
+    }
+    if (hasPlanetBeenActivated(sourcePlanetName, currentGame.activatedPlanets)) {
+        return false;
+    }
+
+    var targetedPlanet = currentGame.tiles[getPlanetIndex(targetPlanetName, currentGame.tiles)];
+    var sourcePlanet = currentGame.tiles[getPlanetIndex(sourcePlanetName, currentGame.tiles)];
+
+    if (targetedPlanet && sourcePlanet) {
+        if (sourcePlanet.owner !== senderPlayerName) {
+            return false;
+        }
+
+        if (targetedPlanet.y === sourcePlanet.y) { // send from same row
+            if (Math.abs(targetedPlanet.x - sourcePlanet.x) === 1 ) {
+                return true;
+            }
+        }
+        else if (Math.abs(targetedPlanet.y - sourcePlanet.y) > 1) { // more than one row apart
+            return false;
+        }
+        else if (targetedPlanet.y - sourcePlanet.y === 1) { // send from row above
+            if (targetedPlanet.y > 3) { // bottom half of board
+                if (targetedPlanet.x === sourcePlanet.x || targetedPlanet.x - sourcePlanet.x === -1) {
+                    return true;
+                }
+            }
+            else if (targetedPlanet.x === sourcePlanet.x || targetedPlanet.x - sourcePlanet.x === 1) { // top half of board
+                return true;
+            }
+        }
+        else if (targetedPlanet.y - sourcePlanet.y === -1) { // send from row below
+            if (targetedPlanet.y > 3) { // bottom half of board
+                if (targetedPlanet.x === sourcePlanet.x || targetedPlanet.x - sourcePlanet.x === 1) {
+                    return true;
+                }
+            }
+            else if (targetedPlanet.x === sourcePlanet.x || targetedPlanet.x - sourcePlanet.x === -1) { // top half of board
+                return true;
+            }
+        }
+    }
+    else {
+        return false;
+    }
+
+    return false;
+}
+
 function canSendToPlanet(targetPlanetName, senderName, currentGame) {
     if (hasPlanetBeenActivated(targetPlanetName, currentGame.activatedPlanets)) {
         return false;
@@ -321,7 +378,7 @@ function canSendToPlanet(targetPlanetName, senderName, currentGame) {
         }
     }
     if (targetedPlanet != null) {
-        for (var i = 0; i < currentGame.tiles.length; i++) {
+        for (i = 0; i < currentGame.tiles.length; i++) {
             if (!hasPlanetBeenActivated(currentGame.tiles[i].name, currentGame.activatedPlanets) && currentGame.tiles[i].owner === senderName) {
                 if (targetedPlanet.y === currentGame.tiles[i].y) { // send from same row
                     if (Math.abs(targetedPlanet.x - currentGame.tiles[i].x) === 1 ) {
@@ -392,16 +449,18 @@ function getPlanetIndex(planetName, tiles) {
 }
 
 function getPlanetInfo(data, currentGame) {
-    for (var i = 0; i < currentGame.tiles.length; i++) {
-        if (currentGame.tiles[i].name === data) {
-            data = {
-                ownerName: currentGame.tiles[i].owner,
-                planetName: currentGame.tiles[i].name,
-                fighters: currentGame.tiles[i].fighters,
-                destroyers: currentGame.tiles[i].destroyers,
-                dreadnoughts: currentGame.tiles[i].dreadnoughts
-            };
-            return data;
+    if (currentGame) {
+        for (var i = 0; i < currentGame.tiles.length; i++) {
+            if (currentGame.tiles[i].name === data) {
+                data = {
+                    ownerName: currentGame.tiles[i].owner,
+                    planetName: currentGame.tiles[i].name,
+                    fighters: currentGame.tiles[i].fighters,
+                    destroyers: currentGame.tiles[i].destroyers,
+                    dreadnoughts: currentGame.tiles[i].dreadnoughts
+                };
+                return data;
+            }
         }
     }
 }
@@ -469,4 +528,16 @@ function saveCurrentGame(currentGame, callback) {
         db.close();
         callback();
     });
+}
+
+function sendShips(currentGame, sendData, callback) {
+    if (canSendFromSpecificPlanet(sendData.targetPlanet, sendData.sourcePlanet, sendData.playerName, currentGame)) {
+        // TODO: verify ships counts, move ships, check for combat, update new planet owner and ship info, save game, then return
+    }
+    else {
+        callback({
+            response: sendData.sourcePlanet + " cannot send ships to " + sendData.targetPlanet + " this turn.",
+            currentGame: currentGame
+        });
+    }
 }
