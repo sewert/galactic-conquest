@@ -29,7 +29,7 @@
   "activatedPlanets": [],
   "tiles": [
     {
-      "name": "tile1_1",
+      "name": "Eridanus",
       "x": "1",
       "y": "1",
       "owner": "player1",
@@ -40,7 +40,7 @@
       "dreadnoughts": "0"
     },
     {
-      "name": "tile1_2",
+      "name": "Scorpius",
       "x": "2",
       "y": "1",
       "owner": "neutral",
@@ -51,7 +51,7 @@
       "dreadnoughts": "0"
     },
     {
-      "name": "tile1_3",
+      "name": "Cancer",
       "x": "3",
       "y": "1",
       "owner": "neutral",
@@ -62,7 +62,7 @@
       "dreadnoughts": "0"
     },
     {
-      "name": "tile1_4",
+      "name": "Taurus",
       "x": "4",
       "y": "1",
       "owner": "player2",
@@ -73,7 +73,7 @@
       "dreadnoughts": "0"
     },
     {
-      "name": "tile2_1",
+      "name": "Lyra",
       "x": "1",
       "y": "2",
       "owner": "neutral",
@@ -84,7 +84,7 @@
       "dreadnoughts": "0"
     },
     {
-      "name": "tile2_2",
+      "name": "Andromeda",
       "x": "2",
       "y": "2",
       "owner": "neutral",
@@ -95,7 +95,7 @@
       "dreadnoughts": "0"
     },
     {
-      "name": "tile2_3",
+      "name": "Virgo",
       "x": "3",
       "y": "2",
       "owner": "neutral",
@@ -106,7 +106,7 @@
       "dreadnoughts": "0"
     },
     {
-      "name": "tile2_4",
+      "name": "Corvus",
       "x": "4",
       "y": "2",
       "owner": "neutral",
@@ -117,7 +117,7 @@
       "dreadnoughts": "0"
     },
     {
-      "name": "tile2_5",
+      "name": "Ursa",
       "x": "5",
       "y": "2",
       "owner": "neutral",
@@ -128,7 +128,7 @@
       "dreadnoughts": "0"
     },
     {
-      "name": "tile3_1",
+      "name": "Draco",
       "x": "1",
       "y": "3",
       "owner": "neutral",
@@ -139,7 +139,7 @@
       "dreadnoughts": "0"
     },
     {
-      "name": "tile3_2",
+      "name": "Gemini",
       "x": "2",
       "y": "3",
       "owner": "neutral",
@@ -150,7 +150,7 @@
       "dreadnoughts": "0"
     },
     {
-      "name": "tile3_3",
+      "name": "Bootes",
       "x": "3",
       "y": "3",
       "owner": "neutral",
@@ -161,7 +161,7 @@
       "dreadnoughts": "0"
     },
     {
-      "name": "tile3_4",
+      "name": "Orion",
       "x": "4",
       "y": "3",
       "owner": "neutral",
@@ -172,7 +172,7 @@
       "dreadnoughts": "0"
     },
     {
-      "name": "tile3_5",
+      "name": "Hydra",
       "x": "5",
       "y": "3",
       "owner": "neutral",
@@ -183,7 +183,7 @@
       "dreadnoughts": "0"
     },
     {
-      "name": "tile3_6",
+      "name": "Canis",
       "x": "6",
       "y": "3",
       "owner": "neutral",
@@ -194,7 +194,7 @@
       "dreadnoughts": "0"
     },
     {
-      "name": "tile4_1",
+      "name": "Phoenix",
       "x": "1",
       "y": "4",
       "owner": "player3",
@@ -205,7 +205,7 @@
       "dreadnoughts": "0"
     },
     {
-      "name": "tile4_2",
+      "name": "Auriga",
       "x": "2",
       "y": "4",
       "owner": "neutral",
@@ -216,7 +216,7 @@
       "dreadnoughts": "0"
     },
     {
-      "name": "tile4_3",
+      "name": "Avalon",
       "x": "3",
       "y": "4",
       "owner": "neutral",
@@ -227,7 +227,7 @@
       "dreadnoughts": "0"
     },
     {
-      "name": "tile4_4",
+      "name": "Sol",
       "x": "4",
       "y": "4",
       "owner": "neutral",
@@ -238,7 +238,7 @@
       "dreadnoughts": "0"
     },
     {
-      "name": "tile4_5",
+      "name": "Pertinax",
       "x": "5",
       "y": "4",
       "owner": "neutral",
@@ -249,7 +249,7 @@
       "dreadnoughts": "0"
     },
     {
-      "name": "tile4_6",
+      "name": "Peelar",
       "x": "6",
       "y": "4",
       "owner": "neutral",
@@ -260,7 +260,7 @@
       "dreadnoughts": "0"
     },
     {
-      "name": "tile4_7",
+      "name": " Aman",
       "x": "7",
       "y": "4",
       "owner": "player4",
@@ -271,7 +271,7 @@
       "dreadnoughts": "0"
     },
     {
-      "name": "tile5_1",
+      "name": "Choveer",
       "x": "1",
       "y": "5",
       "owner": "neutral",
@@ -282,7 +282,7 @@
       "dreadnoughts": "0"
     },
     {
-      "name": "tile5_2",
+      "name": "Imdali",
       "x": "2",
       "y": "5",
       "owner": "neutral",
@@ -293,7 +293,7 @@
       "dreadnoughts": "0"
     },
     {
-      "name": "tile5_3",
+      "name": "Arawak",
       "x": "3",
       "y": "5",
       "owner": "neutral",
@@ -304,7 +304,7 @@
       "dreadnoughts": "0"
     },
     {
-      "name": "tile5_4",
+      "name": "Tiye",
       "x": "4",
       "y": "5",
       "owner": "neutral",
@@ -315,7 +315,7 @@
       "dreadnoughts": "0"
     },
     {
-      "name": "tile5_5",
+      "name": "Gordian",
       "x": "5",
       "y": "5",
       "owner": "neutral",
@@ -326,7 +326,7 @@
       "dreadnoughts": "0"
     },
     {
-      "name": "tile5_6",
+      "name": "Vitellius",
       "x": "6",
       "y": "5",
       "owner": "neutral",
@@ -337,7 +337,7 @@
       "dreadnoughts": "0"
     },
     {
-      "name": "tile6_1",
+      "name": "Garion",
       "x": "1",
       "y": "6",
       "owner": "neutral",
@@ -348,7 +348,7 @@
       "dreadnoughts": "0"
     },
     {
-      "name": "tile6_2",
+      "name": "Anteus",
       "x": "2",
       "y": "6",
       "owner": "neutral",
@@ -359,7 +359,7 @@
       "dreadnoughts": "0"
     },
     {
-      "name": "tile6_3",
+      "name": "Sarapis",
       "x": "3",
       "y": "6",
       "owner": "neutral",
@@ -370,7 +370,7 @@
       "dreadnoughts": "0"
     },
     {
-      "name": "tile6_4",
+      "name": "Caracalla",
       "x": "4",
       "y": "6",
       "owner": "neutral",
@@ -381,7 +381,7 @@
       "dreadnoughts": "0"
     },
     {
-      "name": "tile6_5",
+      "name": "Excalibur",
       "x": "5",
       "y": "6",
       "owner": "neutral",
@@ -392,7 +392,7 @@
       "dreadnoughts": "0"
     },
     {
-      "name": "tile7_1",
+      "name": "Numina",
       "x": "1",
       "y": "7",
       "owner": "player5",
@@ -403,7 +403,7 @@
       "dreadnoughts": "0"
     },
     {
-      "name": "tile7_2",
+      "name": "Ivaldi",
       "x": "2",
       "y": "7",
       "owner": "neutral",
@@ -414,7 +414,7 @@
       "dreadnoughts": "0"
     },
     {
-      "name": "tile7_3",
+      "name": "Blackrock",
       "x": "3",
       "y": "7",
       "owner": "neutral",
@@ -425,7 +425,7 @@
       "dreadnoughts": "0"
     },
     {
-      "name": "tile7_4",
+      "name": "Catullus",
       "x": "4",
       "y": "7",
       "owner": "player6",
