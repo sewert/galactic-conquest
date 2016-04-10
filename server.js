@@ -183,7 +183,7 @@ io.on("connection", function (socket) {
                 activated: hasPlanetBeenActivated(planetData.planetName, socket.currentGame.activatedPlanets),
                 buildable: canPlanetBuild(planetData.planetName, socket.playerName, socket.currentGame),
                 planetName: planetData.planetName,
-                sendable: canSendToPlanet(planetData.planetName, socket.playerName, socket.currentGame)
+                sendable: canPlanetSend(planetData.planetName, socket.playerName, socket.currentGame)
             });
         }
     });
@@ -207,7 +207,7 @@ io.on("connection", function (socket) {
                 activated: hasPlanetBeenActivated(planetData.planetName, socket.currentGame.activatedPlanets),
                 buildable: canPlanetBuild(planetData.planetName, socket.playerName, socket.currentGame),
                 planetName: planetData.planetName,
-                sendable: canSendToPlanet(planetData.planetName, socket.playerName, socket.currentGame)
+                sendable: canPlanetSend(planetData.planetName, socket.playerName, socket.currentGame)
             });
         }
     });
@@ -375,49 +375,15 @@ function canSendFromSpecificPlanet(targetPlanetName, sourcePlanetName, senderPla
     return false;
 }
 
-function canSendToPlanet(targetPlanetName, senderName, currentGame) {
-    if (hasPlanetBeenActivated(targetPlanetName, currentGame.activatedPlanets)) {
-        return false;
-    }
-
-    var targetedPlanet;
-    for (var i = 0; i < currentGame.tiles.length; i++) {
-        if (currentGame.tiles[i].name === targetPlanetName) {
-            targetedPlanet = currentGame.tiles[i];
-            break;
+function canPlanetSend(planetName, playerName, currentGame) {
+    if (currentGame) {
+        if (hasPlanetBeenActivated(planetName, currentGame.activatedPlanets)) {
+            return false;
         }
-    }
-    if (targetedPlanet != null) {
-        for (i = 0; i < currentGame.tiles.length; i++) {
-            if (!hasPlanetBeenActivated(currentGame.tiles[i].name, currentGame.activatedPlanets) && currentGame.tiles[i].owner === senderName) {
-                if (targetedPlanet.y === currentGame.tiles[i].y) { // send from same row
-                    if (Math.abs(targetedPlanet.x - currentGame.tiles[i].x) === 1 ) {
-                        return true;
-                    }
-                }
-                else if (Math.abs(targetedPlanet.y - currentGame.tiles[i].y) > 1) { // more than one row apart
-                    // do nothing
-                }
-                else if (targetedPlanet.y - currentGame.tiles[i].y === 1) { // send from row above
-                    if (targetedPlanet.y > 3) { // bottom half of board
-                        if (targetedPlanet.x === currentGame.tiles[i].x || targetedPlanet.x - currentGame.tiles[i].x === -1) {
-                            return true;
-                        }
-                    }
-                    else if (targetedPlanet.x === currentGame.tiles[i].x || targetedPlanet.x - currentGame.tiles[i].x === 1) { // top half of board
-                        return true;
-                    }
-                }
-                else if (targetedPlanet.y - currentGame.tiles[i].y === -1) { // send from row below
-                    if (targetedPlanet.y > 3) { // bottom half of board
-                        if (targetedPlanet.x === currentGame.tiles[i].x || targetedPlanet.x - currentGame.tiles[i].x === 1) {
-                            return true;
-                        }
-                    }
-                    else if (targetedPlanet.x === currentGame.tiles[i].x || targetedPlanet.x - currentGame.tiles[i].x === -1) { // top half of board
-                        return true;
-                    }
-                }
+        var planetIndex = getPlanetIndex(planetName, currentGame.tiles);
+        if (currentGame.tiles[planetIndex] && currentGame.tiles[planetIndex].owner === playerName) {
+            if (currentGame.tiles[planetIndex].fighters > 0 || currentGame.tiles[planetIndex].destroyers > 0 || currentGame.tiles[planetIndex].dreadnoughts > 0) {
+                return true;
             }
         }
     }
