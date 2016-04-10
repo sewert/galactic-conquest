@@ -533,6 +533,47 @@ function saveCurrentGame(currentGame, callback) {
 function sendShips(currentGame, sendData, callback) {
     if (canSendFromSpecificPlanet(sendData.targetPlanet, sendData.sourcePlanet, sendData.playerName, currentGame)) {
         // TODO: verify ships counts, move ships, check for combat, update new planet owner and ship info, save game, then return
+        var sourcePlanetIndex = getPlanetIndex(sendData.sourcePlanet, currentGame.tiles);
+        var targetPlanetIndex = getPlanetIndex(sendData.targetPlanet, currentGame.tiles);
+
+        // make sure source has enough ships to send
+        if (currentGame.tiles[sourcePlanetIndex].fighters < sendData.fighters) {
+                callback({
+                    response: "Not enough fighters",
+                    currentGame: currentGame
+                });
+        }
+        else if (currentGame.tiles[sourcePlanetIndex].destroyers < sendData.destroyers) {
+            callback({
+                response: "Not enough destroyers",
+                currentGame: currentGame
+            });
+        }
+        else if (currentGame.tiles[sourcePlanetIndex].dreadnoughts < sendData.dreadnoughts) {
+            callback({
+                response: "Not enough dreadnoughts",
+                currentGame: currentGame
+            });
+        }
+        // check to see if we are reinforcing or attacking
+        else {
+            // same owner so reinforce
+            if (currentGame.tiles[sourcePlanetIndex].owner === currentGame.tiles[targetPlanetIndex].owner) {
+                currentGame.tiles[targetPlanetIndex].fighters = parseInt(currentGame.tiles[targetPlanetIndex].fighters) + parseInt(sendData.fighters);
+                currentGame.tiles[sourcePlanetIndex].fighters = parseInt(currentGame.tiles[sourcePlanetIndex].fighters) - parseInt(sendData.fighters);
+                currentGame.tiles[targetPlanetIndex].destroyers = parseInt(currentGame.tiles[targetPlanetIndex].destroyers) + parseInt(sendData.destroyers);
+                currentGame.tiles[sourcePlanetIndex].destroyers = parseInt(currentGame.tiles[sourcePlanetIndex].destroyers) - parseInt(sendData.destroyers);
+                currentGame.tiles[targetPlanetIndex].dreadnoughts = parseInt(currentGame.tiles[targetPlanetIndex].dreadnoughts) + parseInt(sendData.dreadnoughts);
+                currentGame.tiles[sourcePlanetIndex].dreadnoughts = parseInt(currentGame.tiles[sourcePlanetIndex].dreadnoughts) - parseInt(sendData.dreadnoughts);
+                currentGame.activatedPlanets.push(sendData.targetPlanet);
+                saveCurrentGame(currentGame, function () {
+                    callback({
+                       response: "Reinforcements sent successfully. " + sendData.targetPlanet + " has been activated.",
+                        currentGame: currentGame
+                    });
+                });
+            }
+        }
     }
     else {
         callback({
