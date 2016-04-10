@@ -1,3 +1,13 @@
+var FIGHTER_ATTACK = 1;
+var FIGHTER_COST = 1;
+var FIGHTER_DEFENCE = 1;
+var DESTROYER_ATTACK = 2;
+var DESTROYER_COST = 2;
+var DESTROYER_DEFENCE = 2;
+var DREADNOUGHT_ATTACK = 3;
+var DREADNOUGHT_COST = 3;
+var DREADNOUGHT_DEFENCE = 3;
+
 // Connect to MongoDB
 var fs = require("fs");
 var configJson = JSON.parse(fs.readFileSync("config.json"));
@@ -263,9 +273,9 @@ function addPlayersToGame(data, currentGame) {
 function buildShips(currentGame, buildData, callback) {
     if (canPlanetBuild(buildData.planetName, buildData.playerName, currentGame)) {
         var playerIndex = getPlayerIndex(buildData.playerName, currentGame);
-        var necessaryResources = parseInt(buildData.fighters);
-        necessaryResources += (parseInt(buildData.destroyers) * 2);
-        necessaryResources += (parseInt(buildData.dreadnoughts) * 3);
+        var necessaryResources = (parseInt(buildData.fighters) * FIGHTER_COST);
+        necessaryResources += (parseInt(buildData.destroyers) * DESTROYER_COST);
+        necessaryResources += (parseInt(buildData.dreadnoughts) * DREADNOUGHT_COST);
         if (currentGame.players[playerIndex].resources >= necessaryResources) {
             var planetIndex = getPlanetIndex(buildData.planetName, currentGame.tiles);
             currentGame.tiles[planetIndex].fighters = parseInt(buildData.fighters) + parseInt(currentGame.tiles[planetIndex].fighters);
@@ -532,7 +542,6 @@ function saveCurrentGame(currentGame, callback) {
 
 function sendShips(currentGame, sendData, callback) {
     if (canSendFromSpecificPlanet(sendData.targetPlanet, sendData.sourcePlanet, sendData.playerName, currentGame)) {
-        // TODO: verify ships counts, move ships, check for combat, update new planet owner and ship info, save game, then return
         var sourcePlanetIndex = getPlanetIndex(sendData.sourcePlanet, currentGame.tiles);
         var targetPlanetIndex = getPlanetIndex(sendData.targetPlanet, currentGame.tiles);
 
@@ -568,7 +577,88 @@ function sendShips(currentGame, sendData, callback) {
                 currentGame.activatedPlanets.push(sendData.targetPlanet);
                 saveCurrentGame(currentGame, function () {
                     callback({
-                       response: "Reinforcements sent successfully. " + sendData.targetPlanet + " has been activated.",
+                       response: "Success",
+                        currentGame: currentGame
+                    });
+                });
+            }
+            // different owner so resolve combat
+            else {
+                var defendingFighters = parseInt(currentGame.tiles[targetPlanetIndex].fighters);
+                var defendingDestroyers = parseInt(currentGame.tiles[targetPlanetIndex].destroyers);
+                var defendingDreadnoughts = parseInt(currentGame.tiles[targetPlanetIndex].dreadnoughts);
+                var attackingFighters = parseInt(sendData.fighters);
+                var attackingDestroyers = parseInt(sendData.destroyers);
+                var attackingDreadnoughts = parseInt(sendData.dreadnoughts);
+
+                var totalDefenderAttackPoints = (defendingFighters * FIGHTER_ATTACK) + (defendingDestroyers * DESTROYER_ATTACK) + (defendingDreadnoughts * DREADNOUGHT_ATTACK);
+                var totalDefenderDefencePoints = (defendingFighters * FIGHTER_DEFENCE) + (defendingDestroyers * DESTROYER_DEFENCE) + (defendingDreadnoughts * DREADNOUGHT_DEFENCE);
+                var totalAttackerAttackPoints = (attackingFighters * FIGHTER_ATTACK) + (attackingDestroyers * DESTROYER_ATTACK) + (attackingDreadnoughts * DREADNOUGHT_ATTACK);
+                var totalAttackerDefencePoints = (attackingFighters * FIGHTER_DEFENCE) + (attackingDestroyers * DESTROYER_DEFENCE) + (attackingDreadnoughts * DREADNOUGHT_DEFENCE);
+
+                var remainingDefenderLifePoints = totalDefenderDefencePoints - totalAttackerAttackPoints;
+                var remainingAttackerLifePoints = totalAttackerDefencePoints - totalDefenderAttackPoints;
+
+                // calculate remaining ships
+                while (totalAttackerAttackPoints > 0) {
+                    if (defendingFighters > 0 && totalAttackerAttackPoints >= FIGHTER_DEFENCE) {
+                        defendingFighters--;
+                        totalAttackerAttackPoints -= FIGHTER_DEFENCE;
+                    }
+                    else if (defendingDestroyers > 0 && totalAttackerAttackPoints >= DESTROYER_DEFENCE) {
+                        defendingDestroyers--;
+                        totalAttackerAttackPoints -= DESTROYER_DEFENCE;
+                    }
+                    else if (defendingDreadnoughts > 0 && totalAttackerAttackPoints >= DREADNOUGHT_DEFENCE) {
+                        defendingDreadnoughts--;
+                        totalAttackerAttackPoints -= DREADNOUGHT_DEFENCE;
+                    }
+                    else {
+                        totalAttackerAttackPoints--;
+                    }
+                }
+                while (totalDefenderAttackPoints > 0) {
+                    if (attackingFighters > 0 && totalDefenderAttackPoints >= FIGHTER_DEFENCE) {
+                        attackingFighters--;
+                        totalDefenderAttackPoints -= FIGHTER_DEFENCE;
+                    }
+                    else if (attackingDestroyers > 0 && totalDefenderAttackPoints >= DESTROYER_DEFENCE) {
+                        attackingDestroyers--;
+                        totalDefenderAttackPoints -= DESTROYER_DEFENCE;
+                    }
+                    else if (attackingDreadnoughts > 0 && totalDefenderAttackPoints >= DREADNOUGHT_DEFENCE) {
+                        attackingDreadnoughts--;
+                        totalDefenderAttackPoints -= DREADNOUGHT_DEFENCE;
+                    }
+                    else {
+                        totalDefenderAttackPoints--;
+                    }
+                }
+
+                // change owner if attacker won
+                if (remainingDefenderLifePoints <= 0 && remainingAttackerLifePoints > 0) {
+                    currentGame.tiles[targetPlanetIndex].owner = sendData.playerName;
+                    currentGame.tiles[targetPlanetIndex].fighters = attackingFighters;
+                    currentGame.tiles[targetPlanetIndex].destroyers = attackingDestroyers;
+                    currentGame.tiles[targetPlanetIndex].dreadnoughts = attackingDreadnoughts;
+                }
+                else {
+                    currentGame.tiles[targetPlanetIndex].fighters = defendingFighters;
+                    currentGame.tiles[targetPlanetIndex].destroyers = defendingDestroyers;
+                    currentGame.tiles[targetPlanetIndex].dreadnoughts = defendingDreadnoughts;
+                }
+
+                // activate system
+                currentGame.activatedPlanets.push(sendData.targetPlanet);
+
+                // remove ships from source system
+                currentGame.tiles[sourcePlanetIndex].fighters = parseInt(currentGame.tiles[sourcePlanetIndex].fighters) - parseInt(sendData.fighters);
+                currentGame.tiles[sourcePlanetIndex].destroyers = parseInt(currentGame.tiles[sourcePlanetIndex].destroyers) - parseInt(sendData.destroyers);
+                currentGame.tiles[sourcePlanetIndex].dreadnoughts = parseInt(currentGame.tiles[sourcePlanetIndex].dreadnoughts) - parseInt(sendData.dreadnoughts);
+
+                saveCurrentGame(currentGame, function () {
+                    callback({
+                       response: "Success",
                         currentGame: currentGame
                     });
                 });
