@@ -186,7 +186,6 @@ io.on("connection", function (socket) {
                 dreadnoughts: planetData.dreadnoughts,
                 activated: hasPlanetBeenActivated(planetData.planetName, socket.currentGame.activatedPlanets),
                 buildable: canPlanetBuild(planetData.planetName, socket.playerName, socket.currentGame),
-                planetName: planetData.planetName,
                 sendable: canPlanetSend(planetData.planetName, socket.playerName, socket.currentGame)
             });
         }
@@ -210,7 +209,6 @@ io.on("connection", function (socket) {
                 dreadnoughts: planetData.dreadnoughts,
                 activated: hasPlanetBeenActivated(planetData.planetName, socket.currentGame.activatedPlanets),
                 buildable: canPlanetBuild(planetData.planetName, socket.playerName, socket.currentGame),
-                planetName: planetData.planetName,
                 sendable: canPlanetSend(planetData.planetName, socket.playerName, socket.currentGame)
             });
         }
@@ -250,7 +248,7 @@ function addPlayersToGame(data, currentGame) {
         }
     }
 
-    for (var i = 0; i < currentGame.tiles.length; i++) {
+    for (i = 0; i < currentGame.tiles.length; i++) {
         if (currentGame.tiles[i].owner === "player1") {
             currentGame.tiles[i].owner = data.player1;
         }
@@ -483,7 +481,7 @@ function produceResources(currentGame, callback) {
     var playerIndex = getPlayerIndex(currentGame.currentTurn, currentGame);
 
     var resources = parseInt(currentGame.players[playerIndex].resources);
-    for (i = 0; i < currentGame.tiles.length; i++) {
+    for (var i = 0; i < currentGame.tiles.length; i++) {
         if (currentGame.tiles[i].owner === currentGame.currentTurn) {
             resources += parseInt(currentGame.tiles[i].production);
         }

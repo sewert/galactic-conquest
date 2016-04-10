@@ -227,7 +227,7 @@ $(function(){
     }
 
     function getTypingMessages (data) {
-        return $(".typing.message").filter(function (i) {
+        return $(".typing.message").filter(function() {
             return $(this).data("playerName") === data.playerName;
         });
     }
