@@ -405,14 +405,21 @@ function checkVictoryConditions(gameId, playerName, callback) {
     });
 }
 
-function findNextPlayersTurn(data, currentGame) {
+function findNextPlayersTurn(currentPlayerName, currentGame) {
+    var livingPlayers = [];
     for (var i = 0; i < currentGame.players.length; i++) {
-        if (currentGame.players[i].name === data) {
-            if (i + 1 < currentGame.players.length) {
-                return currentGame.players[i + 1].name;
+        if (isPlayerAlive(currentGame.players[i].name, currentGame)) {
+            livingPlayers.push(currentGame.players[i]);
+        }
+    }
+
+    for (i = 0; i < livingPlayers.length; i++) {
+        if (livingPlayers[i].name === currentPlayerName) {
+            if (i + 1 < livingPlayers.length) {
+                return livingPlayers[i + 1].name;
             }
             else {
-                return currentGame.players[0].name;
+                return livingPlayers[0].name;
             }
         }
     }
@@ -457,6 +464,16 @@ function hasPlanetBeenActivated(planetName, activatedPlanets) {
             return true;
         }
     }
+    return false;
+}
+
+function isPlayerAlive(playerName, currentGame) {
+    for (var i = 0; i < currentGame.tiles.length; i++) {
+        if (currentGame.tiles[i].owner === playerName) {
+            return true;
+        }
+    }
+
     return false;
 }
 
