@@ -352,7 +352,7 @@ function canSendFromSpecificPlanet(targetPlanetName, sourcePlanetName, senderPla
             return false;
         }
         else if (targetedPlanet.y - sourcePlanet.y === 1) { // send from row above
-            if (targetedPlanet.y > 3) { // bottom half of board
+            if (targetedPlanet.y > 4) { // bottom half of board
                 if (targetedPlanet.x === sourcePlanet.x || targetedPlanet.x - sourcePlanet.x === -1) {
                     return true;
                 }
@@ -362,7 +362,7 @@ function canSendFromSpecificPlanet(targetPlanetName, sourcePlanetName, senderPla
             }
         }
         else if (targetedPlanet.y - sourcePlanet.y === -1) { // send from row below
-            if (targetedPlanet.y > 3) { // bottom half of board
+            if (targetedPlanet.y > 4) { // bottom half of board
                 if (targetedPlanet.x === sourcePlanet.x || targetedPlanet.x - sourcePlanet.x === 1) {
                     return true;
                 }
