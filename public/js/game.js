@@ -703,7 +703,7 @@ function showPauseMenu() {
     saveGameButton.events.onInputDown.add(saveGame);
 
     loadGameButton = mainMenuButtons.create(gameWidth/2, gameHeight * 0.6, "loadGameButton");
-    loadGameButton.events.onInputDown.add(loadGame);
+    //loadGameButton.events.onInputDown.add(loadGame);
 
     tutorialButton = mainMenuButtons.create(gameWidth/2, gameHeight * 0.8, "tutorialButton");
     tutorialButton.events.onInputDown.add(startTutorial);
