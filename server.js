@@ -78,16 +78,18 @@ io.on("connection", function (socket) {
     // Menu
     socket.on("loadGame", function (data) {
         loadSavedGame(data, function (currentGame) {
-            socket.currentGame = currentGame;
-            socket.emit("loadGameSuccess", {
-                gameId: socket.currentGame._id.valueOf(),
-                player1: socket.currentGame.players[0].name,
-                player2: socket.currentGame.players[1].name,
-                player3: socket.currentGame.players[2].name,
-                player4: socket.currentGame.players[3].name,
-                player5: socket.currentGame.players[4].name,
-                player6: socket.currentGame.players[5].name
-            });
+            if (currentGame) {
+                socket.currentGame = currentGame;
+                socket.emit("loadGameSuccess", {
+                    gameId: socket.currentGame._id.valueOf(),
+                    player1: socket.currentGame.players[0].name,
+                    player2: socket.currentGame.players[1].name,
+                    player3: socket.currentGame.players[2].name,
+                    player4: socket.currentGame.players[3].name,
+                    player5: socket.currentGame.players[4].name,
+                    player6: socket.currentGame.players[5].name
+                });
+            }
         });
     });
 
@@ -128,33 +130,35 @@ io.on("connection", function (socket) {
     });
 
     socket.on("endTurn", function (playerName) {
-        if (socket.currentGame.currentTurn === playerName) {
-            socket.currentGame.currentTurn = findNextPlayersTurn(playerName, socket.currentGame);
-            socket.currentGame.activatedPlanets = [];
-            produceResources(socket.currentGame, function (players) {
-                socket.currentGame.players = players;
-                saveCurrentGame(socket.currentGame, function () {
+        if (socket.currentGame) {
+            if (socket.currentGame.currentTurn === playerName) {
+                socket.currentGame.currentTurn = findNextPlayersTurn(playerName, socket.currentGame);
+                socket.currentGame.activatedPlanets = [];
+                produceResources(socket.currentGame, function (players) {
+                    socket.currentGame.players = players;
+                    saveCurrentGame(socket.currentGame, function () {
+                        socket.broadcast.emit("updateTurnSuccess", socket.currentGame.currentTurn);
+                        socket.emit("updateTurnSuccess", socket.currentGame.currentTurn);
+                        socket.broadcast.emit("startTurn", socket.currentGame.currentTurn);
+                        socket.emit("startTurn", socket.currentGame.currentTurn);
+                    });
+                });
+            }
+            else {
+                readCurrentTurn(socket.currentGame._id.valueOf(), function (currentTurn) {
+                    socket.currentGame.currentTurn = currentTurn;
                     socket.broadcast.emit("updateTurnSuccess", socket.currentGame.currentTurn);
                     socket.emit("updateTurnSuccess", socket.currentGame.currentTurn);
-                    socket.broadcast.emit("startTurn", socket.currentGame.currentTurn);
-                    socket.emit("startTurn", socket.currentGame.currentTurn);
                 });
-            });
-        }
-        else {
-            readCurrentTurn(socket.currentGame._id.valueOf(), function (currentTurn) {
-                socket.currentGame.currentTurn = currentTurn;
-                socket.broadcast.emit("updateTurnSuccess", socket.currentGame.currentTurn);
-                socket.emit("updateTurnSuccess", socket.currentGame.currentTurn);
-            });
-        }
-
-        checkVictoryConditions(socket.currentGame._id.valueOf(), playerName, function (victoryResult) {
-            if (victoryResult === true) {
-                socket.emit("gameOver", playerName);
-                socket.broadcast.emit("gameOver", playerName);
             }
-        });
+
+            checkVictoryConditions(socket.currentGame._id.valueOf(), playerName, function (victoryResult) {
+                if (victoryResult === true) {
+                    socket.emit("gameOver", playerName);
+                    socket.broadcast.emit("gameOver", playerName);
+                }
+            });
+        }
     });
 
     socket.on("getCurrentResources", function(playerName) {
@@ -459,15 +463,20 @@ function hasPlanetBeenActivated(planetName, activatedPlanets) {
 }
 
 function loadSavedGame(gameId, callback) {
-    mongoClient.connect(configJson.url, function (err, db) {
-        if (err) console.log(err);
-        mongoClient.savedGamesCollection = db.collection("savedGames");
-        mongoClient.savedGamesCollection.find({"_id": new ObjectID(gameId)}).toArray(function (err, results) {
+    if (ObjectID.isValid(gameId)) {
+        mongoClient.connect(configJson.url, function (err, db) {
             if (err) console.log(err);
-            db.close();
-            callback(results[0]);
+            mongoClient.savedGamesCollection = db.collection("savedGames");
+            mongoClient.savedGamesCollection.find({"_id": new ObjectID(gameId)}).toArray(function (err, results) {
+                if (err) console.log(err);
+                db.close();
+                callback(results[0]);
+            });
         });
-    });
+    }
+    else {
+        callback();
+    }
 }
 
 function produceResources(currentGame, callback) {
