@@ -773,6 +773,7 @@ function startTutorial() {
 
 function updatePlanet(item) {
     socket.emit("updatePlanet", item.name);
+    getCurrentResources();
 }
 
 function updatePlanetSuccess(data) {
