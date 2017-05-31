@@ -1,5 +1,6 @@
 # galactic-conquest
-Turn-based strategy game built with MEAN stack.
+Turn-based strategy game using http://phaser.io/ 
+Playable in a browser (even mobile browser for the most part).
 
 Original photos/graphics thanks to pexels.com and OpenGameArt.org.
 Images were edited with GIMP.
